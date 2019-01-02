@@ -17,6 +17,9 @@ class TestController extends Controller{
 //        echo route('a');
         return view('1805.test',['name'=>'枪神']);
     }
+    public function ceshi(){
+echo '1';
+    }
     public  function  add(){
         $info=request()->all('cname');
         if(empty($info)){

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http;
-
+use App\Http\Middleware\CheckCookie;
+use App\Http\Middleware\CheckUid;
+use App\Http\Middleware\CheckLoginToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -60,5 +62,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'check.uid' => CheckUid::class,
+        'check.cookie'  => CheckCookie::class,
+        'check.login.token' =>CheckLoginToken::class,
     ];
 }

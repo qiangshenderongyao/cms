@@ -15,7 +15,7 @@ class TestController extends Controller{
 
 //        return redirect()->route('index',[90]);
 //        echo route('a');
-        return view('1805.test',['name'=>'枪神']);
+        return view('1805.test',['name'=>'枪神'])->with(['title'=>'测试','show_footer'=>1]);
     }
     public  function  add(){
         $info=request()->all('cname');
@@ -30,7 +30,7 @@ class TestController extends Controller{
         return view('add_list',['data'=>$data]);
     }
     public  function delete(){
-        $info=request()->get('id');
+        $info=request()->get('uid');
         $res=DB::table('ceshi')->delete($info);
         if($res){
             echo '删除成功';
@@ -39,15 +39,19 @@ class TestController extends Controller{
         }
     }
     public  function  update(){
-        $info=request()->get('id');
+        $info=request()->get('uid');
         $res=DB::table('ceshi')->find($info);
         return view('update')->with('res',$res);
     }
     public  function  update_add(){
-        $id=request()->all('id');
+        $id=request()->all('uid');
         $info=request()->all('cname');
         $res=DB::table('ceshi')->where('id',$id)->update($info);
         return redirect('add_list');
+    }
+    public function checkCookie()
+    {
+        echo __METHOD__;
     }
 }
 ?>

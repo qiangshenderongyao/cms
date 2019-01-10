@@ -1,4 +1,12 @@
-<html>
+@extends('layout.main')
+
+
+@section('header')
+    @parent
+    <p style="color: red;">欢迎━(*｀∀´*)ノ亻!头部</p>
+@endsection
+
+@section('content')
 <form action="/add" method="post">
     @csrf
     <table>
@@ -12,4 +20,9 @@
         </tr>
     </table>
 </form>
-</html>
+@endsection
+
+@section('footer')
+    @parent
+    <p style="color: red;">欢迎━(*｀∀´*)ノ亻!尾部</p>
+@endsection

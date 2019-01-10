@@ -52,13 +52,21 @@ class OrderController extends Controller{
 
         //清空购物车
         CartModel::where(['uid'=>$this->data])->delete();
+        return redirect('/orderlist');
 	}
     public function orderlist(){
-        $data=OrderModel::all();
+        $data=OrderModel::where('is_pay',0)->get()->toArray();
         if(!$data){
             return redirect('/');
             echo '商品不存在';exit;
         }
+        // if($data['is_pay']==0){
+        //     $ze='未支付';
+        //     return view('Order.orderlist',['data'=>$data,'ze'=>$ze]);
+        // }elseif($data['is_pay']==1){
+        //     $ze='已支付';
+        //     return view('Order.orderlist',['data'=>$data,'ze'=>$ze]);
+        // }
         return view('Order.orderlist',['data'=>$data]);
     }
     //支付
@@ -76,7 +84,15 @@ class OrderController extends Controller{
         }
         print_r($order_info);
         //支付成功 修改支付时间
-        OrderModel::where(['o_id'=>$o_id])->update(['add_time'=>time(),'pay_amount'=>rand(1111,9999),'is_pay'=>1]);
+        //pay_amount:支付金额
+        OrderModel::where(['o_id'=>$o_id])->update(['pay_time'=>time(),'pay_amount'=>rand(1111,9999),'is_pay'=>1]);
+        //积分
+        $integral=0;
+        $data=OrderModel::where(['o_id'=>$o_id])->first();
+        $integral=$data['pay_amount']/100;
+        $where=['uid'=>$this->data];
+        $data=DB::table('ceshi')->where($where)->update(['integral'=>$integral]);
+        // dump($data);die;
         return redirect('/centeradd');
         echo '支付成功，正在跳转';
     }

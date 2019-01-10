@@ -5,7 +5,7 @@
     <title>展示</title>
 </head>
 <body>
-<table>
+<table class="table table-bordered">
     <tr>
         <td>id</td>
         <td>姓名</td>

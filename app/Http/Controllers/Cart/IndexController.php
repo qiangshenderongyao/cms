@@ -78,7 +78,6 @@ class IndexController extends Controller{
 
         if($rs){
             echo '添加成功';
-            return redirect('/cart');
         }
     }
     /*返回用户id*/
@@ -141,6 +140,7 @@ class IndexController extends Controller{
             'msg'   => '添加成功'
         ];
         return $response;
+        return redirect('/cart');
     }
     //删除
     public function delete($goods_id){

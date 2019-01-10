@@ -9,7 +9,7 @@
 @section('content')
 <form action="/add" method="post">
     @csrf
-    <table>
+    <table class="table table-bordered">
         <tr>
             <td>姓名</td>
             <td><input type="text" name="cname"></td>

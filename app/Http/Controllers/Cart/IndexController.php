@@ -116,11 +116,12 @@ class IndexController extends Controller{
                 return $response;
             }
         }
+        $time=time();
         //写入购物车表
         $data = [
             'goods_id'  => $goods_id,
             'num'       => $num,
-            'add_time'  => time(),
+            'add_time'  => $time,
             'uid'       => session()->get('uid'),
             'session_token' => session()->get('u_token')
         ];

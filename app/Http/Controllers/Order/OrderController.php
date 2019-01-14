@@ -86,7 +86,7 @@ class OrderController extends Controller{
         //支付成功 修改支付时间
         //pay_amount:支付金额
         OrderModel::where(['o_id'=>$o_id])->update(['pay_time'=>time(),'pay_amount'=>rand(1111,9999),'is_pay'=>1]);
-        //积分
+        //积分  
         $integral=0;
         $data=OrderModel::where(['o_id'=>$o_id])->first();
         $integral=$data['pay_amount']/100;

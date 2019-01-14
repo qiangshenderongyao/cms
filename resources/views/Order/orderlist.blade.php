@@ -12,8 +12,14 @@
             <td>{{$v['order_name']}}</td>
             <td>{{$v['order_price']}}</td>
             <td>{{date('Y-m-d H:i:s',$v['add_time'])}}</td>
-            <td>@if($v['is_pay']==0)
+            <!-- <td>@if($v['is_pay']==0)
                     <a href="/orderzhi/{{$v['o_id']}}" class="btn btn-info">支付</a>
+                @elseif($v['is_pay']==1)
+                    <a>已支付</a>
+                @endif
+            </td> -->
+            <td>@if($v['is_pay']==0)
+                    <a href="/test" class="btn btn-info">支付</a>
                 @elseif($v['is_pay']==1)
                     <a>已支付</a>
                 @endif

@@ -40,3 +40,7 @@ Route::get('/order','Order\OrderController@order');
 Route::get('/orderlist','Order\OrderController@orderlist');
 Route::get('/orderzhi/{o_id}','Order\OrderController@orderzhi')->middleware('check.login.token');
 Route::get('/centeradd','Vip\IndexController@centeradd')->middleware('check.login.token');
+//支付
+Route::get('/test','Pay\AlipayController@test');
+Route::get('/pay/o/{oid}','Pay\IndexController@order')->middleware('check.login.token');
+Route::post('/pay/alipay/notify','Pay\AlipayController@notify');

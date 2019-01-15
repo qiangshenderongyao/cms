@@ -19,7 +19,7 @@
                 @endif
             </td> -->
             <td>@if($v['is_pay']==0)
-                    <a href="/test" class="btn btn-info">支付</a>
+                    <a href="/pay/alipay/test/{{$v['o_id']}}" class="btn btn-info">支付</a>
                 @elseif($v['is_pay']==1)
                     <a>已支付</a>
                 @endif

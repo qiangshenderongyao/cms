@@ -4,24 +4,30 @@ namespace App\Http\Controllers\Pay;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
+use App\Model\OrderModel;
 class AlipayController extends Controller
 {
     //
     public $app_id = '2016091900550960';
     public $gate_way = 'https://openapi.alipaydev.com/gateway.do';
-    public $notify_url = 'http://cms2.com/pay/alipay/notify';
+    public $return_url = 'http://cms2.com/pay/alipay/return/';
+    public $notify_url = 'http://cms2.com/pay/alipay/notify/';
+    // public $return_url = 'http://cms.96myshop.cn/pay/alipay/notify/';
     public $rsaPrivateKeyFilePath = './key/priv.key';
 
     //支付
-    public function test()
+    public function test($o_id)
     {
-
+        //根据订单id查询金额
+        $where=['o_id'=>$o_id];
+        $price=OrderModel::where($where)->first();
+        $order_price=$price['order_price']/100;
+        // dump($order_price);die;
         $bizcont = [
             'subject'           => 'ancsd'. mt_rand(1111,9999).str_random(6),
-            'out_trade_no'      => 'oid'.date('YmdHis').mt_rand(1111,2222),
-            'total_amount'      => 0.01,
+            'out_trade_no'      => 'oid'.$o_id,
+            'total_amount'      => $order_price,
             'product_code'      => 'QUICK_WAP_WAY',
-
         ];
 
         $data = [
@@ -32,10 +38,12 @@ class AlipayController extends Controller
             'sign_type'   => 'RSA2',
             'timestamp'   => date('Y-m-d H:i:s'),
             'version'   => '1.0',
-            'notify_url'   => $this->notify_url,
+            'notify_url'   => $this->notify_url,        //异步通知地址
+            'return_url'   => $this->return_url,        // 同步通知地址
             'biz_content'   => json_encode($bizcont),
         ];
-
+        // $data['o_id']=$o_id;
+        // dump($data);die;
         $sign = $this->rsaSign($data);
         $data['sign'] = $sign;
         $param_str = '?';
@@ -118,7 +126,63 @@ class AlipayController extends Controller
             }
         }
 
-
         return $data;
+    }
+    public function Return()
+    {
+        echo '<pre>';print_r($_GET);echo '</pre>';
+        //验签 支付宝的公钥
+        if(!$this->verify()){
+            echo 'error';
+        }
+
+        //处理订单逻辑
+        $this->dealOrder($_GET);
+    }
+    /**
+     * 支付宝异步通知
+     */
+    public function notify()
+    {
+
+        $data = json_encode($_POST);
+        $log_str = '>>>> '.date('Y-m-d H:i:s') . $data . "<<<<\n\n";
+        //记录日志
+        file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+        //验签
+        $res = $this->verify();
+        if($res === false){
+            echo 'error';
+            //记录日志 验签失败
+        }
+
+        //处理订单逻辑
+        $this->dealOrder($_POST);
+
+        echo 'success';
+    }
+    //验签
+    function verify() {
+        return true;
+    }
+    /**
+     * 处理订单逻辑 更新订单 支付状态 更新订单支付金额 支付时间
+     * @param $data
+     */
+    public function dealOrder($data)
+    {
+        echo '<pre>';print_r($_GET);echo '</pre>';
+        $total_amount=$_GET['total_amount'];
+        $out_id=$_GET['out_trade_no'];
+        $o_id=substr($out_id,3);
+        // dump($o_id);die;
+        $o_where=['o_id'=>$o_id];
+        $out_update=['pay_amount'=>$total_amount,'is_pay'=>2,'out_time'=>$_GET['timestamp']];
+        // dump($out_update);die;
+        $out_data=OrderModel::where($o_where)->update($out_update);
+        if($out_data){
+            echo '订单支付成功';
+            return redirect('/center');
+        }
     }
 }

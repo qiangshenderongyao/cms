@@ -46,3 +46,4 @@ Route::get('/pay/alipay/test/{o_id}','Pay\AlipayController@test');
 // Route::get('/pay/o/{oid}','Pay\IndexController@order')->middleware('check.login.token');
 Route::post('/pay/alipay/notify','Pay\AlipayController@notify');
 Route::get('/pay/alipay/return','Pay\AlipayController@Return');
+Route::get('/pay/alipay/orderdelete','Pay\AlipayController@orderdelete');

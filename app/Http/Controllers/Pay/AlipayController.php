@@ -10,8 +10,8 @@ class AlipayController extends Controller
     //
     public $app_id = '2016091900550960';
     public $gate_way = 'https://openapi.alipaydev.com/gateway.do';
-    public $return_url = 'http://cms2.com/pay/alipay/return/';
-    public $notify_url = 'http://cms2.com/pay/alipay/notify/';
+    public $return_url = 'http://cms.96myshop.cn/pay/alipay/return/';
+    public $notify_url = 'http://cms.96myshop.cn/pay/alipay/notify/';
     // public $return_url = 'http://cms.96myshop.cn/pay/alipay/notify/';
     public $rsaPrivateKeyFilePath = './key/priv.key';
 
@@ -130,14 +130,15 @@ class AlipayController extends Controller
     }
     public function Return()
     {
-        echo '<pre>';print_r($_GET);echo '</pre>';
-        //验签 支付宝的公钥
-        if(!$this->verify()){
-            echo 'error';
-        }
-
+//        echo '<pre>';print_r($_GET);echo '</pre>';
+//        //验签 支付宝的公钥
+//        if(!$this->verify()){
+//            echo 'error';
+//        }
+        echo '支付成功';
+        return redirect('/center');
         //处理订单逻辑
-        $this->dealOrder($_GET);
+//        $this->dealOrder($_GET);
     }
     /**
      * 支付宝异步通知
@@ -171,18 +172,32 @@ class AlipayController extends Controller
      */
     public function dealOrder($data)
     {
-        echo '<pre>';print_r($_GET);echo '</pre>';
-        $total_amount=$_GET['total_amount'];
-        $out_id=$_GET['out_trade_no'];
+        echo '<pre>';print_r($_POST);echo '</pre>';
+        $total_amount=$_POST['total_amount'];
+        $out_id=$_POST['out_trade_no'];
         $o_id=substr($out_id,3);
         // dump($o_id);die;
         $o_where=['o_id'=>$o_id];
-        $out_update=['pay_amount'=>$total_amount,'is_pay'=>2,'out_time'=>$_GET['timestamp']];
-        // dump($out_update);die;
+        $out_update=['pay_amount'=>$total_amount,'is_pay'=>2,'pay_time'=>time()];
+//         dump($out_update);die;
         $out_data=OrderModel::where($o_where)->update($out_update);
         if($out_data){
             echo '订单支付成功';
             return redirect('/center');
         }
+    }
+    /**
+     *删除所有失效的订单
+     */
+    public function  orderdelete(){
+        $data= OrderModel::get()->toArray();
+        foreach($data as $k=>$v){
+            if($v['is_pay']==0){
+                if(time()-$v['add_time']>300){
+                    $del=OrderModel::where(['o_id'=>$v['o_id']])->update(['is_delete'=>1]);
+                }
+            }
+        }
+        echo date('Y-m-d H:i:s')."执行 deleteOrders\n\n";
     }
 }

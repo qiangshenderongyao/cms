@@ -3,6 +3,7 @@
 namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('layout.header', 'header');
         //footer 组件 底层
         Blade::component('layout.footer', 'footer');
+        Schema::defaultStringLength(191);
     }
 
     /**

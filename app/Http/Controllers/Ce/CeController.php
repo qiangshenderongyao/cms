@@ -19,5 +19,10 @@ class CeController extends Controller {
         $response=$client->request('GET','/Order.php');
         echo $response->getBody();
     }
+    public function cookieTest1()
+    {
+        setcookie('cookie1','lening',time()+1200,'/','lening.com',false,true);
+        echo '<pre>';print_r($_COOKIE);echo '</pre>';
+    }
 }
 ?>

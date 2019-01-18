@@ -25,7 +25,7 @@ class GoodsController extends Controller{
     }
     //商品列表
     public function goods(){
-        $data=GoodsModel::all();
+        $data=GoodsModel::paginate(2);
         if(!$data){
             return redirect('/');
             echo '商品不存在';exit;

@@ -15,6 +15,14 @@ Route::get('/', function () {
     // echo date('Y-m-d H:i:s');
     return view('1805');
 });
+//查看扩展
+Route::get('/info', function () {
+	phpinfo();
+});
+
+Route::middleware(['log.click'])->group(function(){
+	Route::get('/test/cookie1','Ce\CeController@cookieTest1');
+});
 //Route::post('/abc/{id}/{name}','TestController@test')->where('id','\d+')->name('a');
 Route::post('/add','TestController@add');
 Route::get('/add_list','TestController@add_list');
@@ -23,7 +31,7 @@ Route::get('/update','TestController@update');
 Route::post('/update_add','TestController@update_add');
 Route::any('/zhu','Vip\IndexController@zhu');
 Route::any('/zhuce','Vip\IndexController@zhuce');
-Route::any('/login','Vip\IndexController@login');
+Route::any('/login','Vip\IndexController@login')->name('login');
 Route::post('/loginadd','Vip\IndexController@loginadd');
 Route::any('/ce','Vip\IndexController@ce');
 Route::any('/center','Vip\IndexController@center');
@@ -48,5 +56,4 @@ Route::post('/pay/alipay/notify','Pay\AlipayController@notify');
 Route::get('/pay/alipay/return','Pay\AlipayController@Return');
 Route::get('/pay/alipay/orderdelete','Pay\AlipayController@orderdelete');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

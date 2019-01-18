@@ -19,6 +19,7 @@
                <td><a href="/goodsadd/{{$v['goods_id']}}">进入详情页</a></td>
            </tr>
            @endforeach
+           {{$data->links()}}
         </table>
     </form>
 @endsection

@@ -60,13 +60,6 @@ class OrderController extends Controller{
             return redirect('/');
             echo '商品不存在';exit;
         }
-        // if($data['is_pay']==0){
-        //     $ze='未支付';
-        //     return view('Order.orderlist',['data'=>$data,'ze'=>$ze]);
-        // }elseif($data['is_pay']==1){
-        //     $ze='已支付';
-        //     return view('Order.orderlist',['data'=>$data,'ze'=>$ze]);
-        // }
         return view('Order.orderlist',['data'=>$data]);
     }
     //支付

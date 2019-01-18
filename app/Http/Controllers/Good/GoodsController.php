@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Resource_;
 
 class GoodsController extends Controller{
+    public function __construct(){
+        $this->middleware('auth');
+    }
     //商品详情页
     public function goodsadd($goods_id){
         $where=['goods_id'=>$goods_id];

@@ -32,4 +32,21 @@ class GoodsController extends Controller{
         }
         return view('Goods.goods',['data'=>$data]);
     }
+    public function upload(){
+        return view('Goods.upload');
+    }
+    public function uploadpdf(Request $request){
+        echo '</pre>';print_r($_FILES);echo '</pre>';
+        $pdf=$request->file('filename');
+        print_r($pdf);
+        $ext=$pdf->extension();
+        if($ext!='pdf'){
+            die("请上传PDF格式");
+        }
+        $res=$pdf->storeAs(date('Ymd'),str_random(5).'.pdf');
+        if($res){
+            echo '上传成功';
+            return redirect('/upload');
+        }
+    }
 }

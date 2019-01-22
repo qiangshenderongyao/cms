@@ -17,11 +17,15 @@ Route::get('/', function () {
 });
 //查看扩展
 Route::get('/info', function () {
+<<<<<<< HEAD
 	phpinfo();
 });
 
 Route::middleware(['log.click'])->group(function(){
 	Route::get('/test/cookie1','Ce\CeController@cookieTest1');
+=======
+    phpinfo();
+>>>>>>> houtai
 });
 //Route::post('/abc/{id}/{name}','TestController@test')->where('id','\d+')->name('a');
 Route::post('/add','TestController@add');
@@ -42,6 +46,8 @@ Route::get('/delete/{goods_id}','Cart\IndexController@delete')->middleware('chec
 Route::get('/request','Cart\IndexController@cart')->middleware('check.login.token');
 Route::get('/goodsadd/{goods_id}','Good\GoodsController@goodsadd');
 Route::get('/goods','Good\GoodsController@goods');
+Route::get('/upload','Good\GoodsController@upload');
+Route::post('/uploadpdf','Good\GoodsController@uploadpdf');
 Route::get('/del/{goods_id}','Cart\IndexController@del');
 Route::any('/add2','Cart\IndexController@add2');
 Route::get('/order','Order\OrderController@order');

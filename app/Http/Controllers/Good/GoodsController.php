@@ -48,6 +48,7 @@ class GoodsController extends Controller{
         }
         return view('Goods.goods',['data'=>$data]);
     }
+<<<<<<< HEAD
     //更新商品信息
     public function updateGoodsInfo($goos_id){
         $name=str_random(10);
@@ -91,5 +92,23 @@ class GoodsController extends Controller{
         }
 //        dump($data);die;
         return view('Goods.goodsou',['data'=>$data,'sou'=>$sou]);
+=======
+    public function upload(){
+        return view('Goods.upload');
+    }
+    public function uploadpdf(Request $request){
+        echo '</pre>';print_r($_FILES);echo '</pre>';
+        $pdf=$request->file('filename');
+        print_r($pdf);
+        $ext=$pdf->extension();
+        if($ext!='pdf'){
+            die("请上传PDF格式");
+        }
+        $res=$pdf->storeAs(date('Ymd'),str_random(5).'.pdf');
+        if($res){
+            echo '上传成功';
+            return redirect('/upload');
+        }
+>>>>>>> ea52b742f57db35e614306f39a32672887952f17
     }
 }

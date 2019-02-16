@@ -60,3 +60,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //微信
 Route::get('/weixin','weixin\WeixinController@validToken1');
+Route::post('/weixin/valid1','weixin\WeixinController@wxEvent');

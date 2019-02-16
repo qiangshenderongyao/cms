@@ -1,8 +1,9 @@
 @extends('layout.bts')
 @section('content')
-    <form class="form-inline">
-        <!-- @csrf -->
+    <form action="/goodsou" method="post" class="form-inline">
+        @csrf
         <table>
+            <input type="text" name="so" value="{{$sou}}"><input type="submit" value="搜索">
            <tr>
                <!-- <td>id</td> -->
                <td>商品名称</td>

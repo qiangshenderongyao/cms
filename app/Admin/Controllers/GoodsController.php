@@ -104,10 +104,10 @@ class GoodsController extends Controller
     {
         $show = new Show(GoodsModel::findOrFail($id));
 
-        $show->id('ID');
-        $show->created_at('Created at');
-        $show->updated_at('Updated at');
-
+        $show->goods_id('商品ID');
+        $show->goods_name('商品名称');
+        $show->store('商品库存');
+        $show->price('价格');
         return $show;
     }
 

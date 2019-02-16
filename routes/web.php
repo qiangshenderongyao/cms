@@ -15,6 +15,9 @@ Route::get('/', function () {
     // echo date('Y-m-d H:i:s');
     return view('1805');
 });
+Route::get('/info',function(){
+    phpinfo();
+});
 //Route::post('/abc/{id}/{name}','TestController@test')->where('id','\d+')->name('a');
 Route::post('/add','TestController@add');
 Route::get('/add_list','TestController@add_list');
@@ -34,6 +37,11 @@ Route::get('/delete/{goods_id}','Cart\IndexController@delete')->middleware('chec
 Route::get('/request','Cart\IndexController@cart')->middleware('check.login.token');
 Route::get('/goodsadd/{goods_id}','Good\GoodsController@goodsadd');
 Route::get('/goods','Good\GoodsController@goods');
+Route::get('/goodsa','Good\GoodsController@goodsa');
+Route::post('/Redisbuy','Good\GoodsController@Redisbuy');
+Route::get('/Rediszuo','Good\GoodsController@Rediszuo');
+Route::get('/updateGoodsInfo','Good\GoodsController@updateGoodsInfo');
+Route::post('/goodsou','Good\GoodsController@goodsou');
 Route::get('/del/{goods_id}','Cart\IndexController@del');
 Route::any('/add2','Cart\IndexController@add2');
 Route::get('/order','Order\OrderController@order');
@@ -50,3 +58,5 @@ Route::get('/pay/alipay/orderdelete','Pay\AlipayController@orderdelete');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+//微信
+Route::get('/weixin','weixin\WeixinController@validToken1');

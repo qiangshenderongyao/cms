@@ -64,4 +64,5 @@ Route::get('/weixin','weixin\WeixinController@validToken1');
 Route::get('/weixin/valid1','weixin\WeixinController@validToken');
 Route::post('/weixin/valid1','weixin\WeixinController@weixinEven');
 Route::post('/weixin/valid1','weixin\WeixinController@validToken');
+Route::post('/weixin','weixin\WeixinController@validToken1');
 

@@ -14,7 +14,7 @@ class WeixinController extends Controller{
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。
         $data=file_get_contents("php:input");
-        $log=date('Y:m:d H:i:s')."\n".$data."\n<<<<<";
+        $log=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
     }
     public function getWXAccessToken()

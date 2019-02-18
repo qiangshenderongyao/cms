@@ -59,9 +59,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //微信
-Route::get('/weixin','weixin\WeixinController@test');
+Route::get('/weixin/test','weixin\WeixinController@test');
 Route::get('/weixin/valid','weixin\WeixinController@validToken');
 Route::get('/weixin/valid1','weixin\WeixinController@validToken1');
 Route::post('/weixin/valid1','weixin\WeixinController@weixinEven');
 Route::post('/weixin/valid','weixin\WeixinController@validToken');
-Route::post('/weixin','weixin\WeixinController@test');

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\weixin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\WeixinUser;
 use Illuminate\Support\Facades\Redis;
 class WeixinController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
@@ -17,9 +18,48 @@ class WeixinController extends Controller{
     }
     //接收推送事件
     function weixinEven(){
+        $data = file_get_contents("php://input");
+
+
+        //解析XML
+        $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
+
+        $event = $xml->Event;                       //事件类型
+        //var_dump($xml);echo '<hr>';
+
+        if($event=='subscribe'){
+            $openid = $xml->FromUserName;               //用户openid
+            $sub_time = $xml->CreateTime;               //扫码关注时间
+
+
+            echo 'openid: '.$openid;echo '</br>';
+            echo '$sub_time: ' . $sub_time;
+
+            //获取用户信息
+            $user_info = $this->getUserInfo($openid);
+            echo '<pre>';print_r($user_info);echo '</pre>';
+
+            //保存用户信息
+            $u = WeixinUser::where(['openid'=>$openid])->first();
+            //var_dump($u);die;
+            if($u){       //用户不存在
+                echo '用户已存在';
+            }else{
+                $user_data = [
+                    'openid'            => $openid,
+                    'add_time'          => time(),
+                    'nickname'          => $user_info['nickname'],
+                    'sex'               => $user_info['sex'],
+                    'headimgurl'        => $user_info['headimgurl'],
+                    'subscribe_time'    => $sub_time,
+                ];
+
+                $id = WeixinUser::insertGetId($user_data);      //保存用户信息
+                var_dump($id);
+            }
+        }
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。
-        $data=file_get_contents("php:input");
         $log=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
     }

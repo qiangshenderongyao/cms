@@ -24,11 +24,10 @@ class WeixinController extends Controller{
 
         //解析XML
         $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
-
+        $openid = $xml->FromUserName;             //用户openid
         $event = $xml->Event;                       //事件类型
         //var_dump($xml);echo '<hr>';
         if($event=='subscribe'){                    //如果$event等于此字符串
-            $openid = $xml->FromUserName;               //用户openid
             $sub_time = $xml->CreateTime;               //扫码关注时间
 
             echo 'openid: '.$openid;echo '</br>';

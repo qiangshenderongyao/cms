@@ -57,7 +57,7 @@ class WeixinController extends Controller{
             }
         }elseif($event=='CLICK'){
             if($xml->Evenkey=='kefu01'){
-                $this->kefu01($openid,$xml->ToUserName);
+               echo  $this->kefu01($openid,$xml->ToUserName);
             }
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。
@@ -72,7 +72,7 @@ class WeixinController extends Controller{
      * $from   开发者公众号id
      */
     public function kefu01($openid,$from){
-        $xml='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. '你好(*´▽｀)ノノ,现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        $xml='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content>11111</Content></xml>';
         return $xml;
     }
     /**

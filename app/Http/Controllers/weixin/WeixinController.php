@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Model\WeixinUser;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
+use Illuminate\Support\Facades\Storage;
+
 class WeixinController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
     //测试
@@ -25,7 +27,7 @@ class WeixinController extends Controller{
         $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
         $openid = $xml->FromUserName;             //用户openid
         $event = $xml->Event;                       //事件类型
-
+        //当用户发送信息时，会自动回复一样的信息。
         if(isset($xml->MsgType)){
             if($xml->MsgType=='text'){              //用户发送文本信息
                 $msg=$xml->Content;
@@ -37,6 +39,18 @@ class WeixinController extends Controller{
                      <Content><![CDATA['. $msg.']]></Content>
                      </xml>';
                 echo $xml_response;die;
+            }elseif($xml->MsgType=='image'){
+                if(1){
+                    $this->images($xml->MediaId);
+                    $xml_response='<xml>
+                        <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                        <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
+                        <CreateTime>'.time().'</CreateTime>
+                        <MsgType><![CDATA[text]]></MsgType>
+                        <Content><![CDATA['. str_random(10) . ' >>> '.']]></Content>
+                        </xml>';
+                    echo $xml_response;die;
+                }
             }
         }
         //var_dump($xml);echo '<hr>';
@@ -68,14 +82,6 @@ class WeixinController extends Controller{
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
-            $xml= '<xml>
-                <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                <FromUserName><![CDATA['.$from.']]></FromUserName>
-                <CreateTime>'.time().'</CreateTime>
-                <MsgType><![CDATA[text]]></MsgType>
-                <Content><![CDATA['. 'Hello php, 现在时间'. date('Y-m-d H:i:s') .']]></Content>
-                </xml>';
-            return $xml;
         } elseif($event=='CLICK'){
                echo  $this->kefu01($openid,$xml->ToUserName);
                die;
@@ -147,6 +153,26 @@ class WeixinController extends Controller{
         }
         return $token;
 
+    }
+    /**
+     *接收图片
+     */
+    public function images($media_id){
+        $access_token = $this->WXAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$access_token.'&media_id='.$media_id;
+        $client=new GuzzleHttp\Client();
+        $response=$client->get($url);
+        //找到文件名路径
+        $file_info=$response->getHeader('Content-disposition');
+        $file_name=substr(rtrim($file_info[0],'""'),-20);
+        $wx_imgage_put='wx/images/'.$file_name;
+        //保存其路径
+        $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
+        if($lujing){
+            echo '保存成功';
+        }else{
+            echo '保存失败';
+        }
     }
     /**
      * 获取用户信息

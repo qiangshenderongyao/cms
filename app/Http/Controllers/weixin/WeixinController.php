@@ -143,7 +143,7 @@ class WeixinController extends Controller{
             'body'=>json_encode($data)
         ]);
         //3、解析接口返回信息
-        $response_arr = json_decode($r->getBody(),true);
+        $response_arr = json_decode($r->getBody(),true,JSON_UNESCAPED_UNICODE);
         if($response_arr['errcode']==0){
             echo '菜单创建成功';
         }else{

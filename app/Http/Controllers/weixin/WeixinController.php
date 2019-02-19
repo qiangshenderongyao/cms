@@ -130,12 +130,12 @@ class WeixinController extends Controller{
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$access_token;
         //2、请求微信接口
         $client=new GuzzleHttp\Client(['base_uri'=>$url]);
-        $data=[
-            "button"=>[
+        $data = [
+            "button"    => [
                 [
-                    "type"=>"view",
-                    "name"=>"宠物乐园",
-                    "url"=>"http://www.sougou.com"
+                    "type"  => "view",      // view类型 跳转指定 URL
+                    "name"  => "宠物乐园",
+                    "url"   => "https://www.sougou.com"
                 ]
             ]
         ];

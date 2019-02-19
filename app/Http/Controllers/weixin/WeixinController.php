@@ -130,15 +130,52 @@ class WeixinController extends Controller{
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$access_token;
         //2、请求微信接口
         $client=new GuzzleHttp\Client(['base_uri'=>$url]);
-        $data = [
-            "button"    => [
-                [
-                    "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "宠物乐园",
-                    "url"   => "https://www.sougou.com"
+//        $data = [
+//            "button"    => [
+//                [
+//                    "type"  => "view",      // view类型 跳转指定 URL
+//                    "name"  => "宠物乐园",
+//                    "url"   => "https://www.sougou.com"
+//                ]
+//            ]
+//        ];
+        $data=[
+            "button"=>[
+                ["name"=>"相机",
+                    "sub_button"=>[
+                        [
+                            "type"=>"scancode_waitmsg",
+                            "name"=>"扫码",
+                            "key"=>"rselfmenu_0_0",
+                            "sub_button"=>[]
+                        ],
+                        [
+                            "type"=>"scancode_push",
+                            "name"=>"扫码推事件",
+                            "key"=>"rselfmenu_0_1",
+                            "sub_button"=>[]
+                        ]
+                    ]
+                ],
+                ["name"=>"发图",
+                    "sub_button"=>[
+                        [
+                            "type"=>"pic_sysphoto",
+                            "name"=>"系统拍照发图",
+                            "key"=>"rselfmenu_1_0",
+                            "sub_button"=>[]
+                        ],
+                        [
+                            "type"=>"pic_photo_or_album",
+                            "name"=>"拍照或相册发图",
+                            "key"=>"rselfmenu_1_1",
+                            "sub_button"=>[]
+                        ]
+                    ]
                 ]
             ]
         ];
+        //JSON_UNESCAPED_UNICODE转中文
         $r=$client->request('POST',$url,[
             'body'=>json_encode($data,JSON_UNESCAPED_UNICODE)
         ]);

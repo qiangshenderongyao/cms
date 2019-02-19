@@ -56,7 +56,7 @@ class WeixinController extends Controller{
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
-        }elseif($event=='click'){
+        }elseif($event=='CLICK'){
             if($xml->Evenkey=='kefu01'){
                 $this->kefu01($openid,$xml->ToUserName);
             }

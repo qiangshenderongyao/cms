@@ -55,10 +55,11 @@ class WeixinController extends Controller{
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
-        }elseif($event=='CLICK'){
-            if($xml->Evenkey=='kefu01'){
+        }
+        elseif($event=='CLICK'){
                echo  $this->kefu01($openid,$xml->ToUserName);
-            }
+               die;
+
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。
@@ -72,8 +73,16 @@ class WeixinController extends Controller{
      * $from   开发者公众号id
      */
     public function kefu01($openid,$from){
-        $xml='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content>11111</Content></xml>';
-        return $xml;
+
+        $xml= '<xml>
+                <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                <FromUserName><![CDATA['.$from.']]></FromUserName>
+                <CreateTime>'.time().'</CreateTime>
+                <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA['. 'Hello php, 现在时间'. date('Y-m-d H:i:s') .']]></Content>
+                </xml>';
+            return $xml;
+
     }
     /**
      * 接收事件推送

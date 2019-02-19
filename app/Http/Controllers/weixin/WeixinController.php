@@ -74,7 +74,7 @@ class WeixinController extends Controller{
      */
     public function kefu01($openid,$from){
         $xml='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. '你好(*´▽｀)ノノ,现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
-        echo $xml;
+        return $xml;
     }
     /**
      * 接收事件推送

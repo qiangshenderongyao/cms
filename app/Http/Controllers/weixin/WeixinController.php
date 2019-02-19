@@ -34,7 +34,7 @@ class WeixinController extends Controller{
                      <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
                      <CreateTime>'.time().'</CreateTime>
                      <MsgType><![CDATA[text]]></MsgType>
-                     <Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content>
+                     <Content><![CDATA['. $msg.']]></Content>
                      </xml>';
                 echo $xml_response;die;
             }

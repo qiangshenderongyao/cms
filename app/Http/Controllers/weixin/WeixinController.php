@@ -56,11 +56,25 @@ class WeixinController extends Controller{
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
+        }elseif($event=='click'){
+            if($xml->Evenkey=='kefu01'){
+                $this->kefu01($openid,$xml->ToUserName);
+            }
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。
         $log=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
+    }
+
+    /**
+     * 客服处理
+     * $openid 用户id
+     * $from   开发者公众号id
+     */
+    public function kefu01($openid,$from){
+        $xml='<xml> <ToUserName>< ![CDATA['.$openid.'] ]></ToUserName> <FromUserName>< ![CDATA['.$from.'] ]></FromUserName> <CreateTime>12345678</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA['.'你好(*´▽｀)ノノ,现在时间'.date('Y-m-d H:i:s').'] ]></Content> </xml>';
+        echo $xml;
     }
     /**
      * 接收事件推送
@@ -172,6 +186,11 @@ class WeixinController extends Controller{
                             "sub_button"=>[]
                         ]
                     ]
+                ],
+                [
+                    "type"  => "click",      // click类型
+                    "name"  => "时间",
+                    "key"   => "kefu01"
                 ]
             ]
         ];

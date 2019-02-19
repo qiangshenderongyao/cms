@@ -55,6 +55,14 @@ class WeixinController extends Controller{
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
+            $xml= '<xml>
+                <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                <FromUserName><![CDATA['.$from.']]></FromUserName>
+                <CreateTime>'.time().'</CreateTime>
+                <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA['. 'Hello php, 现在时间'. date('Y-m-d H:i:s') .']]></Content>
+                </xml>';
+            return $xml;
         }
         elseif($event=='CLICK'){
                echo  $this->kefu01($openid,$xml->ToUserName);

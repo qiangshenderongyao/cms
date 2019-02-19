@@ -21,11 +21,24 @@ class WeixinController extends Controller{
     function weixinEven(){
         $data = file_get_contents("php://input");
 
-
         //解析XML
         $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
         $openid = $xml->FromUserName;             //用户openid
         $event = $xml->Event;                       //事件类型
+
+        if(isset($xml->MsgType)){
+            if($xml->MsgType=='text'){              //用户发送文本信息
+                $msg=$xml->Content;
+                $xml_response='<xml>
+                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                     <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
+                     <CreateTime>'.time().'</CreateTime>
+                     <MsgType><![CDATA[text]]></MsgType>
+                     <Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content>
+                     </xml>';
+                echo $xml_response;die;
+            }
+        }
         //var_dump($xml);echo '<hr>';
         if($event=='subscribe'){                    //如果$event等于此字符串
             $sub_time = $xml->CreateTime;               //扫码关注时间

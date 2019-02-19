@@ -63,11 +63,9 @@ class WeixinController extends Controller{
                 <Content><![CDATA['. 'Hello php, 现在时间'. date('Y-m-d H:i:s') .']]></Content>
                 </xml>';
             return $xml;
-        }
-        elseif($event=='CLICK'){
+        } elseif($event=='CLICK'){
                echo  $this->kefu01($openid,$xml->ToUserName);
                die;
-
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。

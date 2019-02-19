@@ -131,11 +131,11 @@ class WeixinController extends Controller{
         //2、请求微信接口
         $client=new GuzzleHttp\Client(['base_uri'=>$url]);
         $data=[
-            'button'=>[
+            "button"=>[
                 [
-                    'type'=>'view',
-                    'name'=>'宠物乐园',
-                    'url'=>'http://www.sougou.com'
+                    "type"=>"view",
+                    "name"=>"宠物乐园",
+                    "url"=>"http://www.sougou.com"
                 ]
             ]
         ];

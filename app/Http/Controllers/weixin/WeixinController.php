@@ -139,7 +139,6 @@ class WeixinController extends Controller{
                 ]
             ]
         ];
-        $data = simplejson.dumps($data, ensure_ascii ==False).encode('utf-8');
         $r=$client->request('POST',$url,[
             'body'=>json_encode($data)
         ]);

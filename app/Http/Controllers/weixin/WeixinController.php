@@ -4,9 +4,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\WeixinUser;
 use Illuminate\Support\Facades\Redis;
+use GuzzleHttp;
 class WeixinController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
-
+    //测试
     public function test()
     {
         $this->getUserInfo(1);
@@ -26,11 +27,9 @@ class WeixinController extends Controller{
 
         $event = $xml->Event;                       //事件类型
         //var_dump($xml);echo '<hr>';
-
-        if($event=='subscribe'){
+        if($event=='subscribe'){                    //如果$event等于此字符串
             $openid = $xml->FromUserName;               //用户openid
             $sub_time = $xml->CreateTime;               //扫码关注时间
-
 
             echo 'openid: '.$openid;echo '</br>';
             echo '$sub_time: ' . $sub_time;
@@ -121,5 +120,35 @@ class WeixinController extends Controller{
         $data = json_decode(file_get_contents($url),true);
         //echo '<pre>';print_r($data);echo '</pre>';
         return $data;
+    }
+    /**
+     * 服务号创建菜单
+     */
+    public function create(){
+        //1、获取access_token，拼接微信接口
+        $access_toeken=$this->getWXAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$access_toeken;
+        //2、请求微信接口
+        $client=new GuzzleHttp\Client(['base_uri'=>$url]);
+        $data=[
+            'button'=>[
+                [
+                    'type'=>'view',
+                    'name'=>'宠物乐园',
+                    'url'=>'http://www.sougou.com'
+                ]
+            ]
+        ];
+        $r=$client->request('POST',$url,[
+            'body'=>json_encode($data)
+        ]);
+        //3、解析接口返回信息
+        $response_arr = json_decode($r->getBody(),true);
+        if($response_arr['errcode']==0){
+            echo '菜单创建成功';
+        }else{
+            echo '菜单创建失败';
+            echo $response_arr['errmsg'];
+        }
     }
 }

@@ -65,4 +65,4 @@ Route::get('/weixin/valid1','weixin\WeixinController@validToken1');
 Route::post('/weixin/valid1','weixin\WeixinController@weixinEven');
 Route::post('/weixin/valid','weixin\WeixinController@validToken');
 
-Route::get('/weixin/create','weixin\WeixinController@validToken');//创建服务号菜单
+Route::any('/weixin/create','weixin\WeixinController@validToken');//创建服务号菜单

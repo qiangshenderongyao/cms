@@ -68,6 +68,8 @@ class WeixinController extends Controller{
                echo  $this->kefu01($openid,$xml->ToUserName);
                die;
 
+        }elseif($event=='CLICK'){
+            echo $this->image($openid,$xml->ToUserName);die;
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。
@@ -91,6 +93,16 @@ class WeixinController extends Controller{
                 </xml>';
             return $xml;
 
+    }
+    public function image($openid){
+        $xml='<xml>
+              <ToUserName>< ![CDATA['.$openid.'] ]></ToUserName>
+              <FromUserName>< ![CDATA[fromUser] ]></FromUserName>
+              <CreateTime>12345678</CreateTime>
+              <MsgType>< ![CDATA[image] ]></MsgType>
+              <Image><MediaId>< ![CDATA[3_88wd7eYoXEgURxzojVytH2MYco-kf6Vc2sjR709SQ] ]></MediaId></Image>
+              </xml>';
+        return $xml;
     }
     /**
      * 接收事件推送

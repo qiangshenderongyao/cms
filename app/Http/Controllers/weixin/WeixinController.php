@@ -134,7 +134,7 @@ class WeixinController extends Controller{
             "button"    => [
                 [
                     "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "宠物乐园",
+                    "name"  => "chongwu",
                     "url"   => "https://www.sougou.com"
                 ]
             ]

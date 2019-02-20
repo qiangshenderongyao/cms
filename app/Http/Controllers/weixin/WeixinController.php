@@ -61,7 +61,7 @@ class WeixinController extends Controller{
                         'local_file_name'   => $file_name
                     ];
                     $m_id = WxmediaModel::insertGetId($data);
-                    var_dump($m_id);
+                    var_dump($m_id);die;
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
                 $this->voice($xml->MediaId);

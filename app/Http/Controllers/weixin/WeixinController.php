@@ -191,11 +191,6 @@ class WeixinController extends Controller{
         $wx_imgage_put='wx/images/'.$file_name;
         //保存其路径
         $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
-        if($lujing){
-
-        }else{
-
-        }
         return $file_name;
     }
     /*

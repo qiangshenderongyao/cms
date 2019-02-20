@@ -6,7 +6,7 @@ use App\Model\WeixinUser;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Storage;
-
+use App\Model\WxmediaModel;
 class WeixinController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
     //测试
@@ -41,7 +41,7 @@ class WeixinController extends Controller{
                 echo $xml_response;
             }elseif($xml->MsgType=='image'){       //用户处理图片
                 if(1){
-                    $this->images($xml->MediaId);
+                    $file_name=$this->images($xml->MediaId);
                     $xml_response='<xml>
                         <ToUserName><![CDATA['.$openid.']]></ToUserName>
                         <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
@@ -50,6 +50,18 @@ class WeixinController extends Controller{
                         <Content><![CDATA['. str_random(10) . ' >>> '.']]></Content>
                         </xml>';
                     echo $xml_response;
+                    //写入数据库
+                    $data=[
+                        'openid'   => $openid,
+                        'add_time' => time(),
+                        'msg_type' => 'image',
+                        'media_id' => $xml->MediaId,
+                        'format'   =>  $xml->Format,
+                        'msg_id'   =>  $xml->MsgId,
+                        'local_file_name' => $file_name
+                    ];
+                    $m_id = WxmediaModel::insertGetId($data);
+                    var_dump($m_id);
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
                 $this->voice($xml->MediaId);
@@ -180,10 +192,11 @@ class WeixinController extends Controller{
         //保存其路径
         $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
         if($lujing){
-            echo '保存成功';
+
         }else{
-            echo '保存失败';
+
         }
+        return $file_name;
     }
     /*
      * 接收语音素材

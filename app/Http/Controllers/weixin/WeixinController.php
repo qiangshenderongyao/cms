@@ -60,8 +60,8 @@ class WeixinController extends Controller{
                         'msg_id'    => $xml->MsgId,
                         'local_file_name'   => $file_name
                     ];
-
                     $m_id = WxmediaModel::insertGetId($data);
+                    var_dump($m_id);
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
                 $this->voice($xml->MediaId);
@@ -99,14 +99,6 @@ class WeixinController extends Controller{
                 } elseif($event=='CLICK'){
                     echo  $this->kefu01($openid,$xml->ToUserName);
                 }
-                $xml= '<xml>
-                <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                <FromUserName><![CDATA['.$from.']]></FromUserName>
-                <CreateTime>'.time().'</CreateTime>
-                <MsgType><![CDATA[text]]></MsgType>
-                <Content><![CDATA['. '欢迎━(*｀∀´*)ノ亻!'.']]></Content>
-                </xml>';
-                echo $xml;
             }
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。

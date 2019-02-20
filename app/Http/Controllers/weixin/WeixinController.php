@@ -52,7 +52,7 @@ class WeixinController extends Controller{
                     echo $xml_response;
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
-                $this->voice($xml->MediaId);
+                echo $this->voice($xml->MediaId);
             }elseif($xml->MsgType=='event'){                //判断事件类型
                 if($event=='subscribe'){                    //如果$event等于此字符串
                     $sub_time = $xml->CreateTime;               //扫码关注时间
@@ -190,9 +190,9 @@ class WeixinController extends Controller{
         //保存其路径
         $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
         if($lujing){
-            echo '保存成功';
+            return  '保存成功';
         }else{
-            echo '保存失败';
+            return  '保存失败';
         }
     }
     /**

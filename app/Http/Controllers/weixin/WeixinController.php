@@ -51,7 +51,7 @@ class WeixinController extends Controller{
                         </xml>';
                     echo $xml_response;
                     //写入数据库
-                    $da = [
+                    $data = [
                         'openid'    => $openid,
                         'add_time'  => time(),
                         'msg_type'  => 'image',
@@ -61,7 +61,7 @@ class WeixinController extends Controller{
                         'local_file_name'   => $file_name
                     ];
 
-                    $m_id = WxmediaModel::insertGetId($da);
+                    $m_id = WxmediaModel::insertGetId($data);
                     var_dump($m_id);
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音

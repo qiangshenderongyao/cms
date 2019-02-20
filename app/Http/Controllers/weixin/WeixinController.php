@@ -51,15 +51,15 @@ class WeixinController extends Controller{
                         </xml>';
                     echo $xml_response;
                     //写入数据库
-                    $data = [
-                        'openid'    => $openid,
-                        'add_time'  => time(),
-                        'msg_type'  => 'image',
-                        'media_id'  => $xml->MediaId,
-                        'format'    => $xml->Format,
-                        'msg_id'    => $xml->MsgId,
-                        'local_file_name'   => $file_name
-                    ];
+//                    $data = [
+//                        'openid'    => $openid,
+//                        'add_time'  => time(),
+//                        'msg_type'  => 'image',
+//                        'media_id'  => $xml->MediaId,
+//                        'format'    => $xml->Format,
+//                        'msg_id'    => $xml->MsgId,
+//                        'local_file_name'   => $file_name
+//                    ];
 //                    $m_id = WxmediaModel::insertGetId($data);
 //                    var_dump($m_id);die;
                 }

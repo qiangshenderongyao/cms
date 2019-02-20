@@ -53,6 +53,8 @@ class WeixinController extends Controller{
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
                 $this->voice($xml->MediaId);
+            }elseif($xml->MsgType=='video'){        //处理视频
+                $this->video($xml->MediaId);
             }elseif($xml->MsgType=='event'){                //判断事件类型
                 if($event=='subscribe'){                    //如果$event等于此字符串
                     $sub_time = $xml->CreateTime;               //扫码关注时间
@@ -187,6 +189,21 @@ class WeixinController extends Controller{
         $file_info=$response->getHeader('Content-disposition');
         $file_name=substr(rtrim($file_info[0],'""'),-20);
         $wx_imgage_put='wx/voice/'.$file_name;
+        //保存其路径
+        $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
+    }
+    /*
+     * 接收视频素材
+     */
+    public function video($media_id){
+        $access_token = $this->WXAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$access_token.'&media_id='.$media_id;
+        $client=new GuzzleHttp\Client();
+        $response=$client->get($url);
+        //找到文件名路径
+        $file_info=$response->getHeader('Content-disposition');
+        $file_name=substr(rtrim($file_info[0],'""'),-20);
+        $wx_imgage_put='wx/video/'.$file_name;
         //保存其路径
         $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
     }

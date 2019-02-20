@@ -87,6 +87,14 @@ class WeixinController extends Controller{
                 } elseif($event=='CLICK'){
                     echo  $this->kefu01($openid,$xml->ToUserName);
                 }
+                $xml= '<xml>
+                <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                <FromUserName><![CDATA['.$from.']]></FromUserName>
+                <CreateTime>'.time().'</CreateTime>
+                <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA['. '欢迎━(*｀∀´*)ノ亻!'.']]></Content>
+                </xml>';
+                echo $xml;
             }
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。

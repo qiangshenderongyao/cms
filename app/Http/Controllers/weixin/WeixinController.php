@@ -39,7 +39,7 @@ class WeixinController extends Controller{
                      <Content><![CDATA['. $msg.']]></Content>
                      </xml>';
                 echo $xml_response;
-            }elseif($xml->MsgType=='image'){
+            }elseif($xml->MsgType=='image'){       //用户处理图片
                 if(1){
                     $this->images($xml->MediaId);
                     $xml_response='<xml>
@@ -51,46 +51,46 @@ class WeixinController extends Controller{
                         </xml>';
                     echo $xml_response;
                 }
+            }elseif($xml->MsgType=='voice'){        //处理语音
+                $this->voice($xml->MediaId);
+            }elseif($xml->MsgType=='event'){                //判断事件类型
+                if($event=='subscribe'){                    //如果$event等于此字符串
+                    $sub_time = $xml->CreateTime;               //扫码关注时间
+
+                    echo 'openid: '.$openid;echo '</br>';
+                    echo '$sub_time: ' . $sub_time;
+
+                    //获取用户信息
+                    $user_info = $this->getUserInfo($openid);
+                    echo '<pre>';print_r($user_info);echo '</pre>';
+
+                    //保存用户信息
+                    $u = WeixinUser::where(['openid'=>$openid])->first();
+                    //var_dump($u);die;
+                    if($u){       //用户不存在
+                        echo '用户已存在';
+                    }else{
+                        $user_data = [
+                            'openid'            => $openid,
+                            'add_time'          => time(),
+                            'nickname'          => $user_info['nickname'],
+                            'sex'               => $user_info['sex'],
+                            'headimgurl'        => $user_info['headimgurl'],
+                            'subscribe_time'    => $sub_time,
+                        ];
+
+                        $id = WeixinUser::insertGetId($user_data);      //保存用户信息
+                        var_dump($id);
+                    }
+                } elseif($event=='CLICK'){
+                    echo  $this->kefu01($openid,$xml->ToUserName);
+                }
             }
-            exit();
-        }
-        //var_dump($xml);echo '<hr>';
-        if($event=='subscribe'){                    //如果$event等于此字符串
-            $sub_time = $xml->CreateTime;               //扫码关注时间
-
-            echo 'openid: '.$openid;echo '</br>';
-            echo '$sub_time: ' . $sub_time;
-
-            //获取用户信息
-            $user_info = $this->getUserInfo($openid);
-            echo '<pre>';print_r($user_info);echo '</pre>';
-
-            //保存用户信息
-            $u = WeixinUser::where(['openid'=>$openid])->first();
-            //var_dump($u);die;
-            if($u){       //用户不存在
-                echo '用户已存在';
-            }else{
-                $user_data = [
-                    'openid'            => $openid,
-                    'add_time'          => time(),
-                    'nickname'          => $user_info['nickname'],
-                    'sex'               => $user_info['sex'],
-                    'headimgurl'        => $user_info['headimgurl'],
-                    'subscribe_time'    => $sub_time,
-                ];
-
-                $id = WeixinUser::insertGetId($user_data);      //保存用户信息
-                var_dump($id);
-            }
-        } elseif($event=='CLICK'){
-               echo  $this->kefu01($openid,$xml->ToUserName);
-               die;
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。
-        $log=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
+        //$log=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
+        //file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
     }
 
     /**
@@ -156,7 +156,7 @@ class WeixinController extends Controller{
 
     }
     /**
-     *接收图片
+     *接收图片素材
      */
     public function images($media_id){
         $access_token = $this->WXAccessToken();
@@ -167,6 +167,26 @@ class WeixinController extends Controller{
         $file_info=$response->getHeader('Content-disposition');
         $file_name=substr(rtrim($file_info[0],'""'),-20);
         $wx_imgage_put='wx/images/'.$file_name;
+        //保存其路径
+        $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
+        if($lujing){
+            echo '保存成功';
+        }else{
+            echo '保存失败';
+        }
+    }
+    /*
+     * 接收语音素材
+     */
+    public function voice($media_id){
+        $access_token = $this->WXAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token'.$access_token.'&media_id='.$media_id;
+        $client=new GuzzleHttp\Client();
+        $response=$client->get($url);
+        //找到文件名路径
+        $file_info=$response->getHeader('Content-disposition');
+        $file_name=substr(rtrim($file_info[0],'""'),-20);
+        $wx_imgage_put='wx/voice/'.$file_name;
         //保存其路径
         $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
         if($lujing){

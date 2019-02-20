@@ -38,7 +38,7 @@ class WeixinController extends Controller{
                      <MsgType><![CDATA[text]]></MsgType>
                      <Content><![CDATA['. $msg.']]></Content>
                      </xml>';
-                echo $xml_response;die;
+                echo $xml_response;
             }elseif($xml->MsgType=='image'){
                 if(1){
                     $this->images($xml->MediaId);
@@ -49,9 +49,10 @@ class WeixinController extends Controller{
                         <MsgType><![CDATA[text]]></MsgType>
                         <Content><![CDATA['. str_random(10) . ' >>> '.']]></Content>
                         </xml>';
-                    echo $xml_response;die;
+                    echo $xml_response;
                 }
             }
+            exit();
         }
         //var_dump($xml);echo '<hr>';
         if($event=='subscribe'){                    //如果$event等于此字符串

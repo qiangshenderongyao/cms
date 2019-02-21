@@ -61,7 +61,6 @@ class WeixinController extends Controller{
                         'local_file_name'   => $file_name
                     ];
                     $m_id = WxmediaModel::insertGetId($data);
-                    var_dump($m_id);die;
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
                 $file_name=$this->voice($xml->MediaId);
@@ -75,9 +74,18 @@ class WeixinController extends Controller{
                     'local_file_name'   => $file_name
                 ];
                 $m_id = WxmediaModel::insertGetId($data);
-                var_dump($m_id);die;
             }elseif($xml->MsgType=='video'){        //处理视频
-                $this->video($xml->MediaId);
+                $file_name=$this->video($xml->MediaId);
+                $data = [
+                    'openid'    => $openid,
+                    'add_time'  => time(),
+                    'msg_type'  => 'video',
+                    'media_id'  => $xml->MediaId,
+                    'format'    => $xml->Format,
+                    'msg_id'    => $xml->MsgId,
+                    'local_file_name'   => $file_name
+                ];
+                $m_id = WxmediaModel::insertGetId($data);
             }elseif($xml->MsgType=='event'){                //判断事件类型
                 if($event=='subscribe'){                    //如果$event等于此字符串
                     $sub_time = $xml->CreateTime;               //扫码关注时间
@@ -226,6 +234,7 @@ class WeixinController extends Controller{
         $wx_imgage_put='wx/video/'.$file_name;
         //保存其路径
         $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
+        return $file_name;
     }
     /**
      * 获取用户信息

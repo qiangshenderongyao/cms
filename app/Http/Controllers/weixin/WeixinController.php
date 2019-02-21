@@ -51,17 +51,17 @@ class WeixinController extends Controller{
                         </xml>';
                     echo $xml_response;
                     //写入数据库
-//                    $data = [
-//                        'openid'    => $openid,
-//                        'add_time'  => time(),
-//                        'msg_type'  => 'image',
-//                        'media_id'  => $xml->MediaId,
-//                        'format'    => $xml->Format,
-//                        'msg_id'    => $xml->MsgId,
-//                        'local_file_name'   => $file_name
-//                    ];
-//                    $m_id = WxmediaModel::insertGetId($data);
-//                    var_dump($m_id);die;
+                    $data = [
+                        'openid'    => $openid,
+                        'add_time'  => time(),
+                        'msg_type'  => 'image',
+                        'media_id'  => $xml->MediaId,
+                        'format'    => $xml->Format,
+                        'msg_id'    => $xml->MsgId,
+                        'local_file_name'   => $file_name
+                    ];
+                    $m_id = WxmediaModel::insertGetId($data);
+                    var_dump($m_id);die;
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
                 $this->voice($xml->MediaId);

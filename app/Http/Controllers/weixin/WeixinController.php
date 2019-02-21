@@ -193,13 +193,11 @@ class WeixinController extends Controller{
      */
     public function images(){
         $access_token = $this->WXAccessToken();
-//        $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$access_token.'&media_id='.$media_id;
-        $url='https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$access_token.'&type=image';
+        $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$access_token.'&media_id='.$media_id;
         $client=new GuzzleHttp\Client();
         $response=$client->get($url);
         //找到文件名路径
         $file_info=$response->getHeader('Content-disposition');
-        echo $file_info;die;
         $file_name=substr(rtrim($file_info[0],'""'),-20);
         $wx_imgage_put='wx/images/'.$file_name;
         //保存其路径

@@ -64,7 +64,18 @@ class WeixinController extends Controller{
                     var_dump($m_id);die;
                 }
             }elseif($xml->MsgType=='voice'){        //处理语音
-                $this->voice($xml->MediaId);
+                $file_name=$this->voice($xml->MediaId);
+                $data = [
+                    'openid'    => $openid,
+                    'add_time'  => time(),
+                    'msg_type'  => 'voice',
+                    'media_id'  => $xml->MediaId,
+                    'format'    => $xml->Format,
+                    'msg_id'    => $xml->MsgId,
+                    'local_file_name'   => $file_name
+                ];
+                $m_id = WxmediaModel::insertGetId($data);
+                var_dump($m_id);die;
             }elseif($xml->MsgType=='video'){        //处理视频
                 $this->video($xml->MediaId);
             }elseif($xml->MsgType=='event'){                //判断事件类型
@@ -199,6 +210,7 @@ class WeixinController extends Controller{
         $wx_imgage_put='wx/voice/'.$file_name;
         //保存其路径
         $lujing=Storage::disk('local')->put($wx_imgage_put,$response->getBody());
+        return $file_name;
     }
     /*
      * 接收视频素材

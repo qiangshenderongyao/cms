@@ -15,6 +15,22 @@ class WeixinController extends Controller{
         $this->getUserInfo(1);
     }
 
+    public function demo(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
+        $client=new GuzzleHttp\Client(['base_uri'=>$url]);
+        $data = [
+            "type"=>'image',
+            "offset"=>0,
+            "count"=>20
+        ];
+
+        $r=$client->request('POST',$url,[
+            'body'=>json_encode($data,JSON_UNESCAPED_UNICODE)
+        ]);
+        //3、解析接口返回信息
+        $response_arr = json_decode($r->getBody(),true);
+        print_r($response_arr);die;
+    }
     //首次接入
     function validToken1(){
         echo $_GET['echostr'];
@@ -125,7 +141,15 @@ class WeixinController extends Controller{
         $log=date('Y-m-d H:i:s')."\n".$date."\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
     }
+    /*
+     * 接收永久素材
+     */
+    public function permanent(){
+        $access_token = $this->WXAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$access_token.'&type=image';
 
+
+    }
     /**
      * 客服处理
      * $openid 用户id

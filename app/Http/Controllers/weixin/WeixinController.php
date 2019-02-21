@@ -191,7 +191,7 @@ class WeixinController extends Controller{
     /**
      *接收图片素材
      */
-    public function images(){
+    public function images($media_id){
         $access_token = $this->WXAccessToken();
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$access_token.'&media_id='.$media_id;
         $client=new GuzzleHttp\Client();

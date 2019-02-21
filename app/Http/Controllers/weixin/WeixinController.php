@@ -21,7 +21,7 @@ class WeixinController extends Controller{
     }
     //接收推送事件
     function weixinEven(){
-        $data = file_get_contents("php://input");
+        $date = file_get_contents("php://input");
 
         //解析XML
         $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
@@ -122,7 +122,7 @@ class WeixinController extends Controller{
         }
         //file_get_contents() 函数把整个文件读入一个字符串中。
         //file_put_contents() 函数把一个字符串写入文件中。
-        $log=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
+        $log=date('Y-m-d H:i:s')."\n".$date."\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
     }
 

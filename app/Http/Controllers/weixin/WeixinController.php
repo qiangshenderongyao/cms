@@ -199,6 +199,7 @@ class WeixinController extends Controller{
         $response=$client->get($url);
         //找到文件名路径
         $file_info=$response->getHeader('Content-disposition');
+        echo $file_info;die;
         $file_name=substr(rtrim($file_info[0],'""'),-20);
         $wx_imgage_put='wx/images/'.$file_name;
         //保存其路径

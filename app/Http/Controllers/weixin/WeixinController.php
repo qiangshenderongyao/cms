@@ -24,7 +24,7 @@ class WeixinController extends Controller{
         $date = file_get_contents("php://input");
 
         //解析XML
-        $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
+        $xml = simplexml_load_string($date);        //将 xml字符串 转换成对象
         $openid = $xml->FromUserName;             //用户openid
         $event = $xml->Event;                       //事件类型
         //当用户发送信息时，会自动回复一样的信息。

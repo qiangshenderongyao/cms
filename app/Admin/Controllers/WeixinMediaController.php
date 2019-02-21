@@ -126,7 +126,7 @@ class WeixinMediaController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new WeixinMedia);
+        $form = new Form(new WxmediaModel);
 
         $form->text('openid', 'Openid');
         $form->number('add_time', 'Add time');

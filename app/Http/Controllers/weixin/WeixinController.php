@@ -414,7 +414,7 @@ class WeixinController extends Controller{
         $body = $response->getBody();
         echo $body;echo '<hr>';
         $d = json_decode($body,true);
-        echo '<pre>';print_r($d);echo '</pre>';
+        echo '<pre>';print_r($d);echo '</pre>';die;
     }
     /**
      * 上传素材

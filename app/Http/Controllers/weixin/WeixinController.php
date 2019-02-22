@@ -365,7 +365,7 @@ class WeixinController extends Controller{
         $new_file_name=str_random(15).'.'.$file_ext;
         echo 'new_file_name:'.$new_file_name;echo '</br>';
         //保存文件路径
-        $save_file_path=$request->media->storeAs('form_test',$new_file_name);
+        $save_file_path=$request->media->storeAs('form_form',$new_file_name);
         echo 'save_file_path:'.$save_file_path;echo '<hr>';
         //上传至微信永久素材
         $this->upMaterialTest($save_file_path);

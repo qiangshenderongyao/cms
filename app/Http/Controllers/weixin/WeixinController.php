@@ -369,7 +369,13 @@ class WeixinController extends Controller{
         $save_file_path=$request->media->storeAs('form_form',$new_file_name);
         echo 'save_file_path:'.$save_file_path;echo '<hr>';
         //上传至微信永久素材
-        $this->upMaterialTest($save_file_path);
+        $sj=$this->upMaterialTest($save_file_path);
+        var_dump($sj);die;
+        $data=[
+            'media_id' =>$sj['media_id'],
+            'url'       =>$sj['url']
+        ];
+        WxyongModel::insertGetId($data);
     }
     /*
      * 获取永久素材
@@ -409,11 +415,6 @@ class WeixinController extends Controller{
         echo $body;echo '<hr>';
         $d = json_decode($body,true);
         echo '<pre>';print_r($d);echo '</pre>';
-        $data=[
-            'media_id' =>$media_id,
-            'url'       =>$url
-        ];
-        WxyongModel::insertGetId($data);
     }
     /**
      * 上传素材

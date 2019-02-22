@@ -373,7 +373,7 @@ class WeixinController extends Controller{
     /*
      * 获取永久素材
      */
-    /*public function wxlist(){
+    public function wxlist(){
         $client=new GuzzleHttp\Client();
         $type=$_GET['type'];
         $offset=$_GET['offset'];
@@ -390,7 +390,7 @@ class WeixinController extends Controller{
         echo $body;echo '<hr>';
         $arr = json_decode($response->getBody(),true);
         echo '<pre>';print_r($arr);echo '</pre>';
-    }*/
+    }
     public function upMaterialTest($file_path)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';

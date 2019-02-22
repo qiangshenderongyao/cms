@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Storage;
 use App\Model\WxmediaModel;
+use App\Model\WxyongModel;
 class WeixinController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
     //测试
@@ -408,8 +409,11 @@ class WeixinController extends Controller{
         echo $body;echo '<hr>';
         $d = json_decode($body,true);
         echo '<pre>';print_r($d);echo '</pre>';
-
-
+        $data=[
+            'media_id' =>$media_id,
+            'url'       =>$url
+        ];
+        WxyongModel::insertGetId($data);
     }
     /**
      * 上传素材

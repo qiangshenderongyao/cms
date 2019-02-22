@@ -370,7 +370,6 @@ class WeixinController extends Controller{
         echo 'save_file_path:'.$save_file_path;echo '<hr>';
         //上传至微信永久素材
         $sj=$this->upMaterialTest($save_file_path);
-        var_dump($sj);die;
         $data=[
             'media_id' =>$sj['media_id'],
             'url'       =>$sj['url']

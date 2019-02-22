@@ -67,4 +67,9 @@ Route::post('/weixin/valid','weixin\WeixinController@validToken');
 
 Route::get('/weixin/create','weixin\WeixinController@create');//创建服务号菜单
 Route::post('/weixin/create','weixin\WeixinController@create');//创建服务号菜单
-Route::get('/weixin/demo','weixin\WeixinController@demo');//创建服务号菜单
+Route::get('/weixin/demo','weixin\WeixinController@demo');//接收永久素材
+
+Route::get('/weixin/Ceshow','weixin\WeixinController@Ceshow');//创建表单
+Route::post('/weixin/wxdo','weixin\WeixinController@wxdo');//处理表单数据
+
+Route::get('/weixin/wxlist','weixin\WeixinController@wxlist');

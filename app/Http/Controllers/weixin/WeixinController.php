@@ -346,4 +346,96 @@ class WeixinController extends Controller{
             echo $response_arr['errmsg'];
         }
     }
+    /*
+     * 表单页面
+     */
+    public function Ceshow(){
+        return view('weixin.form');
+    }
+    /*
+     * 处理页面
+     */
+    public function wxdo(Request $request){
+        //接收文件
+        $file=$request->file('media');
+        $origin_name=$file->getClientOriginalName();
+        echo 'originName:'.$origin_name;echo '</br>';
+        $file_ext=$file->getClientOriginalExtension();          //获取文件扩展名
+        //重命名
+        $new_file_name=str_random(15).'.'.$file_ext;
+        echo 'new_file_name:'.$new_file_name;echo '</br>';
+        //保存文件路径
+        $save_file_path=$request->media->storeAs('form_test',$new_file_name);
+        echo 'save_file_path:'.$save_file_path;echo '<hr>';
+        //上传至微信永久素材
+        $this->upMaterialTest($save_file_path);
+    }
+    /*
+     * 获取永久素材
+     */
+    /*public function wxlist(){
+        $client=new GuzzleHttp\Client();
+        $type=$_GET['type'];
+        $offset=$_GET['offset'];
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
+        $body=[
+            "type" =>$type,
+            "offset" =>$offset,
+            "count"  =>20
+        ];
+        $response=$client->request('POST',$url,[
+            'body'=>json_encode($body,JSON_UNESCAPED_UNICODE)
+        ]);
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $arr = json_decode($response->getBody(),true);
+        echo '<pre>';print_r($arr);echo '</pre>';
+    }*/
+    public function upMaterialTest($file_path)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST',$url,[
+            'multipart' => [
+                [
+                    'name'     => 'media',
+                    'contents' => fopen($file_path, 'r')
+                ],
+            ]
+        ]);
+
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $d = json_decode($body,true);
+        echo '<pre>';print_r($d);echo '</pre>';
+
+
+    }
+    /**
+     * 上传素材
+     */
+    public function upMaterial()
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST',$url,[
+            'multipart' => [
+                [
+                    'name'     => 'username',
+                    'contents' => 'zhangsan'
+                ],
+                [
+                    'name'     => 'media',
+                    'contents' => fopen('abc.jpg', 'r')
+                ],
+            ]
+        ]);
+
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $d = json_decode($body,true);
+        echo '<pre>';print_r($d);echo '</pre>';
+
+
+    }
 }

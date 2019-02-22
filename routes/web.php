@@ -73,3 +73,4 @@ Route::get('/weixin/Ceshow','weixin\WeixinController@Ceshow');//创建表单
 Route::post('/weixin/wxdo','weixin\WeixinController@wxdo');//处理表单数据
 
 Route::get('/weixin/wxlist','weixin\WeixinController@wxlist');
+Route::post('/weixin/upMaterialTest','weixin\WeixinController@upMaterialTest');

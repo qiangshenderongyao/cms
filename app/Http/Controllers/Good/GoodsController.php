@@ -48,7 +48,6 @@ class GoodsController extends Controller{
         }
         return view('Goods.goods',['data'=>$data]);
     }
-<<<<<<< HEAD
     //更新商品信息
     public function updateGoodsInfo($goos_id){
         $name=str_random(10);
@@ -82,17 +81,18 @@ class GoodsController extends Controller{
         Redis::setbit($Redis_key,$pos,$status);
     }
     //商品搜索
-    public function goodsou(){
-        $sou=request()->post('so');
-        $where=['goods_name'=>$sou];
-        if(empty($sou)){
+    public function goodsou()
+    {
+        $sou = request()->post('so');
+        $where = ['goods_name' => $sou];
+        if (empty($sou)) {
             $data = GoodsModel::paginate(2);
-        }else{
-            $data=GoodsModel::where($where)->paginate(2);
+        } else {
+            $data = GoodsModel::where($where)->paginate(2);
         }
 //        dump($data);die;
-        return view('Goods.goodsou',['data'=>$data,'sou'=>$sou]);
-=======
+        return view('Goods.goodsou', ['data' => $data, 'sou' => $sou]);
+    }
     public function upload(){
         return view('Goods.upload');
     }
@@ -109,6 +109,5 @@ class GoodsController extends Controller{
             echo '上传成功';
             return redirect('/upload');
         }
->>>>>>> ea52b742f57db35e614306f39a32672887952f17
     }
 }

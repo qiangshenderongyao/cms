@@ -8,6 +8,8 @@ use GuzzleHttp;
 use Illuminate\Support\Facades\Storage;
 use App\Model\WxmediaModel;
 use App\Model\WxyongModel;
+use App\Model\TextModel;
+use App\Model\WxTextModel;
 class WeixinController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
     //测试
@@ -48,14 +50,22 @@ class WeixinController extends Controller{
         if(isset($xml->MsgType)){
             if($xml->MsgType=='text'){              //用户发送文本信息
                 $msg=$xml->Content;
-                $xml_response='<xml>
+                $data=[
+                    'msg' =>$xml->Content,
+                    'msgid'=>$xml->MsgId,
+                    'openid'=>$openid,
+                    'msg_type'=>1   //1、用户发送信息2、客服发送信息
+                ];
+                $id=WxTextModel::insertGetId($data);
+                var_dump($id);
+                /*$xml_response='<xml>
                      <ToUserName><![CDATA['.$openid.']]></ToUserName>
                      <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
                      <CreateTime>'.time().'</CreateTime>
                      <MsgType><![CDATA[text]]></MsgType>
                      <Content><![CDATA['. $msg.']]></Content>
                      </xml>';
-                echo $xml_response;
+                echo $xml_response;*/
             }elseif($xml->MsgType=='image'){       //用户处理图片
                 if(1){
                     $file_name=$this->images($xml->MediaId);
@@ -442,5 +452,46 @@ class WeixinController extends Controller{
         echo '<pre>';print_r($d);echo '</pre>';
 
 
+    }
+    /*
+     * 用户关注客服私聊
+     */
+    public function wxpc(){
+        $info=WeixinUser::get()->toArray();//先查出数据
+//        var_dump($info);die;
+        $time=time();
+        if($time-$info['add_time']<172800){
+            $xxi=$this->getUserInfo($info['openid']);//获取用户信息
+            var_dump($xxi);die;
+        }
+    }
+    /*
+     * 表单
+     */
+    public function fofa(){
+//        $dada=TextModel::get()->toArray();
+//        var_dump($dada[0]["text"]);die;
+        $dada=['openid'=>'wxb31f0e1caa435a82'];
+        return view('weixin.fofa',$dada);
+    }
+    /*
+     * 处理表单
+     */
+    public function wxfofa(Request $request){
+       $openid=$_GET['openid'];//获取用户openid
+        $pos=$_GET['pos'];      //上次聊天位置
+        $data=WxTextModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
+        if($data){
+            $response=[
+                'errno'=>0,
+                'data' =>$data->toArray()
+            ];
+        }else{
+            $response=[
+               'errno'=>50001,
+               'msg'  =>'服务器异常，请联系管理员'
+            ];
+        }
+        die(json_encode($response));
     }
 }

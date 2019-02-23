@@ -74,3 +74,7 @@ Route::post('/weixin/wxdo','weixin\WeixinController@wxdo');//处理表单数据
 
 Route::get('/weixin/wxlist','weixin\WeixinController@wxlist');
 Route::post('/weixin/upMaterialTest','weixin\WeixinController@upMaterialTest');
+Route::get('/weixin/wxpc','weixin\WeixinController@wxpc');
+//聊天
+Route::get('/weixin/fofa','weixin\WeixinController@fofa');
+Route::get('/weixin/wxfofa','weixin\WeixinController@wxfofa');

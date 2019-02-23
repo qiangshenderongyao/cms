@@ -16,5 +16,7 @@ Route::group([
     $router->resource('/wxmedia',WeixinMediaController::class);
     $router->resource('/wxqf',WeixinMediaController::class);
     $router->resource('/yongjiulist',WxyongController::class);
+    $router->get('/weixin/sendmsg','WeixinController@sendView');
+    $router->post('/weixin/sendmsg','WeixinController@sendViewdo');
 
 });

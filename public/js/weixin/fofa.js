@@ -11,11 +11,11 @@ setInterval(function(){
         dataType:   'json',
         success :   function(d){
             if(d.error==0){
-                var msg_str='<blockquote>'+d.data.created_at+'<p>'+d.data.msg+'</p>'+'</blockquote>';
+                var msg_str='<blockquote>'+d.data.add_time+'<p>'+d.data.text+'</p>'+'</blockquote>';
                 $("#chat_div").append(msg_str);
                 $("#msg_pos").val(d.data.id);
             }else{
-                alert(d.msg);
+                // alert(d.msg);
             }
         }
     });
@@ -23,8 +23,8 @@ setInterval(function(){
 //客服发送信息
 $("#send_msg_btn").click(function (y) {
     y.preventDefault();
-    var send_msg=$("#send_msg").val().trim();
-    var msg_str='<p style="color:mediumorchid">>>>>'+send_msg+'</p>';
+    var send_msg= $("#send_msg").val().trim();
+    var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
     $("#chat_div").append(msg_str);
     $("#send_msg").val("");
 });

@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class WxTextModel extends Model
 {
     //
-    public $table = 'weixintext';
+    public $table = 'wxtext';
     public $timestamps = false;
 }

@@ -78,3 +78,4 @@ Route::get('/weixin/wxpc','weixin\WeixinController@wxpc');
 //聊天
 Route::get('/weixin/fofa','weixin\WeixinController@fofa');
 Route::get('/weixin/wxfofa','weixin\WeixinController@wxfofa');
+Route::get('/weixin/wxfofado','weixin\WeixinController@wxfofado');

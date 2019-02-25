@@ -25,6 +25,7 @@ setInterval(function(){
 $("#send_msg_btn").click(function (y) {
     y.preventDefault();
     var send_msg= $("#send_msg").val().trim();
+    console.log(send_msg);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

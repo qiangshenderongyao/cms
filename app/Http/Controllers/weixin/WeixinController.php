@@ -499,7 +499,7 @@ class WeixinController extends Controller{
     /*
      * 客服回复
      */
-    public function wxfofado(){
+    public function wxfofado(Request $request){
         $pos=$_GET['posd'];      //获取类型
         $text=$_GET['text'];      //获取客户信息
         $data=[
@@ -509,6 +509,7 @@ class WeixinController extends Controller{
             'openid'=>'op6u75nkpVJyjvSYR7qdJQzXZBvE',
             'msg_type'=>0   //1、用户发送信息2、客服发送信息
         ];
+        dump($data);die;
         $id=WxTextModel::insertGetId($data);
         var_dump($id);
     }

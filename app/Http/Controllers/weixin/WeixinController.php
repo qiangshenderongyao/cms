@@ -481,6 +481,7 @@ class WeixinController extends Controller{
        $openid=$_GET['openid'];//获取用户openid
         $pos=$_GET['pos'];      //上次聊天位置
         $data=WxTextModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
+//        dump($data);die;
         if($data){
             $response=[
                 'errno'=>0,

@@ -10,13 +10,8 @@ setInterval(function(){
         type    :   'get',
         dataType:   'json',
         success :   function(d){
-            if(d.error==0){
-                var msg_str='<blockquote>'+d.data.add_time+'<p>'+d.data.text+'</p>'+'</blockquote>';
-                $("#chat_div").append(msg_str);
-                $("#msg_pos").val(d.data.id);
-            }else{
-                // alert(d.msg);
-            }
+            console.log(d);
+
         }
     });
 },5000);

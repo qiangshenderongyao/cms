@@ -25,7 +25,22 @@ setInterval(function(){
 $("#send_msg_btn").click(function (y) {
     y.preventDefault();
     var send_msg= $("#send_msg").val().trim();
-    var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
-    $("#chat_div").append(msg_str);
-    $("#send_msg").val("");
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url     :   '/weixin/wxfofado?text='+send_msg +'&pos='+$("#msg_posd").val(),
+        type    :   'get',
+        dataType:   'json',
+        success :   function(d){
+            console.log(d);
+            if(d.errno==0){
+                var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
+                $("#chat_div").append(msg_str);
+                $("#send_msg").val("");
+            }else{
+                // alert(d.msg);
+            }
+        }
+    });
 });

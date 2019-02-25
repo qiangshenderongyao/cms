@@ -16,6 +16,7 @@
         <form action="" class="form-inline">
             <input type="hidden" value="{{$openid}}" id="openid">
             <input type="hidden" value="1" id="msg_pos">
+            <input type="hidden" value="0" id="msg_posd">
             <textarea name="" id="send_msg" cols="100" rows="10"></textarea>
             <button id="send_msg_btn">Send</button>
         </form>

@@ -496,4 +496,20 @@ class WeixinController extends Controller{
         }
         die(json_encode($response));
     }
+    /*
+     * 客服回复
+     */
+    public function wxfofado(){
+        $pos=$_GET['posd'];      //获取类型
+        $text=$_GET['text'];      //获取客户信息
+        $data=[
+            'text' =>$text,
+            'add_time'=>time(),
+            'msgid'=>'22206193063046754',
+            'openid'=>'op6u75nkpVJyjvSYR7qdJQzXZBvE',
+            'msg_type'=>0   //1、用户发送信息2、客服发送信息
+        ];
+        $id=WxTextModel::insertGetId($data);
+        var_dump($id);
+    }
 }

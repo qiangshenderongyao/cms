@@ -51,7 +51,7 @@ class WeixinController extends Controller{
             if($xml->MsgType=='text'){              //用户发送文本信息
                 $msg=$xml->Content;
                 $data=[
-                    'msg' =>$xml->Content,
+                    'text' =>$xml->Content,
                     'msgid'=>$xml->MsgId,
                     'openid'=>$openid,
                     'msg_type'=>1   //1、用户发送信息2、客服发送信息

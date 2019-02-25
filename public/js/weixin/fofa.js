@@ -10,7 +10,7 @@ setInterval(function(){
         type    :   'get',
         dataType:   'json',
         success :   function(d){
-            // console.log(d);
+            console.log(d);
             if(d.errno==0){
                 var msg_str='<blockquote>'+d.data.add_time+'<p>'+d.data.text+'</p>'+'</blockquote>';
                 $("#chat_div").append(msg_str);

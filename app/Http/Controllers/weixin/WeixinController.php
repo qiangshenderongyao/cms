@@ -52,6 +52,7 @@ class WeixinController extends Controller{
                 $msg=$xml->Content;
                 $data=[
                     'text' =>$xml->Content,
+                    'add_time'=>time(),
                     'msgid'=>$xml->MsgId,
                     'openid'=>$openid,
                     'msg_type'=>1   //1、用户发送信息2、客服发送信息

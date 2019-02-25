@@ -472,7 +472,7 @@ class WeixinController extends Controller{
     public function fofa(){
 //        $dada=TextModel::get()->toArray();
 //        var_dump($dada[0]["text"]);die;
-        $dada=['openid'=>'wxb31f0e1caa435a82'];
+        $dada=['openid'=>'op6u75nkpVJyjvSYR7qdJQzXZBvE'];
         return view('weixin.fofa',$dada);
     }
     /*

@@ -24,8 +24,8 @@ class   WxpayController extends Controller{
             'notify_url'         => $this->weixin_notify_url,//通知回调地址
             'trade_type'         => 'NATIVE'                  //支付类型
         ];
-        $this->value=[];
-        $this->value=$order_info;
+        $this->values=[];
+        $this->values=$order_info;
         $this->SetSign();
         $xml=$this->Toxml();   //将数组转换为html
         $rs =$this->postXmlCurl(xml,$this->weixin_unifiedorder_url,$useCert=false,$second=30);

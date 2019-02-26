@@ -54,7 +54,7 @@ class   WxpayController extends Controller{
      */
     protected function ToUrlParams(){
         $buff = "";
-        foreach($this->values as $k =>$v){
+        foreach($this->value as $k =>$v){
             if($k!="sign" && $v!=""&&!is_array($v)){
                 $buff .=$k ."=".$v."&";
             }

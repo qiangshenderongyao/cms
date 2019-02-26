@@ -19,7 +19,7 @@ class   WxpayController extends Controller{
             'sign_type' =>'MD5',                          //
             'body'      =>'枪神测试订单'.mt_rand(1111,9999).str_random(6),
             'out_order_no' =>$order_id,                   //订单号
-            'total_fei'    =>$total_fei,                  //支付金额
+            'total_fee'    =>$total_fei,                  //支付金额
             'spbill_create_ip'  => $_SERVER['REMOTE_ADDR'],  //客户端IP
             'notify_url'         => $this->weixin_notify_url,//通知回调地址
             'trade_type'         => 'NATIVE'                  //支付类型

@@ -28,7 +28,7 @@ class   WxpayController extends Controller{
         $this->values=$order_info;
         $this->SetSign();
         $xml=$this->Toxml();   //将数组转换为html
-        $rs =$this->postXmlCurl(xml,$this->weixin_unifiedorder_url,$useCert=false,$second=30);
+        $rs =$this->postXmlCurl($xml,$this->weixin_unifiedorder_url,$useCert=false,$second=30);
         $data=simplexml_load_string($rs);
         echo 'code_url:'.$data->code_url;echo '<br>';
     }

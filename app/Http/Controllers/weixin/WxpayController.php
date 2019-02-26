@@ -93,6 +93,7 @@ class   WxpayController extends Controller{
         curl_setopt($ch,CURLOPT_POSTFIELDS,$xml);
         //运行curl
         $data=curl_exec($ch);
+        var_dump($data);die;
         //返回结果
         if($data){
             curl_close($ch);

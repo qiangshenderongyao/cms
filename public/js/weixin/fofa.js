@@ -35,13 +35,10 @@ $("#send_msg_btn").click(function (y) {
         dataType:   'json',
         success :   function(d){
             console.log(d);
-            if(d.errno==0){
-                var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
-                $("#chat_div").append(msg_str);
-                $("#send_msg").val("");
-            }else{
-                // alert(d.msg);
-            }
+            var msg_str = '<p style="color: mediumorchid"> >>>>> '+send_msg+'</p>';
+            $("#chat_div").append(msg_str);
+            $("#send_msg").val("");
         }
     });
+
 });

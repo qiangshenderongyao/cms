@@ -80,9 +80,9 @@ class   WxpayController extends Controller{
     }
     private function postXmlCurl($xml,$url,$useCert=false,$second=30){
         $ch =curl_init();   //初始化一个CURL对象
-        curl_setopt($ch,CURLOPT_TIMEOUT,$second);
+        curl_setopt($ch,CURLOPT_TIMEOUT,$second);   //设置超时
         curl_setopt($ch,CURLOPT_URL,$url);   //设置你所需要抓取的URL
-        curl_setopt($ch,CURLOPT_SSL_VARIFYPEER,TRUE);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,TRUE);
         curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);   //严格校验
         curl_setopt($ch,CURLOPT_HEADER,FALSE);       //设置header
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,TRUE);    //要求结果为字符串且输出到屏幕上

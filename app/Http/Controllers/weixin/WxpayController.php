@@ -39,7 +39,7 @@ class   WxpayController extends Controller{
     }
     private function makeSign(){
         //签名部署一:按字典序排序参数
-        ksort($this->value);
+        ksort($this->values);
         $string=$this->ToUrlParams();
         //签名部署二:在string后加入key
         $string=$string."&key=".env('WEIXIN_MCH_KEY');
@@ -54,7 +54,7 @@ class   WxpayController extends Controller{
      */
     protected function ToUrlParams(){
         $buff = "";
-        foreach($this->value as $k =>$v){
+        foreach($this->values as $k =>$v){
             if($k!="sign" && $v!=""&&!is_array($v)){
                 $buff .=$k ."=".$v."&";
             }

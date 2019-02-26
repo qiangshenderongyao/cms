@@ -7,7 +7,7 @@ use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
 class   WxpayController extends Controller{
     public $weixin_unifiedorder_url='https://api.mch.weixin.qq.com/pay/unifiedorder';
-    public $weixin_notify_url='http://1807.96myshop.cn/weixin/panotice'; //支付通知回调
+    public $weixin_notify_url='http://1807.96myshop.cn/weixin/notice'; //支付通知回调
 
     public function firtest(){
         $total_fei=1;  //支付金额

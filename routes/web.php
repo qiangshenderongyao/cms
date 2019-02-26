@@ -81,4 +81,4 @@ Route::get('/weixin/wxfofa','weixin\WeixinController@wxfofa');
 Route::get('/weixin/wxfofado','weixin\WeixinController@wxfofado');
 //微信支付
 Route::get('/weixin/firtest','weixin\WxpayController@firtest');
-Route::post('/weixin/panotice','weixin\WxpayController@notice');
+Route::post('/weixin/notice','weixin\WxpayController@notice');

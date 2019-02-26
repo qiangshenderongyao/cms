@@ -21,6 +21,7 @@ class PayController extends Controller
         //
         $total_fee = 1;         //用户要支付的总金额
         $order_id = OrderModel::generateOrderSN();
+        $erweima='weixinerweima';
 
         $order_info = [
             'appid'         =>  env('WEIXIN_APPID_0'),      //微信支付绑定的服务号的APPID
@@ -54,7 +55,11 @@ class PayController extends Controller
 //		echo 'result_code: '.$data->result_code;echo '<br>';
 //		echo 'prepay_id: '.$data->prepay_id;echo '<br>';
 //		echo 'trade_type: '.$data->trade_type;echo '<br>';
-        echo 'code_url: '.$data->code_url;echo '<br>';
+        include "phpqrcode/phpqrcode.php";
+        $file_name='qrcode/'.$erweima.'.png';
+        \QRcode::png($data->code_url,$file_name,'H','5','1');
+        echo '<img src="http://1807.96myshop.cn/'.$file_name.'">';die;
+//        echo 'code_url: '.$data->code_url;echo '<br>';
 //        die;
         //echo '<pre>';print_r($data);echo '</pre>';
 

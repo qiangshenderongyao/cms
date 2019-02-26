@@ -29,9 +29,9 @@ class   WxpayController extends Controller{
         $this->SetSign();
         $xml=$this->Toxml();   //将数组转换为html
         $rs =$this->postXmlCurl($xml,$this->weixin_unifiedorder_url,$useCert=false,$second=30);
-        var_dump($rs);die;
+//        var_dump($rs);die;
         $data=simplexml_load_string($rs);
-        var_dump($data);die;
+//        var_dump($data);die;
         echo 'code_url:'.$data->code_url;echo '<br>';
     }
     public function SetSign(){
@@ -93,7 +93,7 @@ class   WxpayController extends Controller{
         curl_setopt($ch,CURLOPT_POSTFIELDS,$xml);
         //运行curl
         $data=curl_exec($ch);
-        var_dump($data);die;
+//        var_dump($data);die;
         //返回结果
         if($data){
             curl_close($ch);

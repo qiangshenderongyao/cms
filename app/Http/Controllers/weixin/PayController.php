@@ -189,7 +189,7 @@ class PayController extends Controller
             if($sign==$xml['sign']){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
                 $data=[
-                    'is_pay'=>'2',
+                    'is_pay'=> 2 ,
                     'pay_amount'=>$xml['total_fee'],
                     'out_time'=>time()
                 ];

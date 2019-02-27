@@ -1,4 +1,4 @@
-<img src="http://1807.96myshop.cn/'.$file_name.'">
+<img src='http://1807.96myshop.cn/".$file_name."'>
 {{--<script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>--}}
 {{--<script type="text/javascript">--}}
     {{--$.ajax({--}}

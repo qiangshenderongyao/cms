@@ -5,7 +5,7 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url     :   '/weixin/pay/paydo',
+        url     :   '/weixin/pay/notice',
         type    :   'get',
         dataType:   'json',
         success :   function(d){

@@ -177,25 +177,27 @@ class PayController extends Controller
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_pay_notice.log',$log_str,FILE_APPEND);
 
-        $xml = simplexml_load_string($data);
+        $xml = (array)simplexml_load_string($data,'SimpleXMLElement',LIBXML_NOCDATA);
 
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
             //验证签名
-            $sign = true;
+//            $sign = true;
+            $this->values = [];
+            $this->values = $xml;
+            $sign=$this->SetSign();
 
-            if($sign){       //签名验证成功
+            if($sign==$xml['sign']){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-//                $order_id=Redis::get('order_id');
-//                $data=OrderModel::where(['order_name'=>$order_id])->first();
-//                $res=json_encode($data);
-//                $info=GuzzleHttp\json_decode($res);
-//                $gai=['is_pay'=>2];
-//                $out_data=OrderModel::where(['order_name'=>$order_id])->update($gai);
-//                if($out_data){
-//                    echo '订单支付成功';
-//                    return redirect('/center');
-//                }
-                
+                $data=[
+                    'is_pay'=>'2',
+                    'pay_amount'=>$xml['total_fee'],
+                    'out_time'=>time()
+                ];
+                $info=OrderModel::where(['order_name'=>$this->order_id])->update($data);
+                if($info){
+                    echo '支付成功';
+                }
+
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];

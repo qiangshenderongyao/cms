@@ -193,7 +193,7 @@ class PayController extends Controller
                     'pay_amount'=>$xml['total_fee'],
                     'out_time'=>time()
                 ];
-                $info=OrderModel::where(['order_name'=>$this->order_id])->update($data);
+                $info=OrderModel::where(['order_name'=>$xml['out_trade_no']])->update($data);
                 if($info){
                     echo '支付成功';
                 }

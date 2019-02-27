@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
-
+use App\Model\wxpayModel;
+use GuzzleHttp;
 class PayController extends Controller
 {
     //
@@ -58,7 +59,7 @@ class PayController extends Controller
         include "./phpqrcode/phpqrcode.php";
         $file_name='qrcode/'.$erweima.'.png';
         \QRcode::png($data->code_url,$file_name,'H','5','1');
-        echo '<img src="http://1807.96myshop.cn/'.$file_name.'">';die;
+        return view('weixin.zfewm',['da'=>$file_name]);
 //        echo 'code_url: '.$data->code_url;echo '<br>';
 //        die;
         //echo '<pre>';print_r($data);echo '</pre>';
@@ -195,6 +196,15 @@ class PayController extends Controller
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
         echo $response;
 
+    }
+    public function paydo(){
+        $order_id=Redis::get('order_id');
+        $data=wxpayModel::where(['out_trade_no'=>$order_id])->first();
+        $res=json_encode($data);
+        $info=GuzzleHttp\json_decode($res);
+        if($info['status']){
+
+        }
     }
 
 

@@ -179,7 +179,7 @@ class PayController extends Controller
 
         $xml = (array)simplexml_load_string($data,'SimpleXMLElement',LIBXML_NOCDATA);
 
-        if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
+        if($xml['result_code']=='SUCCESS' && $xml['return_code']=='SUCCESS'){      //微信支付成功回调
             //验证签名
 //            $sign = true;
             $this->values = [];

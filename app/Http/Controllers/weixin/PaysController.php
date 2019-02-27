@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
-use App\Model\wxpayModel;
-use GuzzleHttp;
-use Illuminate\Support\Facades\Redis;
-class PayController extends Controller
+
+class PaysController extends Controller
 {
     //
 
@@ -18,12 +16,8 @@ class PayController extends Controller
 
     public function test($order_name)
     {
-
-
-        //
         $total_fee = 1;         //用户要支付的总金额
-//        $order_id = OrderModel::generateOrderSN();
-        $erweima='weixinerweima';
+        //$order_id = OrderModel::generateOrderSN();
 
         $order_info = [
             'appid'         =>  env('WEIXIN_APPID_0'),      //微信支付绑定的服务号的APPID
@@ -38,6 +32,7 @@ class PayController extends Controller
             'trade_type'    => 'NATIVE'                         // 交易类型
         ];
 
+
         $this->values = [];
         $this->values = $order_info;
         $this->SetSign();
@@ -47,29 +42,34 @@ class PayController extends Controller
 
         $data =  simplexml_load_string($rs);
         //var_dump($data);echo '<hr>';
-//        echo 'return_code: '.$data->return_code;echo '<br>';
-//		echo 'return_msg: '.$data->return_msg;echo '<br>';
-//		echo 'appid: '.$data->appid;echo '<br>';
-//		echo 'mch_id: '.$data->mch_id;echo '<br>';
-//		echo 'nonce_str: '.$data->nonce_str;echo '<br>';
-//		echo 'sign: '.$data->sign;echo '<br>';
-//		echo 'result_code: '.$data->result_code;echo '<br>';
-//        echo "err_code_des:". $data->err_code_des.'<br>';
-//        echo "code_url:". $data->code_url.'<br>';
-//
-//        echo 'prepay_id: '.$data->prepay_id;echo '<br>';
-//		echo 'trade_type: '.$data->trade_type;echo '<br>';die;
-        include "phpqrcode/phpqrcode.php";
-        $file_name='qrcode/'.$erweima.'.png';
-        \QRcode::png($data->code_url,$file_name,'H','5','1');
-        return view('weixin.zfewm',['file_name'=>$file_name]);
-//        echo 'code_url: '.$data->code_url;echo '<br>';
-//        die;
+
+        /*echo 'return_code: '.$data->return_code;echo '<br>';
+        echo 'return_msg: '.$data->return_msg;echo '<br>';
+        echo 'appid: '.$data->appid;echo '<br>';
+        echo 'mch_id: '.$data->mch_id;echo '<br>';
+        echo 'nonce_str: '.$data->nonce_str;echo '<br>';
+        echo 'sign: '.$data->sign;echo '<br>';
+        echo 'result_code: '.$data->result_code;echo '<br>';
+        echo "err_code:". $data->err_code.'<br>';
+        echo "err_code_des:". $data->err_code_des.'<br>';
+        echo "code_url:". $data->code_url.'<br>';exit;*/
+        $c=$data->code_url;
+        /*//echo $c;die;
+        $curl=base64_encode($c);
+        header('refresh:0;url=/weixin/pay/curl/'.$curl.'');*/
+        return view('weixin.pay',['curl'=>$c,'order_sn'=>$order_name]);
+
+
+
         //echo '<pre>';print_r($data);echo '</pre>';
 
         //将 code_url 返回给前端，前端生成 支付二维码
 
     }
+    /*  public function curl($curl){
+          $curl1=base64_decode($curl);
+          return view('pay.pay',['curl'=>$curl1]);
+      }*/
 
 
     protected function ToXml()
@@ -183,23 +183,20 @@ class PayController extends Controller
 
         if($xml['result_code']=='SUCCESS' && $xml['return_code']=='SUCCESS'){      //微信支付成功回调
             //验证签名
-//            $sign = true;
-            $this->values = [];
-            $this->values = $xml;
-            $sign=$this->SetSign();
+            $this->values=[];
+            $this->values=$xml;
+            $sign=$this->SetSign(); //签名
 
             if($sign==$xml['sign']){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
+                $order_sn=$xml['out_trade_no'];
                 $data=[
-                    'is_pay'=> 2 ,
                     'pay_amount'=>$xml['total_fee'],
-                    'out_time'=>time()
+                    'pay_time'=>time(),
+                    'is_pay'=>1,
+                    'plat_oid'=>$xml['transaction_id']
                 ];
-//                var_dump($data);die;
-                $info=OrderModel::where(['order_name'=>$xml['out_trade_no']])->update($data);
-                if($info){
-                    echo '支付成功';
-                }
+                $r=OrderModel::where('order_name',$order_sn)->update($data);
 
             }else{
                 //TODO 验签失败
@@ -213,15 +210,17 @@ class PayController extends Controller
         echo $response;
 
     }
-//    public function paydo(){
-//        $order_id=Redis::get('order_id');
-//        $data=wxpayModel::where(['out_trade_no'=>$order_id])->first();
-//        $res=json_encode($data);
-//        $info=GuzzleHttp\json_decode($res);
-//        if($info['status']){
-//
-//        }
-//    }
-
+    public function payweixin(Request $request){
+        $order_sn=$request->input('order_name');
+        $data=OrderModel::where('order_name',$order_sn)->first();
+        if($data['is_pay']==1){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+    public function pay111(){
+        echo "支付成功";
+    }
 
 }

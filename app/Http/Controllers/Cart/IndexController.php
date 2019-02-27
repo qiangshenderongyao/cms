@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\URL;
 class IndexController extends Controller{
+    public $uid;                    // 登录UID
     //购物车
-    public function index(){
+    public function index(Request $request){
 //        $goods=session()->get('cart_goods');//获取session中的字段值
 //        if(empty($goods)){
 //            echo '购物车是空的';

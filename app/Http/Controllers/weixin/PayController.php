@@ -185,16 +185,16 @@ class PayController extends Controller
 
             if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                $order_id=Redis::get('order_id');
-                $data=OrderModel::where(['order_name'=>$order_id])->first();
-                $res=json_encode($data);
-                $info=GuzzleHttp\json_decode($res);
-                $gai=['is_pay'=>1];
-                $out_data=OrderModel::where(['order_name'=>$order_id])->update($gai);
-                if($out_data){
-                    echo '订单支付成功';
-                    return redirect('/center');
-                }
+//                $order_id=Redis::get('order_id');
+//                $data=OrderModel::where(['order_name'=>$order_id])->first();
+//                $res=json_encode($data);
+//                $info=GuzzleHttp\json_decode($res);
+//                $gai=['is_pay'=>2];
+//                $out_data=OrderModel::where(['order_name'=>$order_id])->update($gai);
+//                if($out_data){
+//                    echo '订单支付成功';
+//                    return redirect('/center');
+//                }
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];

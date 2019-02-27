@@ -22,11 +22,12 @@ class PayController extends Controller
 
         //
         $total_fee = 1;         //用户要支付的总金额
-//        $order_id = OrderModel::generateOrderSN();
-        //根据订单id查询金额
-        $where=['o_id'=>$o_id];
-        $order=OrderModel::where($where)->first();
-        $order_id=$order['order_name'];
+        $order_id = OrderModel::generateOrderSN();
+        //根据订单id查询订单号
+//        $where=['o_id'=>$o_id];
+//        $order=OrderModel::where($where)->first();
+//        $order_id=$order['order_name'];
+//        var_dump($order_id);die;
         $erweima='weixinerweima';
 
         $order_info = [
@@ -41,7 +42,6 @@ class PayController extends Controller
             'notify_url'    => $this->weixin_notify_url,        //通知回调地址
             'trade_type'    => 'NATIVE'                         // 交易类型
         ];
-
 
         $this->values = [];
         $this->values = $order_info;

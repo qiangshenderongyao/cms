@@ -59,7 +59,7 @@ class PayController extends Controller
         include "./phpqrcode/phpqrcode.php";
         $file_name='qrcode/'.$erweima.'.png';
         \QRcode::png($data->code_url,$file_name,'H','5','1');
-        return view('weixin.zfewm',['da'=>$file_name]);
+        return view('weixin.zfewm',['file_name'=>$file_name]);
 //        echo 'code_url: '.$data->code_url;echo '<br>';
 //        die;
         //echo '<pre>';print_r($data);echo '</pre>';

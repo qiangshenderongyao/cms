@@ -181,20 +181,21 @@ class PayController extends Controller
 
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
             //验证签名
-//            $sign = true;
-            $sign=$this->SetSign();
-            $sign_two = $this->sign;
-            if($sign==$sign_two){       //签名验证成功
+            $sign = true;
+
+            if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                $data=[
-                    'is_pay'=>'2',
-                    'pay_amount'=>$this->total_fee,
-                    'out_time'=>time()
-                ];
-                $info=OrderModel::where(['order_name'=>$this->order_id])->update($data);
-                if($info){
-                    echo '支付成功';
-                }
+//                $order_id=Redis::get('order_id');
+//                $data=OrderModel::where(['order_name'=>$order_id])->first();
+//                $res=json_encode($data);
+//                $info=GuzzleHttp\json_decode($res);
+//                $gai=['is_pay'=>2];
+//                $out_data=OrderModel::where(['order_name'=>$order_id])->update($gai);
+//                if($out_data){
+//                    echo '订单支付成功';
+//                    return redirect('/center');
+//                }
+                
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];

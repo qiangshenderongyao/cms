@@ -22,11 +22,11 @@ class PayController extends Controller
 
         //
         $total_fee = 1;         //用户要支付的总金额
-        $order_id = OrderModel::generateOrderSN();
+//        $order_id = OrderModel::generateOrderSN();
         //根据订单id查询订单号
-//        $where=['o_id'=>$o_id];
-//        $order=OrderModel::where($where)->first();
-//        $order_id=$order['order_name'];
+        $where=['o_id'=>$o_id];
+        $order=OrderModel::where($where)->first();
+        $order_id=$order['order_name'];
 //        var_dump($order_id);die;
         $erweima='weixinerweima';
 

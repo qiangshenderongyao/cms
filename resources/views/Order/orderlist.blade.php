@@ -20,7 +20,7 @@
             </td> -->
             <td>@if($v['is_pay']==0)
                     <a href="/pay/alipay/test/{{$v['o_id']}}" class="btn btn-info">支付宝支付</a>
-                    <a href="/weixin/pay/test" class="btn btn-info">微信支付</a>
+                    <a href="/weixin/pay/test/{{$v['o_id']}}" class="btn btn-info">微信支付</a>
                 @elseif($v['is_pay']==1)
                     <a>已支付</a>
                 @endif

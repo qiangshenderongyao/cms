@@ -16,13 +16,17 @@ class PayController extends Controller
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
     public $weixin_notify_url = 'http://1807.96myshop.cn/weixin/pay/notice';     //支付通知回调
 
-    public function test()
+    public function test($o_id)
     {
 
 
         //
         $total_fee = 1;         //用户要支付的总金额
-        $order_id = OrderModel::generateOrderSN();
+//        $order_id = OrderModel::generateOrderSN();
+        //根据订单id查询金额
+        $where=['o_id'=>$o_id];
+        $order=OrderModel::where($where)->first();
+        $order_id=$order['order_name'];
         $erweima='weixinerweima';
 
         $order_info = [

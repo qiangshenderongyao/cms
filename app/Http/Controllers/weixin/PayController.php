@@ -8,6 +8,7 @@ use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
 use App\Model\wxpayModel;
 use GuzzleHttp;
+use Illuminate\Support\Facades\Redis;
 class PayController extends Controller
 {
     //
@@ -188,7 +189,7 @@ class PayController extends Controller
                 $data=OrderModel::where(['order_name'=>$order_id])->first();
                 $res=json_encode($data);
                 $info=GuzzleHttp\json_decode($res);
-                $gai=['is_pay'=>2];
+                $gai=['is_pay'=>1];
                 $out_data=OrderModel::where(['order_name'=>$order_id])->update($gai);
                 if($out_data){
                     echo '订单支付成功';

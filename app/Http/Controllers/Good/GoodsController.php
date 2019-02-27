@@ -14,20 +14,20 @@ class GoodsController extends Controller{
     }
     //商品详情页
     public function goodsadd($goods_id){
-        $redis_goods_key='h_goods_info_'.$goods_id;
-        $goods_info=Redis::hGetAll($redis_goods_key);
-        if($goods_info){
-            echo 'Redis';echo '<br>';
-            echo '<pre>';print_r($goods_info);echo '</pre>';
-        }else{
-            echo 'Mysql';echo '</br>';
-            $goods_info=GoodsModel::where(['goods_id'=>$goods_id])->first()->toArray();
-            echo '<pre>';print_r($goods_info);echo '</pre>';
-            //写入缓存
-            $redis=Redis::hmset($redis_goods_key,$goods_info);
-            //设置缓存过期时间
-            Redis::expire($redis_goods_key,30);
-        }
+//        $redis_goods_key='h_goods_info_'.$goods_id;
+//        $goods_info=Redis::hGetAll($redis_goods_key);
+//        if($goods_info){
+//            echo 'Redis';echo '<br>';
+//            echo '<pre>';print_r($goods_info);echo '</pre>';
+//        }else{
+//            echo 'Mysql';echo '</br>';
+//            $goods_info=GoodsModel::where(['goods_id'=>$goods_id])->first()->toArray();
+//            echo '<pre>';print_r($goods_info);echo '</pre>';
+//            //写入缓存
+//            $redis=Redis::hmset($redis_goods_key,$goods_info);
+//            //设置缓存过期时间
+//            Redis::expire($redis_goods_key,30);
+//        }
 //        die;
         $where=['goods_id'=>$goods_id];
         // dump($where);die;

@@ -45,7 +45,7 @@ class IndexController extends Controller{
         $data = [
             'list'  => $list
         ];
-        return view('cart.index',$data);
+        return view('Cart.index',$data);
     }
     public function cart(){
         $data = GoodsModel::get();

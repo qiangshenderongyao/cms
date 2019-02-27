@@ -184,7 +184,16 @@ class PayController extends Controller
 
             if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-
+                $order_id=Redis::get('order_id');
+                $data=OrderModel::where(['order_name'=>$order_id])->first();
+                $res=json_encode($data);
+                $info=GuzzleHttp\json_decode($res);
+                $gai=['is_pay'=>2];
+                $out_data=OrderModel::where(['order_name'=>$order_id])->update($gai);
+                if($out_data){
+                    echo '订单支付成功';
+                    return redirect('/center');
+                }
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];
@@ -197,15 +206,15 @@ class PayController extends Controller
         echo $response;
 
     }
-    public function paydo(){
-        $order_id=Redis::get('order_id');
-        $data=wxpayModel::where(['out_trade_no'=>$order_id])->first();
-        $res=json_encode($data);
-        $info=GuzzleHttp\json_decode($res);
-        if($info['status']){
-
-        }
-    }
+//    public function paydo(){
+//        $order_id=Redis::get('order_id');
+//        $data=wxpayModel::where(['out_trade_no'=>$order_id])->first();
+//        $res=json_encode($data);
+//        $info=GuzzleHttp\json_decode($res);
+//        if($info['status']){
+//
+//        }
+//    }
 
 
 }

@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="{{URL::asset('/css/test.css')}}">
 	<meta name="csrf-token" content="{{csrf_token()}}">
 	<link rel="stylesheet" href="{{URL::asset('/bootstrap/css/bootstrap.min.css')}}">
-	<link rel="shortcut icon" href="#" />
 </head>
 <body>
 <div class="container">

@@ -9,9 +9,9 @@ use phpDocumentor\Reflection\Types\Resource_;
 use Illuminate\Support\Facades\Redis;
 use Predis\Client;
 class GoodsController extends Controller{
-    public function __construct(){
-        $this->middleware('auth');
-    }
+//    public function __construct(){
+//        $this->middleware('auth');
+//    }
     //商品详情页
     public function goodsadd($goods_id){
 //        $redis_goods_key='h_goods_info_'.$goods_id;

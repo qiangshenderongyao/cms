@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\URL;
 class OrderController extends Controller{
-	/*返回用户id*/
+    /*返回用户id*/
     public function __construct(){
         $this->middleware(function ($request, $next) {
-           $this->data = request()->session()->get('uid');
-           return $next($request);
+            $this->data = request()->session()->get('uid');
+            return $next($request);
         });
     }
 	public function order(){

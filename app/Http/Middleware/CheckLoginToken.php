@@ -16,7 +16,7 @@ class CheckLoginToken
     public function handle($request, Closure $next)
     {
         if(!$request->session()->get('u_token')){
-            return redirect('/login');
+            return redirect('/mylogin');
             echo '请先登录';
             exit;
         }

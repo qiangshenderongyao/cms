@@ -52,6 +52,7 @@ class WxloginController extends Controller{
         ];
 //        var_dump($data);die;
         $res=WxloginModel::where($data)->get();
+        var_dump($res);die;
         if($res){
             echo '登录入库成功';
         }

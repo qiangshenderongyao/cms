@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Weixin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\WxloginModel;
 class WxloginController extends Controller{
     public function wxlogin(){
         return view('weixin.wxlogin');
@@ -49,7 +50,11 @@ class WxloginController extends Controller{
             'access_token'=>$token_arr['access_token'],
             'add_time' => time()
         ];
-        var_dump($data);die;
+//        var_dump($data);die;
+        $res=WxloginModel::where($data)->get();
+        if($res){
+            echo '登录入库成功';
+        }
     }
 }
 ?>

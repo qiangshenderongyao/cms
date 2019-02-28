@@ -51,7 +51,7 @@ class WxloginController extends Controller{
             'add_time' => time()
         ];
 //        var_dump($data);die;
-        $res=WxloginModel::where($data)->get();
+        $res=WxloginModel::insertGetId($data);
         var_dump($res);die;
         if($res){
             echo '登录入库成功';

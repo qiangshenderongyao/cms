@@ -44,7 +44,7 @@ class WxloginController extends Controller{
         //查询数据库是否有此人数据
         $pat=WxloginModel::where(['unionid'=>$user_arr['unionid']])->first();
         if($pat['unionid']==$user_arr['unionid']){
-            return redirect('/center');
+            return redirect('/centeradd');
         }else {
             $data = [
                 'nickname' => $user_arr['nickname'],

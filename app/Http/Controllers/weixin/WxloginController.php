@@ -52,7 +52,7 @@ class WxloginController extends Controller{
         ];
 //        var_dump($data);die;
         $res=WxloginModel::insertGetId($data);
-        var_dump($res);die;
+//        var_dump($res);die;
         if($res){
             echo '登录入库成功';
         }

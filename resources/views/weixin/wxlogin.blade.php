@@ -1,0 +1,1 @@
+<a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxb31f0e1caa435a82&redirect_uri=http://1807.96myshop.cn/weixin/login/index&response_type=code&scope=SCOPE&state=STATE#wechat_redirect">Login</a>

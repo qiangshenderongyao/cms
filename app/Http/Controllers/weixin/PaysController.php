@@ -213,6 +213,7 @@ class PaysController extends Controller
     public function payweixin(Request $request){
         $order_sn=$request->input('order_name');
         $data=OrderModel::where('order_name',$order_sn)->first();
+//        var_dump($data);die;
         if($data['is_pay']==1){
             return 1;
         }else{

@@ -90,3 +90,7 @@ Route::get('/weixin/pay/test/{order_name}','weixin\PaysController@test');     //
 Route::post('/weixin/pay/notice','weixin\PaysController@notice');     //微信支付通知回调
 Route::post('/weixin/pay/payweixin','weixin\PaysController@payweixin');     //微信支付通知回调
 Route::get('/weixin/pay/pay111','weixin\PaysController@pay111');     //微信支付通知回调
+
+//微信登录
+Route::get('/weixin/login','weixin\WxloginController@wxlogin');
+Route::get('/weixin/login/index','weixin\WxloginController@index');

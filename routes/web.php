@@ -93,4 +93,4 @@ Route::get('/weixin/pay/pay111','weixin\PaysController@pay111');     //微信支
 
 //微信登录
 Route::get('/weixin/login','weixin\WxloginController@wxlogin');
-Route::get('/weixin/login/index','weixin\WxloginController@index');
+Route::get('/weixin/getCode','weixin\WxloginController@getCode');

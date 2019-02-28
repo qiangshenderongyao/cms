@@ -7,6 +7,14 @@ class WxloginController extends Controller{
     public function wxlogin(){
         return view('weixin.wxlogin');
     }
+    /*
+     * 接收code
+     */
+    public function getCode(){
+        echo '<pre>';print_r($_GET);echo '</pre>';
+        $code=$_GET['code'];
+        echo 'code:'.$code;
+    }
     public function index(){
         // 1 回调拿到 code (用户确认登录后 微信会跳 redirect )
         echo '<pre>';print_r($_GET);echo '</pre>';echo '<hr>';
@@ -16,7 +24,7 @@ class WxloginController extends Controller{
 
         //2 用code换取access_token 请求接口
 
-        $token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxb31f0e1caa435a82&secret=c5fbffe423596c91ac32e99e2b59645e&code='.$code.'&grant_type=authorization_code';
+        $token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxe24f70961302b5a5&secret=0f121743ff20a3a454e4a12aeecef4be&code='.$code.'&grant_type=authorization_code';
         $token_json = file_get_contents($token_url);
         $token_arr = json_decode($token_json,true);
         echo '<hr>';

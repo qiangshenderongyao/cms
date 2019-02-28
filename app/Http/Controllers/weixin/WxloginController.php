@@ -41,20 +41,26 @@ class WxloginController extends Controller{
         $user_arr = json_decode($user_json,true);
         echo '<hr>';
 //        echo '<pre>';print_r($user_arr);echo '</pre>';
-        $data=[
-           'nickname' => $user_arr['nickname'],
-           'sex'       => $user_arr['sex'],
-           'country'  =>  $user_arr['country'],
-           'unionid'  =>  $user_arr['unionid'],
-            'openid'  =>  $user_arr['openid'],
-            'access_token'=>$token_arr['access_token'],
-            'add_time' => time()
-        ];
+        //查询数据库是否有此人数据
+        $pat=WxloginModel::where(['unionid'=>$user_arr['unionid']])->first();
+        if($pat['unionid']==$user_arr['unionid']){
+            return redirect('/center');
+        }else {
+            $data = [
+                'nickname' => $user_arr['nickname'],
+                'sex' => $user_arr['sex'],
+                'country' => $user_arr['country'],
+                'unionid' => $user_arr['unionid'],
+                'openid' => $user_arr['openid'],
+                'access_token' => $token_arr['access_token'],
+                'add_time' => time()
+            ];
 //        var_dump($data);die;
-        $res=WxloginModel::insertGetId($data);
+            $res = WxloginModel::insertGetId($data);
 //        var_dump($res);die;
-        if($res){
-            echo '登录入库成功';
+            if ($res) {
+                echo '登录入库成功';
+            }
         }
     }
 }

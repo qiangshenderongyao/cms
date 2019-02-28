@@ -28,7 +28,7 @@ class WxloginController extends Controller{
         $token_json = file_get_contents($token_url);
         $token_arr = json_decode($token_json,true);
         echo '<hr>';
-        echo '<pre>';print_r($token_arr);echo '</pre>';
+//        echo '<pre>';print_r($token_arr);echo '</pre>';
 
         $access_token = $token_arr['access_token'];
         $openid = $token_arr['openid'];
@@ -39,7 +39,17 @@ class WxloginController extends Controller{
 
         $user_arr = json_decode($user_json,true);
         echo '<hr>';
-        echo '<pre>';print_r($user_arr);echo '</pre>';
+//        echo '<pre>';print_r($user_arr);echo '</pre>';
+        $data=[
+           'nickname' => $user_arr['nickname'],
+           'sex'       => $user_arr['sex'],
+           'country'  =>  $user_arr['country'],
+           'unionid'  =>  $user_arr['unionid'],
+            'openid'  =>  $user_arr['openid'],
+            'access_token'=>$token_arr['access_token'],
+            'add_time' => time()
+        ];
+        var_dump($data);die;
     }
 }
 ?>

@@ -9,7 +9,7 @@ class WxloginController extends Controller{
     }
     /*
      * 接收code
-     */
+*/
     public function getCode(){
         echo '<pre>';print_r($_GET);echo '</pre>';
         $code=$_GET['code'];

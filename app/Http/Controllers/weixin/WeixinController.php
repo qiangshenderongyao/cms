@@ -524,6 +524,7 @@ class WeixinController extends Controller{
             'noncestr' =>str_random(10),
         ];
         $sign=$this->getSign($jssdkconfig);
+        $jssdkconfig['sign']=$sign;
         $js=[
             'jsconfig'=>$jssdkconfig
         ];

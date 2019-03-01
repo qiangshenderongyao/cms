@@ -512,4 +512,23 @@ class WeixinController extends Controller{
         $id=WxTextModel::insertGetId($data);
         var_dump($id);
     }
+    /*
+     * 微信JS SDK调试
+     */
+    public function jssdk(){
+        $jssdkconfig=[
+            'appid' =>env('WEIXIN_APPID_0'),
+            'timestamp' =>time(),
+            'noncestr' =>str_random(10),
+            'sign'   => $this->ConfigSign()
+        ];
+        $js=[
+            'jsconfig'=>$jssdkconfig
+        ];
+        return view('weixin.jssdk',$js);
+    }
+    public function ConfigSign(){
+        $sign=str_random(15);
+        return $sign;
+    }
 }

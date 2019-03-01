@@ -520,7 +520,7 @@ class WeixinController extends Controller{
             'appid' =>env('WEIXIN_APPID_0'),
             'timestamp' =>time(),
             'noncestr' =>str_random(10),
-            'sign'   => $this->ConfigSign()
+            'sign'   => $this->SetSign()
         ];
         $js=[
             'jsconfig'=>$jssdkconfig
@@ -530,5 +530,35 @@ class WeixinController extends Controller{
     public function ConfigSign(){
         $sign=str_random(15);
         return $sign;
+    }
+    public function SetSign(){
+        $sign=$this->makeSign();
+        $this->values['sign']=$sign;
+        return $sign;
+    }
+    private function makeSign(){
+        //签名部署一:按字典序排序参数
+        ksort($this->values);
+        $string=$this->ToUrlParams();
+        //签名部署二:在string后加入key
+        $string=$string."&key=".env('WEIXIN_MCH_KEY');
+        //签名部署三:MD5加密
+        $string =md5($string);
+        //签名部署四:所有字符转为大写
+        $result=strtoupper($string);
+        return $result;
+    }
+    /*
+     * 格式化参数格式化成url参数
+     */
+    protected function ToUrlParams(){
+        $buff = "";
+        foreach($this->values as $k =>$v){
+            if($k!="sign" && $v!=""&&!is_array($v)){
+                $buff .=$k ."=".$v."&";
+            }
+        }
+        $buff=trim($buff,"&");
+        return $buff;
     }
 }

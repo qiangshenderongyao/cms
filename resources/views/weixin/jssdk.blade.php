@@ -1,5 +1,6 @@
 <h2>JS SDK</h2>
 <button id="btn">图片吧</button>
+<script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>
 <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 
 <script>

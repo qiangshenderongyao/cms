@@ -537,7 +537,7 @@ class WeixinController extends Controller{
        $jssk_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//调用当前jssdk的url
        $ticket=$this->sdkapiTick();
        $str =  'jsapi_ticket='.$ticket.'&noncestr='.$jssk['noncestr']. '&timestamp='. $jssk['timestamp']. '&url='.$jssk_url;
-       var_dump($str);die;
+//       var_dump($str);die;
        $signature=sha1($str);
        return $signature;
    }

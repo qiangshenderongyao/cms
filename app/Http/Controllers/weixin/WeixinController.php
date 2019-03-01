@@ -535,7 +535,7 @@ class WeixinController extends Controller{
      */
    public function getSign($jssk){
         $jssk_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//调用当前jssdk的url
-
+        $ticket=$this->sdkapiTick();
    }
    /*
     * 计算api ticket

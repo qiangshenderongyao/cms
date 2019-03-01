@@ -516,11 +516,12 @@ class WeixinController extends Controller{
      * 微信JS SDK调试
      */
     public function jssdk(){
+        $this->values=[];
         $jssdkconfig=[
             'appid' =>env('WEIXIN_APPID_0'),
             'timestamp' =>time(),
             'noncestr' =>str_random(10),
-            'sign'   => $this->ConfigSign()
+            'sign'   => $this->SetSign()
         ];
         $js=[
             'jsconfig'=>$jssdkconfig

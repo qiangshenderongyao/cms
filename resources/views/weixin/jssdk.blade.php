@@ -1,4 +1,5 @@
 <h2>JS SDK</h2>
+<button id="btn">图片吧</button>
 <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 
 <script>
@@ -10,4 +11,16 @@
         signature: "{{$jsconfig['sign']}}",// 必填，签名
         jsApiList: ['chooseImage','uploadImage','getLocalImgData','startRecord'] // 必填，需要使用的JS接口列表
     });
+    wx.ready(function() {
+        $("#btn").click(function () {
+            wx.chooseImage({
+                count: 1, // 默认9
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                }
+            });
+        })
+    })
 </script>

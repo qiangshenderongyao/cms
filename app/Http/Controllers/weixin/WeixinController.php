@@ -534,8 +534,11 @@ class WeixinController extends Controller{
      * 计算JSSDK sign
      */
    public function getSign($jssk){
-        $jssk_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//调用当前jssdk的url
-        $ticket=$this->sdkapiTick();
+       $jssk_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//调用当前jssdk的url
+       $ticket=$this->sdkapiTick();
+       $str =  'jsapi_ticket='.$ticket.'&noncestr='.$jssk['noncestr']. '&timestamp='. $jssk['timestamp']. '&url='.$jssk_url;
+       $signature=sha1($str);
+       return $signature;
    }
    /*
     * 计算api ticket
@@ -543,8 +546,19 @@ class WeixinController extends Controller{
    public function sdkapiTick(){
         $ticket=Redis::get($this->redis_weixin_jsapi_ticket);
         if(!$ticket){
-            $access_token=$this->getWXAccessToken();
-            var_dump($access_token);die;
+//            $access_token=$this->getWXAccessToken();
+//            var_dump($access_token);die;
+            $access_token='19_PQxAIlTWM9kd0tWxKlqG5nCYiu6fr3XppX_uB_rciwtsBb-QbI035c9vJHBDmmIbLplrw6wM9aScxtL5NJ-7AHedRxjavnQmpN5AF1i3LOj5pViuSXrUd8rG7MvOHVzAKw8obcPDtUqlGJ5JIFQhAGAROZ';
+            $ticket_url='https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='.$access_token.'&type=jsapi';
+            $ticket_info = file_get_contents($ticket_url);
+            $ticket_arr = json_decode($ticket_info,true);
+            //isset是判断一个变量是否定义过
+            if(isset($ticket_arr['ticket'])){
+                $ticket=$ticket_arr['ticket'];
+                Redis::set($this->redis_weixin_jsapi_ticket,$ticket);
+                Redis::setTimeout($this->redis_weixin_jsapi_ticket,3600);   //设置过期时间3600秒
+            }
         }
+        return $ticket;
    }
 }

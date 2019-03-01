@@ -1,5 +1,6 @@
 <h2>JS SDK</h2>
 <button id="btn">图片吧</button>
+<button id="btn1">扫一扫</button>
 <script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>
 <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 
@@ -20,6 +21,15 @@
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                 success: function (res) {
                     var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                }
+            });
+        });
+        $("#btn1").click(function () {
+            wx.scanQRCode({
+                needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
                 }
             });
         })

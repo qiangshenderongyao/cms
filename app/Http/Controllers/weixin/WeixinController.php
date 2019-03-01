@@ -517,7 +517,6 @@ class WeixinController extends Controller{
      * 微信JS SDK调试
      */
     public function jssdk(){
-        $this->values=[];
         $jssdkconfig=[
             'appid' =>env('WEIXIN_APPID'),
             'timestamp' =>time(),

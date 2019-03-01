@@ -12,6 +12,7 @@ use App\Model\TextModel;
 use App\Model\WxTextModel;
 class WeixinController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
+    protected $redis_weixin_jsapi_ticket='str:weixin_jsapi_ticket';       //微信 jsapi_ticket
     //测试
     public function test()
     {
@@ -521,45 +522,28 @@ class WeixinController extends Controller{
             'appid' =>env('WEIXIN_APPID_0'),
             'timestamp' =>time(),
             'noncestr' =>str_random(10),
-            'sign'   => $this->SetSign()
         ];
+        $sign=$this->getSign($jssdkconfig);
         $js=[
             'jsconfig'=>$jssdkconfig
         ];
         return view('weixin.jssdk',$js);
     }
-    public function ConfigSign(){
-        $sign=str_random(15);
-        return $sign;
-    }
-    public function SetSign(){
-        $sign=$this->makeSign();
-        $this->values['sign']=$sign;
-        return $sign;
-    }
-    private function makeSign(){
-        //签名部署一:按字典序排序参数
-        ksort($this->values);
-        $string=$this->ToUrlParams();
-        //签名部署二:在string后加入key
-        $string=$string."&key=".env('WEIXIN_MCH_KEY');
-        //签名部署三:MD5加密
-        $string =md5($string);
-        //签名部署四:所有字符转为大写
-        $result=strtoupper($string);
-        return $result;
-    }
     /*
-     * 格式化参数格式化成url参数
+     * 计算JSSDK sign
      */
-    protected function ToUrlParams(){
-        $buff = "";
-        foreach($this->values as $k =>$v){
-            if($k!="sign" && $v!=""&&!is_array($v)){
-                $buff .=$k ."=".$v."&";
-            }
+   public function getSign($jssk){
+        $jssk_url='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];//调用当前jssdk的url
+
+   }
+   /*
+    * 计算api ticket
+    */
+   public function sdkapiTick(){
+        $ticket=Redis::get($this->redis_weixin_jsapi_ticket);
+        if(!$ticket){
+            $access_token=$this->getWXAccessToken();
+            var_dump($access_token);die;
         }
-        $buff=trim($buff,"&");
-        return $buff;
-    }
+   }
 }

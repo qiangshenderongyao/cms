@@ -519,7 +519,7 @@ class WeixinController extends Controller{
     public function jssdk(){
         $this->values=[];
         $jssdkconfig=[
-            'appid' =>env('WEIXIN_APPID_0'),
+            'appid' =>env('WEIXIN_APPID'),
             'timestamp' =>time(),
             'noncestr' =>str_random(10),
         ];

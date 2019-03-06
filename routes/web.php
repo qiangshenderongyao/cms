@@ -97,3 +97,4 @@ Route::get('/weixin/login/index','weixin\WxloginController@index');
 
 //微信JS SDK调试
 Route::get('/weixin/jssdk/test','weixin\WeixinController@jssdk');
+Route::get('/ws','websocket\WsController@ws');

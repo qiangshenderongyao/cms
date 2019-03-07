@@ -139,7 +139,7 @@ class WeixinController extends Controller
     /*
      * 群发消息
      */
-    public function sendView(Content $content){
+    public function sendMsgView(Content $content){
         return $content
             ->header('微信')
             ->description('群发消息')
@@ -148,7 +148,7 @@ class WeixinController extends Controller
     /*
      * 处理群发
      */
-    public function sendViewdo(){
+    public function sendMsg(){
         //获取用户openid
         $list = WeixinUser::all()->pluck('openid')->take(10)->toArray();
 

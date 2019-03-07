@@ -72,7 +72,7 @@ Route::get('/weixin/demo','weixin\WeixinController@demo');//接收永久素材
 Route::get('/weixin/Ceshow','weixin\WeixinController@Ceshow');//创建表单
 Route::post('/weixin/wxdo','weixin\WeixinController@wxdo');//处理表单数据
 
-Route::get('/weixin/wxlist','weixin\WeixinController@wxlist');
+Route::get('/weixin/wxlist','weixin\WeixinController@wxlist');//接收永久素材
 Route::post('/weixin/upMaterialTest','weixin\WeixinController@upMaterialTest');
 Route::get('/weixin/wxpc','weixin\WeixinController@wxpc');
 //聊天

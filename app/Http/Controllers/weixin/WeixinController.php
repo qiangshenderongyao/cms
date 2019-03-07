@@ -18,7 +18,7 @@ class WeixinController extends Controller{
     {
         $this->getUserInfo(1);
     }
-
+    //接收永久素材
     public function demo(){
         $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
         $client=new GuzzleHttp\Client(['base_uri'=>$url]);
@@ -41,7 +41,7 @@ class WeixinController extends Controller{
     }
     //接收推送事件
     function weixinEven(){
-        $date = file_get_contents("php://input");
+        $date = file_get_contents("php://input");       //file_get_contents() 把整个文件读入一个字符串中
 
         //解析XML
         $xml = simplexml_load_string($date);        //将 xml字符串 转换成对象

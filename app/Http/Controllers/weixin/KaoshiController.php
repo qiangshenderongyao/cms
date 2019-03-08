@@ -6,6 +6,7 @@ use GuzzleHttp;
 use App\Model\WeixinUser;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
+use Predis\Client;
 class KaoshiController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';
     function validToken1(){
@@ -53,8 +54,6 @@ class KaoshiController extends Controller{
                         var_dump($id);
                     }
                     echo  $this->huifu($openid,$xml->ToUserName);
-                } elseif($event=='CLICK'){
-                    echo  $this->huifu($openid,$xml->ToUserName);
                 }
             }
         }
@@ -74,7 +73,25 @@ class KaoshiController extends Controller{
         return $xml;
     }
     public function weixinlist(){
-        return view('weixin.list');
+        $data=WeixinUser::paginate(2);
+        $res=['data'=>$data];
+        return view('weixin.list',$res);
+    }
+    /*
+     * 标签
+     */
+    public function listadd(){
+        $biao=Request::all();
+        var_dump($biao);
+    }
+    /*
+     * 添加标签
+     */
+    public function wxbq(){
+        $access_token=$this->access_token();
+        $url='https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token='.$access_token;
+        $res=json_decode(file_get_contents($url),true);
+
     }
     /*
      * 推动事件日志

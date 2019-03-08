@@ -98,3 +98,11 @@ Route::get('/weixin/login/index','weixin\WxloginController@index');
 //微信JS SDK调试
 Route::get('/weixin/jssdk/test','weixin\WeixinController@jssdk');
 Route::get('/ws','websocket\WsController@ws');
+
+//考试
+Route::get('/wxtd1','weixin\KaoshiController@wxtd1');
+Route::get('/validToken1','weixin\KaoshiController@validToken1');
+Route::post('/validToken1','weixin\KaoshiController@wxtd');
+Route::post('/wxtd1','weixin\KaoshiController@wxtd1');
+
+Route::get('/wxtoken','weixin\KaoshiController@access_token');

@@ -6,7 +6,7 @@ use App\Model\WeixinUser;
 use Illuminate\Support\Facades\Redis;
 class KaoshiController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';
-    public function validToken1(){
+    function validToken1(){
         echo $_GET['echostr'];
     }
     /*

@@ -38,9 +38,26 @@ class KaoshiController extends Controller{
                         ];
                         $date=WeixinUser::where($data)->get();
                     }
+                    echo  $this->huifu($openid,$xml->ToUserName);
                 }
             }
         }
+        $log=date('Y-m-d H:i:s')."\n".$date."\n<<<<<<<";
+        file_put_contents('logs/weixin_event.log',$log,FILE_APPEND);
+        return redirect('/weixin/list');
+    }
+    public function huifu($openid,$from){
+        $xml= '<xml>
+                <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                <FromUserName><![CDATA['.$from.']]></FromUserName>
+                <CreateTime>'.time().'</CreateTime>
+                <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA['. 'Hello 欢迎━(*｀∀´*)ノ亻!, 现在时间'. date('Y-m-d H:i:s') .']]></Content>
+                </xml>';
+        return $xml;
+    }
+    public function weixinlist(){
+        return view('weixin.list');
     }
     /*
      * 推动事件日志

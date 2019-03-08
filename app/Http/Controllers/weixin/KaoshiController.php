@@ -15,7 +15,7 @@ class KaoshiController extends Controller{
      * 推动事件
      */
     public function wxtd(){
-        $info=file_put_contents("php://input");
+        $info=file_get_contents("php://input");
         $xml=simplexml_load_string($info);
         $openid=$xml->FromUserName;     //  openID
         $event=$xml->Event;             //用户类型

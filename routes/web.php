@@ -60,10 +60,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //微信
 Route::get('/weixin/test','weixin\WeixinController@test');
-Route::get('/weixin/valid','weixin\WeixinController@validToken');
-Route::get('/weixin/valid1','weixin\WeixinController@validToken1');
-Route::post('/weixin/valid1','weixin\WeixinController@weixinEven');
-Route::post('/weixin/valid','weixin\WeixinController@validToken');
+//Route::get('/weixin/valid','weixin\WeixinController@validToken');
+//Route::get('/weixin/valid1','weixin\WeixinController@validToken1');
+//Route::post('/weixin/valid1','weixin\WeixinController@weixinEven');
+//Route::post('/weixin/valid','weixin\WeixinController@validToken');
 
 Route::get('/weixin/create','weixin\WeixinController@create');//创建服务号菜单
 Route::post('/weixin/create','weixin\WeixinController@create');//创建服务号菜单
@@ -102,7 +102,7 @@ Route::get('/ws','websocket\WsController@ws');
 //考试
 Route::get('/wxtd1','weixin\KaoshiController@wxtd1');
 Route::get('/validToken1','weixin\KaoshiController@validToken1');
-Route::post('/validToken1','weixin\KaoshiController@wxtd');
+Route::post('/validToken1','weixin\KaoshiController@weixinEven');
 Route::post('/wxtd1','weixin\KaoshiController@wxtd1');
 
 Route::get('/wxtoken','weixin\KaoshiController@access_token');

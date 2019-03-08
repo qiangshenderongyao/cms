@@ -44,7 +44,6 @@ class KaoshiController extends Controller{
         }
         $log=date('Y-m-d H:i:s')."\n".$info."\n<<<<<<<";
         file_put_contents('logs/weixin_event.log',$log,FILE_APPEND);
-        return redirect('/weixin/list');
     }
     public function huifu($openid,$from){
         $xml= '<xml>

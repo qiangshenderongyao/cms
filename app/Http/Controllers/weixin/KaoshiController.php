@@ -14,13 +14,82 @@ class KaoshiController extends Controller{
     /*
      * 推动事件
      */
-    public function wxtd(){
-        $info=file_get_contents("php://input");
-        $xml=simplexml_load_string($info);
-        $openid=$xml->FromUserName;     //  openID
-        $event=$xml->Event;             //用户类型
-        if(isset($xml->Msgtype)){
-            if($xml->MsgType=='event'){     //关注
+    function wxtd(){
+        $date = file_get_contents("php://input");       //file_get_contents() 把整个文件读入一个字符串中
+
+        //解析XML
+        $xml = simplexml_load_string($date);        //将 xml字符串 转换成对象
+        $openid = $xml->FromUserName;             //用户openid
+        $event = $xml->Event;                       //事件类型
+        //当用户发送信息时，会自动回复一样的信息。
+        if(isset($xml->MsgType)){                   //MsgType是类型
+            if($xml->MsgType=='text'){              //用户发送文本信息
+                $msg=$xml->Content;
+                $data=[
+                    'text' =>$xml->Content,
+                    'add_time'=>time(),
+                    'msgid'=>$xml->MsgId,
+                    'openid'=>$openid,
+                    'msg_type'=>1   //1、用户发送信息2、客服发送信息
+                ];
+                $id=WxTextModel::insertGetId($data);
+                var_dump($id);
+                /*$xml_response='<xml>
+                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                     <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
+                     <CreateTime>'.time().'</CreateTime>
+                     <MsgType><![CDATA[text]]></MsgType>
+                     <Content><![CDATA['. $msg.']]></Content>
+                     </xml>';
+                echo $xml_response;*/
+            }elseif($xml->MsgType=='image'){       //用户处理图片
+                if(1){
+                    $file_name=$this->images($xml->MediaId);
+                    $xml_response='<xml>
+                        <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                        <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
+                        <CreateTime>'.time().'</CreateTime>
+                        <MsgType><![CDATA[text]]></MsgType>
+                        <Content><![CDATA['. str_random(10) . ' >>> '.']]></Content>
+                        </xml>';
+                    echo $xml_response;
+                    //写入数据库
+                    $data = [
+                        'openid'    => $openid,
+                        'add_time'  => time(),
+                        'msg_type'  => 'image',
+                        'media_id'  => $xml->MediaId,
+                        'format'    => $xml->Format,
+                        'msg_id'    => $xml->MsgId,
+                        'local_file_name'   => $file_name
+                    ];
+                    $m_id = WxmediaModel::insertGetId($data);
+                }
+            }elseif($xml->MsgType=='voice'){        //处理语音
+                $file_name=$this->voice($xml->MediaId);
+                $data = [
+                    'openid'    => $openid,
+                    'add_time'  => time(),
+                    'msg_type'  => 'voice',
+                    'media_id'  => $xml->MediaId,
+                    'format'    => $xml->Format,
+                    'msg_id'    => $xml->MsgId,
+                    'local_file_name'   => $file_name
+                ];
+                $m_id = WxmediaModel::insertGetId($data);
+            }elseif($xml->MsgType=='video'){        //处理视频
+                $file_name=$this->video($xml->MediaId);
+                $data = [
+                    'openid'    => $openid,
+                    'add_time'  => time(),
+                    'msg_type'  => 'video',
+                    'media_id'  => $xml->MediaId,
+                    'format'    => $xml->Format,
+                    'msg_id'    => $xml->MsgId,
+                    'local_file_name'   => $file_name
+                ];
+                $m_id = WxmediaModel::insertGetId($data);
+            }elseif($xml->MsgType=='event'){                //判断事件类型
                 if($event=='subscribe'){                    //如果$event等于此字符串
                     $sub_time = $xml->CreateTime;               //扫码关注时间
 
@@ -49,11 +118,15 @@ class KaoshiController extends Controller{
                         $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                         var_dump($id);
                     }
+                } elseif($event=='CLICK'){
+                    echo  $this->kefu01($openid,$xml->ToUserName);
                 }
             }
         }
-        $log=date('Y-m-d H:i:s')."\n".$info."\n<<<<<<<";
-        file_put_contents('logs/weixin_event.log',$log,FILE_APPEND);
+        //file_get_contents() 函数把整个文件读入一个字符串中。
+        //file_put_contents() 函数把一个字符串写入文件中。
+        $log=date('Y-m-d H:i:s')."\n".$date."\n<<<<<<<";
+        file_put_contents('logs/wx_event.log',$log,FILE_APPEND);
     }
     public function huifu($openid,$from){
         $xml= '<xml>

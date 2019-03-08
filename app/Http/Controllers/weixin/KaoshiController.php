@@ -2,8 +2,10 @@
 namespace App\Http\Controllers\weixin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use GuzzleHttp;
 use App\Model\WeixinUser;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
 class KaoshiController extends Controller{
     protected $redis_weixin_access_token = 'str:weixin_access_token';
     function validToken1(){

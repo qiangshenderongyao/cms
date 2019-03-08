@@ -24,7 +24,7 @@ class KaoshiController extends Controller{
                 if($event=='subscribe'){
                     $sub_time=$xml->CreateTime;     //关注时间
                     $user_info=$this->getUserinfo($openid);
-                    $res=WeixinUser::where(['openid'=>$info])->first();
+                    $res=WeixinUser::where(['openid'=>$openid])->first();
                     if($res){
                        echo '用户已存在';
                     }else{
@@ -37,6 +37,7 @@ class KaoshiController extends Controller{
                             'subscribe_time'    => $sub_time,
                         ];
                         $date=WeixinUser::where($data)->get();
+                        var_dump($date);
                     }
                     echo  $this->huifu($openid,$xml->ToUserName);
                 }

@@ -21,14 +21,23 @@ class KaoshiController extends Controller{
         $event=$xml->Event;             //用户类型
         if(isset($xml->Msgtype)){
             if($xml->MsgType=='event'){     //关注
-                if($event=='subscribe'){
-                    $sub_time=$xml->CreateTime;     //关注时间
-                    $user_info=$this->getUserinfo($openid);
-                    $res=WeixinUser::where(['openid'=>$openid])->first();
-                    if(!$res){
-                       echo '用户已存在';
+                if($event=='subscribe'){                    //如果$event等于此字符串
+                    $sub_time = $xml->CreateTime;               //扫码关注时间
+
+                    echo 'openid: '.$openid;echo '</br>';
+                    echo '$sub_time: ' . $sub_time;
+
+                    //获取用户信息
+                    $user_info = $this->getUserInfo($openid);
+                    echo '<pre>';print_r($user_info);echo '</pre>';
+
+                    //保存用户信息
+                    $u = WeixinUser::where(['openid'=>$openid])->first();
+                    //var_dump($u);die;
+                    if($u){       //用户不存在
+                        echo '用户已存在';
                     }else{
-                        $data=[
+                        $user_data = [
                             'openid'            => $openid,
                             'add_time'          => time(),
                             'nickname'          => $user_info['nickname'],
@@ -36,7 +45,8 @@ class KaoshiController extends Controller{
                             'headimgurl'        => $user_info['headimgurl'],
                             'subscribe_time'    => $sub_time,
                         ];
-                        $id=WeixinUser::insertGetId($data);
+
+                        $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                         var_dump($id);
                     }
                 }

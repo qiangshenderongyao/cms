@@ -72,7 +72,7 @@ class KaoshiController extends Controller{
      * 推动事件日志
      */
     public function wxtd1(){
-        $data=file_put_contents("php://input");
+        $data=file_get_contents("php://input");
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/weixin_event.log',$log_str,FILE_APPEND);
     }

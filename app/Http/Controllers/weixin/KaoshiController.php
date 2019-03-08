@@ -52,6 +52,7 @@ class KaoshiController extends Controller{
                         $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                         var_dump($id);
                     }
+                    echo  $this->huifu($openid,$xml->ToUserName);
                 } elseif($event=='CLICK'){
                     echo  $this->huifu($openid,$xml->ToUserName);
                 }

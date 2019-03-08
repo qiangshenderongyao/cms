@@ -23,73 +23,7 @@ class KaoshiController extends Controller{
         $event = $xml->Event;                       //事件类型
         //当用户发送信息时，会自动回复一样的信息。
         if(isset($xml->MsgType)){                   //MsgType是类型
-            if($xml->MsgType=='text'){              //用户发送文本信息
-                $msg=$xml->Content;
-                $data=[
-                    'text' =>$xml->Content,
-                    'add_time'=>time(),
-                    'msgid'=>$xml->MsgId,
-                    'openid'=>$openid,
-                    'msg_type'=>1   //1、用户发送信息2、客服发送信息
-                ];
-                $id=WxTextModel::insertGetId($data);
-                var_dump($id);
-                /*$xml_response='<xml>
-                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                     <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
-                     <CreateTime>'.time().'</CreateTime>
-                     <MsgType><![CDATA[text]]></MsgType>
-                     <Content><![CDATA['. $msg.']]></Content>
-                     </xml>';
-                echo $xml_response;*/
-            }elseif($xml->MsgType=='image'){       //用户处理图片
-                if(1){
-                    $file_name=$this->images($xml->MediaId);
-                    $xml_response='<xml>
-                        <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                        <FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName>
-                        <CreateTime>'.time().'</CreateTime>
-                        <MsgType><![CDATA[text]]></MsgType>
-                        <Content><![CDATA['. str_random(10) . ' >>> '.']]></Content>
-                        </xml>';
-                    echo $xml_response;
-                    //写入数据库
-                    $data = [
-                        'openid'    => $openid,
-                        'add_time'  => time(),
-                        'msg_type'  => 'image',
-                        'media_id'  => $xml->MediaId,
-                        'format'    => $xml->Format,
-                        'msg_id'    => $xml->MsgId,
-                        'local_file_name'   => $file_name
-                    ];
-                    $m_id = WxmediaModel::insertGetId($data);
-                }
-            }elseif($xml->MsgType=='voice'){        //处理语音
-                $file_name=$this->voice($xml->MediaId);
-                $data = [
-                    'openid'    => $openid,
-                    'add_time'  => time(),
-                    'msg_type'  => 'voice',
-                    'media_id'  => $xml->MediaId,
-                    'format'    => $xml->Format,
-                    'msg_id'    => $xml->MsgId,
-                    'local_file_name'   => $file_name
-                ];
-                $m_id = WxmediaModel::insertGetId($data);
-            }elseif($xml->MsgType=='video'){        //处理视频
-                $file_name=$this->video($xml->MediaId);
-                $data = [
-                    'openid'    => $openid,
-                    'add_time'  => time(),
-                    'msg_type'  => 'video',
-                    'media_id'  => $xml->MediaId,
-                    'format'    => $xml->Format,
-                    'msg_id'    => $xml->MsgId,
-                    'local_file_name'   => $file_name
-                ];
-                $m_id = WxmediaModel::insertGetId($data);
-            }elseif($xml->MsgType=='event'){                //判断事件类型
+            if($xml->MsgType=='event'){                //判断事件类型
                 if($event=='subscribe'){                    //如果$event等于此字符串
                     $sub_time = $xml->CreateTime;               //扫码关注时间
 
@@ -119,7 +53,7 @@ class KaoshiController extends Controller{
                         var_dump($id);
                     }
                 } elseif($event=='CLICK'){
-                    echo  $this->kefu01($openid,$xml->ToUserName);
+                    echo  $this->huifu($openid,$xml->ToUserName);
                 }
             }
         }

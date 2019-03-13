@@ -9,6 +9,7 @@
             <td>sex</td>
             <td>headimgurl</td>
             <td>标签</td>
+            <td>黑名单</td>
         </tr>
         @foreach($data as $k=>$v)
         <tr>
@@ -22,6 +23,7 @@
                 {{$v['biaoqian']}}
                 @endif
             </td>
+            <td></td>
         </tr>
         @endforeach
         {{$data->links()}}

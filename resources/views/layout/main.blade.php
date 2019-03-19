@@ -16,6 +16,7 @@
 @section('foot')
     <script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>
     <script src="{{URL::asset('/bootstrap/js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="https://s23.cnzz.com/z_stat.php?id=1276680346&web_id=1276680346"></script>
 @show
 </body>
 </html>

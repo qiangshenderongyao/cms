@@ -109,4 +109,4 @@ Route::get('/wxtoken','weixin\KaoshiController@access_token');
 Route::get('/weixin/list','weixin\KaoshiController@weixinlist');
 Route::post('/weixin/listadd','weixin\KaoshiController@weixinlistadd');
 
-Route::get('/hbuired/api','test\TestController@test1');
+Route::post('/hbuired/api','test\TestController@test1');

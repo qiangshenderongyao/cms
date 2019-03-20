@@ -110,3 +110,4 @@ Route::get('/weixin/list','weixin\KaoshiController@weixinlist');
 Route::post('/weixin/listadd','weixin\KaoshiController@weixinlistadd');
 
 Route::post('/hbuired/api','test\TestController@test1');
+Route::post('/hbuired/api2','test\TestController@test2');

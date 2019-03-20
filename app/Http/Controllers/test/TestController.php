@@ -8,7 +8,7 @@ class TestController extends Controller{
             'name'=>'枪神',
             'age'=>20
         ];
-        return $data;
+       echo json_encode($data);
     }
 }
 ?>

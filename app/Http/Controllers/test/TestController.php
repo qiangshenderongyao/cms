@@ -16,7 +16,7 @@ class TestController extends Controller{
         $res=json_encode($info);
         if(!empty($res['username'])&&!empty($res['password'])){
             $where=['username'=>$res['username'],'password'=>$res['password']];
-            $data=DB::table('testuser')->where($where)->first();
+            $data=DB::table('testuser')->where($where)->first()->toArray();
             if($res['username']==$data['username']&&$res['password']==$data['password']){
                 echo 'success';
             }else{

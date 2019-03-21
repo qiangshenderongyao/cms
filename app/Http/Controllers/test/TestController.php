@@ -3,6 +3,8 @@ namespace App\Http\Controllers\test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
+
 class TestController extends Controller{
     public function test1(){
         $data=[
@@ -26,6 +28,44 @@ class TestController extends Controller{
         //记录日志
         $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
         file_put_contents('logs/test_api2.log',$log_str,FILE_APPEND);
+    }
+    public function start(){
+        $redirect=$_GET['redirect'] ?? env('SHOP_URL');//上一级路径
+        $data=['redirect'=>$redirect];
+        return view('test.start',$data);
+    }
+    public function str(Request $request){
+        echo '<pre>';print_r($_POST);echo '</pre>';
+        $cname=request()->post('username');
+        $password=request()->input('password');
+        $redirect=$request->input('redirect') ?? env('SHOP_URL');
+        $where=['username'=>$cname];
+        $data=DB::table('testuser')->where($where)->first();
+        if($data){
+            //password_verify密码解密 接收密码和数据库表中密码
+            if( password_verify($password,$data->password) ){
+                //substr(字符串,开始位置,长度);
+                $token = substr(md5(time().mt_rand(1,99999)),10,10);
+                //名称,值,有效期,服务器路径,域名,安全。
+                setcookie('unid',$data->unid,time()+86400,'/','',false,true);
+                setcookie('token',$token,time()+86400,'/','',false,true);
+                // dump($token);die;
+                $request->session()->put('u_token',$token);
+                $request->session()->put('unid',$data->unid);
+                //记录web登录token
+                $redis_key_web_token='str:uid:token:'.$data->unid;
+                Redis::set($redis_key_web_token,$token);
+                Redis::expire($redis_key_web_token,86400);
+                header("Refresh:3;url=".$redirect);
+                echo '登录成功';
+                // return redirect('/center');die;
+            }else{
+                echo '登录失败';
+                // return redirect('/login');die;
+            }
+        }else{
+            echo("用户不存在");die;
+        }
     }
 }
 ?>

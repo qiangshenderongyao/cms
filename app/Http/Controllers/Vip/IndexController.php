@@ -49,7 +49,7 @@ class IndexController extends Controller
         $cname=request()->post('cname');
         $password=request()->input('password');
         $res=DB::table('ceshi')->where(['cname'=>$cname])->first();
-        // dump($res);die;
+//         var_dump($res);die;
         if($res){
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$res->password) ){

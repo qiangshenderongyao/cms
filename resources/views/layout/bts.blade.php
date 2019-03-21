@@ -43,7 +43,13 @@
                             <li><a href="#">One more separated link</a></li>
                         </ul>
                     </li>
-                    <li><a href="/login">登录</a></li>
+                    <li>@if(empty(session()->get('unid')))
+                            <a href="/test/start">未登录</a>
+                        @else
+                            <a>已登录</a>
+                        @endif
+                    </li>
+                    <li><a href="/mylogin">登录</a></li>
                     <li><a href="/logou">退出</a></li>
                 </ul>
             </div><!--/.nav-collapse -->

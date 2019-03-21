@@ -21,6 +21,10 @@ class TestController extends Controller{
                 echo 'error-no';
             }
         }
+        $data=file_get_contents("php://input");
+        //记录日志
+        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
+        file_put_contents('logs/test_api2.log',$log_str,FILE_APPEND);
     }
 }
 ?>

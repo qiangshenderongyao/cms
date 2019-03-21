@@ -13,7 +13,7 @@ class TestController extends Controller{
     }
     public function test2(Request $request){
         $info=$request->all();
-        $res=json_encode($info);
+        $res=json_decode($info);
         if(!empty($res['username'])&&!empty($res['password'])){
             $where=['username'=>$res['username'],'password'=>$res['password']];
             $data=DB::table('testuser')->where($where)->first()->toArray();

@@ -15,7 +15,7 @@ class TestController extends Controller{
         $info=$request->all();
         if(!empty($info['username'])&&!empty($info['password'])){
             $where=['username'=>$info['username'],'password'=>$info['password']];
-            $data=DB::table('testuser')->where($where)->first()->toArray();
+            $data=DB::table('testuser')->where($where)->first();
             if($info['username']==$data['username']&&$info['password']==$data['password']){
                 echo 'success';
             }else{

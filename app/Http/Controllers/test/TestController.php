@@ -89,8 +89,8 @@ class TestController extends Controller{
                 $redis_key_web_token='str:uid:token:'.$data->unid;
                 Redis::set($redis_key_web_token,$token);
                 Redis::expire($redis_key_web_token,86400);
-//                header("Refresh:3;url=".$redirect);
-                header("Refresh:3;url='http://1807.96myshop.cn/center'");
+                $update=['delu'=>1];
+                $dd=DB::table('testuser')->where($where)->update($update);
                 echo '登录成功';
             }else{
                 echo '登录失败';

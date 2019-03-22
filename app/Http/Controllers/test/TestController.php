@@ -90,10 +90,10 @@ class TestController extends Controller{
                 Redis::set($redis_key_web_token,$token);
                 Redis::expire($redis_key_web_token,86400);
                 header("Refresh:3;url=".$redirect);
-                echo '登录成功';
+                return '登录成功';
                 // return redirect('/center');die;
             }else{
-                echo '登录失败';
+                return  '登录失败';
                 // return redirect('/login');die;
             }
         }else{

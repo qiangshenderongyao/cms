@@ -91,7 +91,7 @@ class TestController extends Controller{
                 Redis::expire($redis_key_web_token,86400);
                 header("Refresh:3;url=".$redirect);
                 echo '登录成功';
-                // return redirect('/center');die;
+                 return redirect('http://1807.96myshop.cn/center');
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;

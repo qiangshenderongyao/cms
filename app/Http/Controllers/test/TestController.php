@@ -68,6 +68,10 @@ class TestController extends Controller{
         }
     }
     public function one(Request $request){
+        $data=file_get_contents("php://input");
+        //记录日志
+        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
+        file_put_contents('logs/test_one.log',$log_str,FILE_APPEND);
         echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('username');
         $password=request()->input('password');
@@ -99,10 +103,6 @@ class TestController extends Controller{
         }else{
             echo("用户不存在");die;
         }
-        $data=file_get_contents("php://input");
-        //记录日志
-        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
-        file_put_contents('logs/test_one.log',$log_str,FILE_APPEND);
     }
     public function testone(Request $request){
         $cname=request()->input('username');

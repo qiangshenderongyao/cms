@@ -88,7 +88,7 @@ class TestController extends Controller{
                 //记录web登录token
                 $redis_key_web_token='str:uid:token:'.$data->unid;
                 Redis::del($redis_key_web_token);
-                Redis::hset($redis_key_web_token,'andiron',$token);
+                Redis::hset($redis_key_web_token,'Android',$token);
 //                Redis::set($redis_key_web_token,$token);
 //                Redis::expire($redis_key_web_token,86400);
                 $update=['delu'=>1];

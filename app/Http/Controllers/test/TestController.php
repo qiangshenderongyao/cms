@@ -74,6 +74,7 @@ class TestController extends Controller{
         $redirect=$request->input('redirect') ?? env('SHOP_URL');
         $where=['cname'=>$cname];
         $data=DB::table('ceshi')->where($where)->first();
+        var_dump($data);die;
         if($data){
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$data->password) ){

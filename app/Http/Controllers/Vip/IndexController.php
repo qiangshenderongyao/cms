@@ -75,19 +75,19 @@ class IndexController extends Controller
         return view('1805.ce');
     }
     public function center(Request $request){
-        var_dump($_COOKIE);die;
+//        var_dump($_COOKIE);die;
         //如果cookie和session里的值
-        if($_COOKIE['token']!=$request->session()->get('u_token')){
-            die('非法请求');
-        }else{
-            echo '正常请求';
-        }
-        echo 'u_token:'.$request->session()->get('u_token');echo '</br>';
-        echo '<pre>';print_r($_COOKIE);echo '</pre>';
-        return redirect('/cart');
-        die;
+//        if($_COOKIE['token']!=$request->session()->get('u_token')){
+//            die('非法请求');
+//        }else{
+//            echo '正常请求';
+//        }
+//        echo 'u_token:'.$request->session()->get('u_token');echo '</br>';
+//        echo '<pre>';print_r($_COOKIE);echo '</pre>';
+//        return redirect('/cart');
+//        die;
         if(empty($_COOKIE['uid'])){
-            return redirect('/login');
+            return redirect('/mylogin');
             echo '请先登录';
             exit;
         }else{

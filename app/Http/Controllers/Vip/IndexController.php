@@ -61,6 +61,9 @@ class IndexController extends Controller
                 // dump($token);die;
                 $request->session()->put('u_token',$token);
                 $request->session()->put('uid',$res->uid);
+                $redis_key_web_token='str:uid:token:'.$res->unid;
+                Redis::del($redis_key_web_token);
+                Redis::hset($redis_key_web_token,'web',$token);
                 echo '登录成功';
                  return redirect('/center');die;
             }else{

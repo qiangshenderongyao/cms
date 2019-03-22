@@ -75,6 +75,7 @@ class IndexController extends Controller
         return view('1805.ce');
     }
     public function center(Request $request){
+        var_dump($_COOKIE);die;
         //如果cookie和session里的值
         if($_COOKIE['token']!=$request->session()->get('u_token')){
             die('非法请求');

@@ -119,7 +119,6 @@ class TestController extends Controller{
         curl_setopt($ch,CURLOPT_HEADER,0);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $res=curl_exec($ch);     //接收响应
-        var_dump($res);die;
         $response=json_decode($res,true);
         if($response['errno']==0){
             $response=[

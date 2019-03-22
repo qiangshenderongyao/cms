@@ -120,13 +120,11 @@ class TestController extends Controller{
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $res=curl_exec($ch);     //接收响应
         $response=json_decode($res,true);
-        if($response['errno']==0){
             $response=[
                 'errno'=>0,
                 'msg'=>'登录成功',
                 'token'=>$response['token']
             ];
-        }
         return $response;
     }
 }

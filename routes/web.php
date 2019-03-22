@@ -114,3 +114,4 @@ Route::post('/hbuired/api2','test\TestController@test2');
 Route::get('/test/start','test\TestController@start');
 Route::post('/test/str','test\TestController@str');
 Route::post('/test/one','test\TestController@one');
+Route::post('/testone','test\TestController@testone');

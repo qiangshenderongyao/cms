@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 use App\Model\Test;
 class IndexController extends Controller
 {

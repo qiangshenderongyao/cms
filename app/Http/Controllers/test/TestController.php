@@ -99,6 +99,10 @@ class TestController extends Controller{
         }else{
             echo("用户不存在");die;
         }
+        $data=file_get_contents("php://input");
+        //记录日志
+        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
+        file_put_contents('logs/test_one.log',$log_str,FILE_APPEND);
     }
 }
 ?>

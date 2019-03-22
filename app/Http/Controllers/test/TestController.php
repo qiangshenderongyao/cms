@@ -92,11 +92,11 @@ class TestController extends Controller{
 //                Redis::set($redis_key_web_token,$token);
 //                Redis::expire($redis_key_web_token,86400);
                 $reponse=[
-                    'errno'=>0,
-                    'name'=>'登录成功',
+                    'status'=>200,
+                    'msg'=>'登录成功',
                     'token'=>$token
                 ];
-                return $reponse;
+                return json_encode($reponse);
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;

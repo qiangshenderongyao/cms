@@ -62,7 +62,7 @@ class IndexController extends Controller
                 $request->session()->put('u_token',$token);
                 $request->session()->put('uid',$res->uid);
                 echo '登录成功';
-                // return redirect('/center');die;
+                 return redirect('/center');die;
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;

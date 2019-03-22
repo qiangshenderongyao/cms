@@ -72,8 +72,8 @@ class TestController extends Controller{
         $cname=request()->post('username');
         $password=request()->input('password');
         $redirect=$request->input('redirect') ?? env('SHOP_URL');
-        $where=['username'=>$cname];
-        $data=DB::table('testuser')->where($where)->first();
+        $where=['cname'=>$cname];
+        $data=DB::table('ceshi')->where($where)->first();
         if($data){
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$data->password) ){
@@ -113,7 +113,7 @@ class TestController extends Controller{
         $cname=request()->input('username');
         $password=request()->input('password');
         $data=[
-            'username'=>$cname,
+            'cname'=>$cname,
             'password'=>$password
         ];
         $url="http://1807.96myshop.cn/test/one";

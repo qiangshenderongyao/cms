@@ -91,9 +91,12 @@ class TestController extends Controller{
                 Redis::hset($redis_key_web_token,'Android',$token);
 //                Redis::set($redis_key_web_token,$token);
 //                Redis::expire($redis_key_web_token,86400);
-                $update=['delu'=>1];
-                $dd=DB::table('testuser')->where($where)->update($update);
-                echo '登录成功';
+                $reponse=[
+                    'errno'=>0,
+                    'name'=>'登录成功',
+                    'token'=>$token
+                ];
+                return $reponse;
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;

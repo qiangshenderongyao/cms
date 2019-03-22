@@ -71,9 +71,9 @@ class TestController extends Controller{
         echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('username');
         $password=request()->input('password');
-//        $redirect=$request->input('redirect') ?? env('SHOP_URL');
-        $data=DB::table('ceshi')->where(['cname'=>$cname])->first();
-        var_dump($data);die;
+        $redirect=$request->input('redirect') ?? env('SHOP_URL');
+        $where=['username'=>$cname];
+        $data=DB::table('testuser')->where($where)->first();
         if($data){
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$data->password) ){
@@ -96,7 +96,7 @@ class TestController extends Controller{
                     'msg'=>'登录成功',
                     'token'=>$token
                 ];
-                echo json_encode($reponse);
+                echo  json_encode($reponse);
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;
@@ -113,7 +113,7 @@ class TestController extends Controller{
         $cname=request()->input('username');
         $password=request()->input('password');
         $data=[
-            'cname'=>$cname,
+            'username'=>$cname,
             'password'=>$password
         ];
         $url="http://1807.96myshop.cn/test/one";
@@ -124,7 +124,6 @@ class TestController extends Controller{
         curl_setopt($ch,CURLOPT_HEADER,0);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $res=curl_exec($ch);     //接收响应
-        var_dump($res);die;
         $response=json_decode($res,true);
         return $response;
     }

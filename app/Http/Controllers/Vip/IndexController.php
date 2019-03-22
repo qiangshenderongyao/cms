@@ -56,7 +56,7 @@ class IndexController extends Controller
                 //substr(字符串,开始位置,长度);
                 $token = substr(md5(time().mt_rand(1,99999)),10,10);
                 //名称,值,有效期,服务器路径,域名,安全。
-                setcookie('uid',$res->unid,time()+86400,'/','',false,true);
+                setcookie('unid',$res->unid,time()+86400,'/','',false,true);
                 setcookie('token',$token,time()+86400,'/','',false,true);
                 // dump($token);die;
                 $request->session()->put('u_token',$token);

@@ -96,7 +96,7 @@ class TestController extends Controller{
                     'msg'=>'登录成功',
                     'token'=>$token
                 ];
-                return json_encode($reponse);
+                echo  json_encode($reponse);
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;
@@ -124,8 +124,8 @@ class TestController extends Controller{
         curl_setopt($ch,CURLOPT_HEADER,0);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $res=curl_exec($ch);     //接收响应
-        $respones=json_decode($res,true);
-        return $respones;
+        $response=json_decode($res,true);
+        return $response;
     }
 }
 ?>

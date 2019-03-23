@@ -46,6 +46,8 @@ class IndexController extends Controller
         return view('login.login');
     }
     public function loginadd(Request $request){
+        session_start();
+        session_destroy();//清除SESSION值.
         echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('cname');
         $password=request()->input('password');
@@ -72,13 +74,19 @@ class IndexController extends Controller
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'web'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'web'.$ss);
-                echo $sss;echo '<hr>';
-                echo $token;
-                if(!$key==$sss){
-                    $_SESSION = array(); //清除SESSION值.
+                echo $sss;echo '<hr>';die;
+                if(($key!==$sss)==true){
+                    echo '此用户已在登录';
+
                     return redirect('/mylogin');
                     die;
                 }
+//                echo $token;
+//                if(!$key==$sss){
+//                    $_SESSION = array(); //清除SESSION值.
+//                    return redirect('/mylogin');
+//                    die;
+//                }
                 echo '登录成功';
 //                 return redirect('/center');die;
             }else{

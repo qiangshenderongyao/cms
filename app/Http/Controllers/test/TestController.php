@@ -79,6 +79,7 @@ class TestController extends Controller{
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$data->password) ){
                 //substr(字符串,开始位置,长度);
+                session_start();
                 $token = substr(md5(time().mt_rand(1,99999)),10,10);
                 //名称,值,有效期,服务器路径,域名,安全。
                 setcookie('unid',$data->unid,time()+86400,'/','',false,true);
@@ -98,8 +99,8 @@ class TestController extends Controller{
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);
                 if(!$key==$sss){
-                    $_SESSION = array(); //清除SESSION值.
                     echo '此用户已在登录';
+                    session_destroy();//清除SESSION值.
                     return redirect('http://1807.96myshop.cn/test/one');
                     die;
                 }
@@ -141,11 +142,6 @@ class TestController extends Controller{
         var_dump($res);die;
         $response=json_decode($res,true);
         return $response;
-    }
-    public function cs(){
-        for( $i = 1; $i = 10; $i ++ ) {
-            echo $i;
-        }
     }
 }
 ?>

@@ -88,11 +88,13 @@ class TestController extends Controller{
                 $request->session()->put('unid',$data->unid);
                 //记录web登录token
                 $redis_key_web_token='str:uid:token:'.$data->unid;
-                Redis::del($redis_key_web_token);
                 $ss=rand(1,100);
+                $ssp=Redis::hget($redis_key_web_token);
+                var_dump($ssp);
+                Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
-                $ssp=Redis::hget($redis_key_web_token,'Android'.$ss);
-                echo $ssp;echo '<hr>';
+                $sss=Redis::hget($redis_key_web_token,'Android'.$ss);
+                echo $sss;echo '<hr>';
                 echo $token;
                 if(!$token==$ssp){
                     $_SESSION = array(); //清除SESSION值.

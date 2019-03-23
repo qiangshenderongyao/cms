@@ -63,11 +63,13 @@ class IndexController extends Controller
                 $request->session()->put('u_token',$token);
                 $request->session()->put('uid',$res->uid);
                 $redis_key_web_token='str:uid:token:'.$res->uid;
-                Redis::del($redis_key_web_token);
                 $ss=rand(1,100);
+                $ssp=Redis::hgetall($redis_key_web_token);
+               var_dump($ssp);echo '<hr>';
+                Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'web'.$ss,$token);
-                $ssp=Redis::hget($redis_key_web_token,'web'.$ss);
-                echo $ssp;echo '<hr>';
+                $sss=Redis::hget($redis_key_web_token,'web'.$ss);
+                echo $sss;echo '<hr>';
                 echo $token;
                 if(!$token==$ssp){
                     $_SESSION = array(); //清除SESSION值.

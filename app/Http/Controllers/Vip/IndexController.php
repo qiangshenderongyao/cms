@@ -74,7 +74,7 @@ class IndexController extends Controller
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'web'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'web'.$ss);
-                echo $sss;echo '<hr>';die;
+                echo $sss;echo '<hr>';
                 if(($key!==$sss)==true){
                     echo '此用户已在登录';
 

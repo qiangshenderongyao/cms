@@ -32,6 +32,7 @@ class VerifyCsrfToken extends Middleware
         '/pay/alipay/notify',
         '/hbuired/api',
         '/hbuired/api2',
-        '/testone'
+        '/testone',
+        '/mylogin/*'
     ];
 }

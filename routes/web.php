@@ -27,7 +27,7 @@ Route::post('/update_add','TestController@update_add');
 Route::any('/zhu','Vip\IndexController@zhu');
 Route::any('/zhuce','Vip\IndexController@zhuce');
 Route::any('/mylogin','Vip\IndexController@login');
-Route::post('/loginadd','Vip\IndexController@loginadd');
+Route::post('/mylogin/add','Vip\IndexController@loginadd');
 Route::any('/ce','Vip\IndexController@ce');
 Route::any('/center','Vip\IndexController@center');
 Route::get('/check_cookie','TestController@checkCookie')->middleware('check.cookie');

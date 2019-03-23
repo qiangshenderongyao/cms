@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('content')
-	<form action="/loginadd" method="post">
+	<form action="/mylogin/add" method="post">
     @csrf
     <table>
         <h2>用户登录</h2>

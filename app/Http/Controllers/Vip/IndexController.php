@@ -63,7 +63,7 @@ class IndexController extends Controller
                 $request->session()->put('u_token',$token);
                 $request->session()->put('uid',$res->uid);
                 $redis_key_web_token='str:uid:token:'.$res->uid;
-//                Redis::del($redis_key_web_token);
+                Redis::del($redis_key_web_token);
                 $ss=rand(1,100);
                 Redis::hset($redis_key_web_token,'web'.$ss,$token);
                 $ssp=Redis::hget($redis_key_web_token,'web'.$ss);

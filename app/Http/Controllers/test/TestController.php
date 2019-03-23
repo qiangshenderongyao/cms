@@ -90,13 +90,16 @@ class TestController extends Controller{
                 $redis_key_web_token='str:uid:token:'.$data->unid;
                 $ss=rand(1,100);
                 $ssp=Redis::hgetall($redis_key_web_token);
-                var_dump($ssp);echo '<hr>';
+                foreach($ssp as $k=>$v){
+                    $key=$ssp[$k];
+                }
+                echo $key;echo '<hr>';
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);
                 echo $sss;echo '<hr>';
                 echo $token;
-                if(!$token==$ssp){
+                if(!$key==$sss){
                     $_SESSION = array(); //清除SESSION值.
                     return redirect('http://1807.96myshop.cn/test/one');
                     die;

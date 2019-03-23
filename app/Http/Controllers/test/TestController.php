@@ -89,8 +89,8 @@ class TestController extends Controller{
                 //记录web登录token
                 $redis_key_web_token='str:uid:token:'.$data->unid;
                 $ss=rand(1,100);
-                $ssp=Redis::hget($redis_key_web_token);
-                var_dump($ssp);
+                $ssp=Redis::hgetall($redis_key_web_token);
+                var_dump($ssp);echo '<hr>';
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);

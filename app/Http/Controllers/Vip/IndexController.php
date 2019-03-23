@@ -64,9 +64,18 @@ class IndexController extends Controller
                 $request->session()->put('uid',$res->uid);
                 $redis_key_web_token='str:uid:token:'.$res->uid;
                 Redis::del($redis_key_web_token);
-                Redis::hset($redis_key_web_token,'web',$token);
+                $ss=rand(1,100);
+                Redis::hset($redis_key_web_token,'web'.$ss,$token);
+                $ssp=Redis::hget($redis_key_web_token,'web'.$ss);
+                echo $ssp;echo '<hr>';
+                echo $token;
+                if(!$token==$ssp){
+                    $_SESSION = array(); //清除SESSION值.
+                    return redirect('/mylogin');
+                    die;
+                }
                 echo '登录成功';
-                 return redirect('/center');die;
+//                 return redirect('/center');die;
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;

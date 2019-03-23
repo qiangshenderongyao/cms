@@ -89,7 +89,16 @@ class TestController extends Controller{
                 //记录web登录token
                 $redis_key_web_token='str:uid:token:'.$data->unid;
                 Redis::del($redis_key_web_token);
-                Redis::hset($redis_key_web_token,'Android',$token);
+                $ss=rand(1,100);
+                Redis::hset($redis_key_web_token,'Android'.$ss,$token);
+                $ssp=Redis::hget($redis_key_web_token,'Android'.$ss);
+                echo $ssp;echo '<hr>';
+                echo $token;
+                if(!$token==$ssp){
+                    $_SESSION = array(); //清除SESSION值.
+                    return redirect('http://1807.96myshop.cn/test/one');
+                    die;
+                }
 //                Redis::set($redis_key_web_token,$token);
 //                Redis::expire($redis_key_web_token,86400);
                 $reponse=[
@@ -128,6 +137,11 @@ class TestController extends Controller{
         var_dump($res);die;
         $response=json_decode($res,true);
         return $response;
+    }
+    public function cs(){
+        for( $i = 1; $i = 10; $i ++ ) {
+            echo $i;
+        }
     }
 }
 ?>

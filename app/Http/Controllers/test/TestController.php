@@ -97,10 +97,9 @@ class TestController extends Controller{
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);
-                echo $sss;echo '<hr>';
-                echo $token;
                 if(!$key==$sss){
                     $_SESSION = array(); //清除SESSION值.
+                    echo '此用户已在登录';
                     return redirect('http://1807.96myshop.cn/test/one');
                     die;
                 }

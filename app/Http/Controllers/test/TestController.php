@@ -164,11 +164,15 @@ class TestController extends Controller{
     }
     public function onestart(){
         $data=GoodsModel::all();
-        var_dump($data);die;
+//        var_dump($data);die;
         if(!$data){
             echo '商品不存在';exit;
         }
         echo $data;
+        $data=file_get_contents("php://input");
+        //记录日志
+        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
+        file_put_contents('logs/test_one.log',$log_str,FILE_APPEND);
     }
 }
 ?>

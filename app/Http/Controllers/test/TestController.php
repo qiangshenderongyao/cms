@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-
+use App\Model\GoodsModel;
 class TestController extends Controller{
     public function test1(){
         $data=[
@@ -143,6 +143,26 @@ class TestController extends Controller{
 //        var_dump($res);
 //        $response=json_decode($res,true);
 //        return $response;
+    }
+    /*
+     * 首页
+     */
+    public function startest(){
+        $url="http://1807.96myshop.cn/startest/onstart";
+        $ch=curl_init();    //创建新的curl资源
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_HEADER,0);
+        $res=curl_exec($ch);     //接收响应
+        return $res;
+    }
+    public function onestart(){
+        $data=GoodsModel::paginate(2);
+        if(!$data){
+            echo '商品不存在';exit;
+        }
+        echo $data;
     }
 }
 ?>

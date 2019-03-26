@@ -104,8 +104,8 @@ class TestController extends Controller{
                 if(($key!==$sss)==true){
                     echo '此用户已在登录';
                     session_destroy();//清除SESSION值.
-                    return redirect('http://1807.96myshop.cn/test/one');
-                    die;
+//                    return redirect('http://1807.96myshop.cn/test/one');
+//                    die;
                 }
 //                Redis::set($redis_key_web_token,$token);
 //                Redis::expire($redis_key_web_token,86400);
@@ -142,7 +142,8 @@ class TestController extends Controller{
         curl_setopt($ch,CURLOPT_HEADER,0);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $res=curl_exec($ch);     //接收响应
-        var_dump($res);die;
+        return $res;
+//        var_dump($res);die;
         $response=json_decode($res,true);
         return $response;
     }

@@ -68,7 +68,7 @@ class TestController extends Controller{
         }
     }
     public function one(Request $request){
-        echo '<pre>';print_r($_POST);echo '</pre>';
+//        echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('username');
         $password=request()->input('password');
         $redirect=$request->input('redirect') ?? env('SHOP_URL');
@@ -94,7 +94,7 @@ class TestController extends Controller{
                 foreach($ssp as $k=>$v){
                     $key=$ssp[$k];
                 }
-                echo $key;echo '<hr>';
+//                echo $key;echo '<hr>';
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);

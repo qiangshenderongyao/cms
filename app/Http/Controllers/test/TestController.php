@@ -111,8 +111,7 @@ class TestController extends Controller{
                     'msg'=>'登录成功',
                     'token'=>$token
                 ];
-                echo $reponse;
-//                echo  json_encode($reponse);
+                echo  json_encode($reponse);
             }else{
                 echo '登录失败';
                 // return redirect('/login');die;

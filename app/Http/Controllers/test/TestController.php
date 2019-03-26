@@ -148,17 +148,23 @@ class TestController extends Controller{
      * 首页
      */
     public function startest(){
+        $data=[
+            'username'=>'',
+            'password'=>''
+        ];
         $url="http://1807.96myshop.cn/startest/onstart";
         $ch=curl_init();    //创建新的curl资源
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_POST,1);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
         curl_setopt($ch,CURLOPT_HEADER,0);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $res=curl_exec($ch);     //接收响应
         return $res;
     }
     public function onestart(){
         $data=GoodsModel::all();
+        var_dump($data);die;
         if(!$data){
             echo '商品不存在';exit;
         }

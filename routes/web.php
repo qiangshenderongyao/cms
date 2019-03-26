@@ -116,3 +116,4 @@ Route::post('/test/str','test\TestController@str');
 Route::post('/test/one','test\TestController@one');
 Route::post('/testone','test\TestController@testone');
 Route::get('/cs','test\TestController@cs');
+Route::get('/firstcenter','test\TestController@firstcenter');

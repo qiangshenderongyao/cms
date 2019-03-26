@@ -140,9 +140,9 @@ class TestController extends Controller{
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         $res=curl_exec($ch);     //接收响应
 //        return $res;
-        var_dump($res);
-//        $response=json_decode($res,true);
-//        return $response;
+//        var_dump($res);
+        $response=json_decode($res,true);
+        return $response;
     }
 }
 ?>

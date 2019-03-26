@@ -85,11 +85,8 @@ class TestController extends Controller{
                 setcookie('unid',$data->unid,time()+86400,'/','',false,true);
                 setcookie('token',$token,time()+86400,'/','',false,true);
                 // dump($token);die;
-                localStorage.setItem("u_token",$token);     //设置数据
-                localStorage.setItem("unid",$data->unid);   //设置数据
-                localStorage.getItem("u_token");            //读取数据
-//                $request->session()->put('u_token',$token);
-//                $request->session()->put('unid',$data->unid);
+                $request->session()->put('u_token',$token);
+                $request->session()->put('unid',$data->unid);
                 //记录web登录token
                 $redis_key_web_token='str:uid:token:'.$data->unid;
                 $ss=rand(1,100);

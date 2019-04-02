@@ -9,7 +9,7 @@
                 <td>身份证号</td>
                 <td>类型</td>
                 <td>app_key</td>
-                <td>app_secert</td>
+                <td>app_secret</td>
                 <td>状态</td>
                 <td>理由</td>
             </tr>
@@ -19,7 +19,7 @@
                     <td>{{$v['shenfen']}}</td>
                     <td>{{$v['yt']}}</td>
                     <td>{{$v['app_key']}}</td>
-                    <td>{{$v['app_secert']}}</td>
+                    <td>{{$v['app_secret']}}</td>
                     <td>{{$v['status']}}</td>
                     <td>{{$v['liyou']}}</td>
                 </tr>

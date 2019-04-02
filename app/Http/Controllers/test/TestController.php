@@ -229,18 +229,25 @@ class TestController extends Controller{
         }
     }
     public function fafang(){
-        $app_key= rand(11111,99999) . rand(2222,9999);
-        $str='0123456789abcdefghijklmnopqrstuvwxyz+-*/';
-        $app_secret=substr(str_shuffle($str),rand(1,20),16);
-        $where=[
-            'app_key'=>$app_key,
-            'app_secret'=>$app_secret
-        ];
+        $id=request()->get('id');
+        $status=KsModel::where('id',$id)->first();
+        if($status==2 || $status==0){
+            return '你未通过';
+        }else{
+            $app_key= rand(11111,99999) . rand(2222,9999);
+            $str='0123456789abcdefghijklmnopqrstuvwxyz+-*/';
+            $app_secret=substr(str_shuffle($str),rand(1,20),16);
+            $where=[
+                'app_key'=>$app_key,
+                'app_secret'=>$app_secret
+            ];
 //        var_dump($where);die;
-        $data=KsModel::where('id',2)->update($where);
-        if($data){
-            return 'app_key与app_secret发放成功';
+            $data=KsModel::where('id',2)->update($where);
+            if($data){
+                return 'app_key与app_secret发放成功';
+            }
         }
+
     }
     public function kslist(){
         $data=KsModel::paginate(2);

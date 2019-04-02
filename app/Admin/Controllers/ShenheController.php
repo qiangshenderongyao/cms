@@ -120,7 +120,7 @@ class ShenheController extends Controller
     {
         $form = new Form(new KsModel);
 
-        $form->id('Sid');
+        $form->sid('Sid');
         $form->sname('sname');
         $form->shenfen('shenfen');
         $form->yt('yt');

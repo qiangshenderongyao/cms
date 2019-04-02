@@ -229,8 +229,9 @@ class TestController extends Controller{
         }
     }
     public function fafang(){
-        $app_key=ksModel::app_key();
-        $app_secret=ksModel::app_secret();
+        $app_key= rand(11111,99999) . rand(2222,9999);
+        $str='0123456789abcdefghijklmnopqrstuvwxyz+-*/';
+        $app_secret=substr(str_shuffle($str),rand(1,20),6);
         $where=[
             'app_key'=>$app_key,
             'app_secret'=>$app_secret

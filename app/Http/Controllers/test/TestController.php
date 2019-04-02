@@ -200,7 +200,7 @@ class TestController extends Controller{
     }
     //文件上传
     public function upload(){
-        $file=request()->file('file');// 获取表单上传文件 例如上传了001.jpg
+        $file=request()->post('file');// 获取表单上传文件 例如上传了001.jpg
         var_dump($file);die;
         // 移动到框架应用根目录/public/uploads/goods 目录下
         $info=$file->move(ROOT_PATH.'public'.DS.'uploads'.DS.'goods');

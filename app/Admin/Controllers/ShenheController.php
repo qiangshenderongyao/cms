@@ -133,7 +133,7 @@ class ShenheController extends Controller
           'app_key'=>$app_key,
           'app_secret'=>$app_secret
         ];
-        $data=KsModel::where($where)->update();
+        $data=KsModel::upload($where);
         if($data){
             return '修改成功';
         }

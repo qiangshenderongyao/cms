@@ -13,6 +13,7 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->get('/weixin/sendmsg','WeixinController@sendMsgView');
     $router->post('/weixin/sendmsg','WeixinController@sendMsg');
+    $router->post('/fafang','ShenheController@fafang');
 
     $router->resource('/goods',GoodsController::class);
     $router->resource('/weixin',WeixinController::class);

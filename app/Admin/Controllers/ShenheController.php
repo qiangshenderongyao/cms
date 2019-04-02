@@ -120,10 +120,22 @@ class ShenheController extends Controller
 
         $form->id('id');
         $form->text('sname');
-        $form->number('shenfen');
         $form->text('yt');
         $form->number('status');
 
         return $form;
+    }
+    public function fafang(){
+        $model=new KsModel();
+        $app_key=$model->app_key();
+        $app_secret=$model->app_secret();
+        $where=[
+          'app_key'=>$app_key,
+          'app_secret'=>$app_secret
+        ];
+        $data=KsModel::where($where)->update();
+        if($data){
+            return '修改成功';
+        }
     }
 }

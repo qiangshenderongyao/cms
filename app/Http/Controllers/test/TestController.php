@@ -230,7 +230,7 @@ class TestController extends Controller{
     }
     public function fafang(){
         $id=request()->get('id');
-        $status=KsModel::where('id',$id)->first();
+        $status=KsModel::where('id',$id)->first()->toArray();
         var_dump($status);die;
         if($status==2){
             return '你未通过';

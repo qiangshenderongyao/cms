@@ -242,5 +242,9 @@ class TestController extends Controller{
             return '修改成功';
         }
     }
+    public function kslist(){
+        $data=KsModel::paginate(2);
+        return view('ks.kslist',['data'=>$data]);
+    }
 }
 ?>

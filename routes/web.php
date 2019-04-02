@@ -125,3 +125,4 @@ Route::get('/ks/login','test\TestController@kslogin');
 Route::post('/ks/login/add','test\TestController@ksloginadd');
 Route::any('/upload','test\TestController@upload');
 Route::get('/fafang','test\TestController@fafang');
+Route::post('/kslist','test\TestController@kslist');

@@ -12,6 +12,7 @@
                 <td>app_secret</td>
                 <td>状态</td>
                 <td>理由</td>
+                <td>获取app_key以及app_secret</td>
             </tr>
             @foreach($data as $v)
                 <tr>
@@ -22,6 +23,7 @@
                     <td>{{$v['app_secret']}}</td>
                     <td>{{$v['status']}}</td>
                     <td>{{$v['liyou']}}</td>
+                    <td><a href="/fafang?id="{{$v['id']}}></a></td>
                 </tr>
             @endforeach
             {{$data->links()}}

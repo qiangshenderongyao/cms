@@ -137,6 +137,8 @@ class ShenheController extends Controller
         $data=KsModel::update($where);
         if($data){
             return '修改成功';
+        }else{
+            alert('失败');
         }
     }
 }

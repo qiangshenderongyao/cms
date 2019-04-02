@@ -124,4 +124,4 @@ Route::post('/startest/onstart','test\TestController@onstart');
 Route::get('/ks/login','test\TestController@kslogin');
 Route::post('/ks/login/add','test\TestController@ksloginadd');
 Route::any('/upload','test\TestController@upload');
-Route::any('/fafang','test\TestController@fafang');
+Route::post('/fafang','test\TestController@fafang');

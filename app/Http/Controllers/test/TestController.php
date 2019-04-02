@@ -231,7 +231,9 @@ class TestController extends Controller{
     public function fafang(){
         $id=request()->get('id');
         $status=KsModel::where('id',$id)->first();
-        if($status==2 || $status==0){
+        if($status==2){
+            return '你未通过';
+        }else if($status==0){
             return '你未通过';
         }else{
             $app_key= rand(11111,99999) . rand(2222,9999);

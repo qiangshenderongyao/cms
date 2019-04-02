@@ -245,7 +245,7 @@ class TestController extends Controller{
                 'app_secret'=>$app_secret
             ];
 //        var_dump($where);die;
-            $data=KsModel::where('id',2)->update($where);
+            $data=KsModel::where('id',$id)->update($where);
             if($data){
                 return 'app_key与app_secret发放成功';
             }

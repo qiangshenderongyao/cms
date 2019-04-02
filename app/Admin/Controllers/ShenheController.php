@@ -118,11 +118,11 @@ class ShenheController extends Controller
     {
         $form = new Form(new KsModel());
 
-        $form->sid('sid','SId');
-        $form->sname('sname','sname');
-        $form->shenfen('shenfen','shenfen');
-        $form->yt('yt','yt');
-        $form->status('status','status');
+        $form->sid('sid');
+        $form->sname('sname');
+        $form->shenfen('shenfen');
+        $form->yt('yt');
+        $form->status('status');
 
         return $form;
     }

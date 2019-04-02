@@ -228,5 +228,20 @@ class TestController extends Controller{
             return $path;
         }
     }
+    public function fafang(){
+        $app_key=ksModel::app_key();
+        $app_secret=ksModel::app_secret();
+        $where=[
+            'app_key'=>$app_key,
+            'app_secret'=>$app_secret
+        ];
+//        var_dump($where);die;
+        $data=KsModel::update($where);
+        if($data){
+            return '修改成功';
+        }else{
+            alert('失败');
+        }
+    }
 }
 ?>

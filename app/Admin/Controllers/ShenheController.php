@@ -125,20 +125,4 @@ class ShenheController extends Controller
 
         return $form;
     }
-    public function fafang(){
-        $model=new KsModel();
-        $app_key=$model->app_key();
-        $app_secret=$model->app_secret();
-        $where=[
-          'app_key'=>$app_key,
-          'app_secret'=>$app_secret
-        ];
-//        var_dump($where);die;
-        $data=KsModel::update($where);
-        if($data){
-            return '修改成功';
-        }else{
-            alert('失败');
-        }
-    }
 }

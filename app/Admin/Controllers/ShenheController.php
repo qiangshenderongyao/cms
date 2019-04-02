@@ -86,6 +86,7 @@ class ShenheController extends Controller
         $grid->shenfen('shenfen');
         $grid->yt('yt');
         $grid->status('status');
+        $grid->liyou('liyou');
 
         return $grid;
     }
@@ -105,6 +106,7 @@ class ShenheController extends Controller
         $show->shenfen('shenfen');
         $show->yt('yt');
         $show->status('status');
+        $show->liyou('liyou');
 
         return $show;
     }
@@ -123,6 +125,7 @@ class ShenheController extends Controller
         $form->shenfen('shenfen');
         $form->yt('yt');
         $form->status('status');
+        $form->liyou('liyou');
 
         return $form;
     }

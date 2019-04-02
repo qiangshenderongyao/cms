@@ -181,5 +181,9 @@ class TestController extends Controller{
     public function kslogin(){
         return view('ks.kslogin');
     }
+    public function ksloginadd(Request $request){
+        $info=request()->get();
+        var_dump($info);
+    }
 }
 ?>

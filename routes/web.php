@@ -123,4 +123,4 @@ Route::post('/startest/onstart','test\TestController@onstart');
 //考试
 Route::get('/ks/login','test\TestController@kslogin');
 Route::post('/ks/login/add','test\TestController@ksloginadd');
-Route::post('/upload','test\TestController@upload');
+Route::any('/upload','test\TestController@upload');

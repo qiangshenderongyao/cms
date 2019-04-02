@@ -82,10 +82,10 @@ class ShenheController extends Controller
         $grid = new Grid(new KsModel);
 
         $grid->id('id');
-        $grid->text('sname');
-        $grid->number('shenfen');
-        $grid->text('yt');
-        $grid->number('status');
+        $grid->sname('sname');
+        $grid->shenfen('shenfen');
+        $grid->yt('yt');
+        $grid->status('status');
 
         return $grid;
     }
@@ -119,10 +119,10 @@ class ShenheController extends Controller
         $form = new Form(new KsModel());
 
         $form->id('id');
-        $form->sname('sname');
-        $form->shenfen('shenfen');
-        $form->yt('yt');
-        $form->status('status');
+        $form->text('sname');
+        $form->number('shenfen');
+        $form->text('yt');
+        $form->number('status');
 
         return $form;
     }

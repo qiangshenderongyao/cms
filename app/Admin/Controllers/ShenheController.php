@@ -81,7 +81,7 @@ class ShenheController extends Controller
     {
         $grid = new Grid(new KsModel);
 
-        $grid->sid('Sid');
+        $grid->id('Sid');
         $grid->sname('sname');
         $grid->shenfen('shenfen');
         $grid->yt('yt');
@@ -101,7 +101,7 @@ class ShenheController extends Controller
     {
         $show = new Show(KsModel::findOrFail($id));
 
-        $show->sid('Sid');
+        $show->id('Sid');
         $show->sname('sname');
         $show->shenfen('shenfen');
         $show->yt('yt');
@@ -120,7 +120,7 @@ class ShenheController extends Controller
     {
         $form = new Form(new KsModel);
 
-        $form->sid('Sid');
+        $form->id('Sid');
         $form->sname('sname');
         $form->shenfen('shenfen');
         $form->yt('yt');

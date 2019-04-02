@@ -105,6 +105,7 @@ class ShenheController extends Controller
         $show->shenfen('shenfen');
         $show->yt('yt');
         $show->status('status');
+        $show->liyou('liyou');
 
         return $show;
     }

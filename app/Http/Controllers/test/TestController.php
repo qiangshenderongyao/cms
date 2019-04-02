@@ -174,5 +174,12 @@ class TestController extends Controller{
         $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
         file_put_contents('logs/test_one.log',$log_str,FILE_APPEND);
     }
+    /*
+     * 2019年4月2日08:49:23
+     * 考试
+     */
+    public function kslogin(){
+        return view('ks.kslogin');
+    }
 }
 ?>

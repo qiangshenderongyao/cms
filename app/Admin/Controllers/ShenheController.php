@@ -125,6 +125,7 @@ class ShenheController extends Controller
         $form->text('yt');
         $form->number('status');
         $form->text('liyou');
+
         return $form;
     }
 }

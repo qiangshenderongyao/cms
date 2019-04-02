@@ -19,5 +19,6 @@ Route::group([
     $router->resource('/wxmedia',WeixinMediaController::class);
     $router->resource('/wxqf',WeixinMediaController::class);
     $router->resource('/yongjiulist',WxyongController::class);
+    $router->resource('/shenhe',ShenheController::class);
 
 });

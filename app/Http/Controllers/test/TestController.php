@@ -186,7 +186,7 @@ class TestController extends Controller{
         $info=request()->post();
         $sname=$info['sname'];
         $shenfen=$info['shenfen'];
-        $file=$this->upload($info['file']);
+        $file=$this->upload();
         $yt=$info['yt'];
         $where=[
             'sname'=>$sname,

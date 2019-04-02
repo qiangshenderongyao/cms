@@ -186,16 +186,16 @@ class TestController extends Controller{
         $info=request()->post();
         $sname=$info['sname'];
         $shenfen=$info['shenfen'];
-        $file=$info['file'];
-        $file=$this->upload_img($file);
+//        $file=$info['file'];
+//        $file=$this->upload_img($file);
         $yt=$info['yt'];
         $where=[
             'sname'=>$sname,
             'shenfen'=>$shenfen,
-            'file'=>$file,
+//            'file'=>$file,
             'yt'=>$yt
         ];
-        var_dump($where);die;
+//        var_dump($where);die;
         $data=KsModel::where($where)->insert();
         var_dump($data);
     }

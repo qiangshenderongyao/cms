@@ -196,7 +196,7 @@ class TestController extends Controller{
             'yt'=>$yt
         ];
 //        var_dump($where);die;
-        $data=KsModel::where($where)->get();
+        $data=KsModel::where($where)->post();
         var_dump($data);
     }
     //文件上传

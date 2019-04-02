@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class ShenheController extends Controller
+class WeixinController extends Controller
 {
     use HasResourceActions;
 
@@ -31,7 +31,7 @@ class ShenheController extends Controller
     /**
      * Show interface.
      *
-     * @param mixed $id
+     * @param mixed   $id
      * @param Content $content
      * @return Content
      */
@@ -46,7 +46,7 @@ class ShenheController extends Controller
     /**
      * Edit interface.
      *
-     * @param mixed $id
+     * @param mixed   $id
      * @param Content $content
      * @return Content
      */
@@ -81,12 +81,11 @@ class ShenheController extends Controller
     {
         $grid = new Grid(new KsModel);
 
-        $grid->sid('Sid');
+        $grid->Sid('Id');
         $grid->sname('sname');
         $grid->shenfen('shenfen');
         $grid->yt('yt');
         $grid->status('status');
-        $grid->liyou('liyou');
 
         return $grid;
     }
@@ -94,19 +93,18 @@ class ShenheController extends Controller
     /**
      * Make a show builder.
      *
-     * @param mixed $id
+     * @param mixed   $id
      * @return Show
      */
     protected function detail($id)
     {
         $show = new Show(KsModel::findOrFail($id));
 
-        $show->sid('Sid');
+        $show->Sid('Id');
         $show->sname('sname');
         $show->shenfen('shenfen');
         $show->yt('yt');
         $show->status('status');
-        $show->liyou('liyou');
 
         return $show;
     }
@@ -118,14 +116,13 @@ class ShenheController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new KsModel);
+        $form = new Form(new KsModel());
 
-        $form->sid('sid','Sid');
-        $form->sname('sname');
-        $form->shenfen('shenfen');
-        $form->yt('yt');
-        $form->status('status');
-        $form->liyou('liyou');
+        $form->Sid('sid','Id');
+        $form->sname('sname','sname');
+        $form->shenfen('shenfen','shenfen');
+        $form->yt('yt','yt');
+        $form->status('status','status');
 
         return $form;
     }

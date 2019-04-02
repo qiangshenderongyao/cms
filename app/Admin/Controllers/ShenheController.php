@@ -86,6 +86,7 @@ class ShenheController extends Controller
         $grid->shenfen('shenfen');
         $grid->yt('yt');
         $grid->status('status');
+        $grid->liyou('liyou');
 
         return $grid;
     }

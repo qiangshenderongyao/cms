@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('content')
-    <form action="/ks/login/add" method="post" action="/profile">
+    <form action="/ks/login/add" method="post">
         @csrf
         <table>
             <h2>用户申请</h2>
@@ -27,7 +27,7 @@
         </table>
     </form>
 @endsection
-@section('foot')
-    @parent
-    <script src="{{URL::asset('/js/kslogin/kslogin.js')}}"></script>
-@endsection
+{{--@section('foot')--}}
+    {{--@parent--}}
+    {{--<script src="{{URL::asset('/js/kslogin/kslogin.js')}}"></script>--}}
+{{--@endsection--}}

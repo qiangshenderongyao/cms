@@ -233,9 +233,9 @@ class TestController extends Controller{
         $status=KsModel::where('id',$id)->first()->toArray();
 //        var_dump($status);die;
         if($status==2){
-            return '你未通过';die;
+            echo '你未通过';die;
         }else if($status==0){
-            return '你未通过';die;
+            echo '你未通过';die;
         }else{
             $app_key= rand(11111,99999) . rand(2222,9999);
             $str='0123456789abcdefghijklmnopqrstuvwxyz+-*/';

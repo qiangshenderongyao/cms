@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class WxyongController extends Controller
+class ShenheController extends Controller
 {
     use HasResourceActions;
 

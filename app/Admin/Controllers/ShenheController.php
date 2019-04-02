@@ -82,10 +82,10 @@ class ShenheController extends Controller
         $grid = new Grid(new KsModel);
 
         $grid->id('id');
-        $grid->sname('sname');
-        $grid->shenfen('shenfen');
-        $grid->yt('yt');
-        $grid->status('status');
+        $grid->text('sname');
+        $grid->number('shenfen');
+        $grid->text('yt');
+        $grid->number('status');
 
         return $grid;
     }

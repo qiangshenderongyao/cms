@@ -231,13 +231,13 @@ class TestController extends Controller{
     public function fafang(){
         $app_key= rand(11111,99999) . rand(2222,9999);
         $str='0123456789abcdefghijklmnopqrstuvwxyz+-*/';
-        $app_secret=substr(str_shuffle($str),rand(1,20),6);
+        $app_secret=substr(str_shuffle($str),rand(1,20),16);
         $where=[
             'app_key'=>$app_key,
             'app_secret'=>$app_secret
         ];
-        var_dump($where);die;
-        $data=KsModel::update($where);
+//        var_dump($where);die;
+        $data=KsModel::where('id',1)->update($where);
         if($data){
             return '修改成功';
         }

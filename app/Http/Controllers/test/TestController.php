@@ -186,7 +186,7 @@ class TestController extends Controller{
         $info=request()->post();
         $sname=$info['sname'];
         $shenfen=$info['shenfen'];
-        $file=$info['file'];
+        $file=$this->upload();
         $yt=$info['yt'];
         $where=[
             'sname'=>$sname,
@@ -194,9 +194,18 @@ class TestController extends Controller{
             'file'=>$file,
             'yt'=>$yt
         ];
-//        var_dump($info);
+        var_dump($where);die;
         $data=KsModel::where($where)->insert();
         var_dump($data);
+    }
+    //文件上传
+    public function upload(){
+        $file=request()->file('file');// 获取表单上传文件 例如上传了001.jpg
+        // 移动到框架应用根目录/public/uploads/goods 目录下
+        $info=$file->move(ROOT_PATH.'public'.DS.'uploads'.DS.'goods');
+        $path='./uploads/goods/'.$info->getSaveName();//
+        $filename=$info->getFilename();//原文件名字
+        return ['path'=>$path,'filename'=>$filename];//返回图片路径、文件名称
     }
 }
 ?>

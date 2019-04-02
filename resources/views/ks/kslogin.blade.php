@@ -27,3 +27,7 @@
         </table>
     </form>
 @endsection
+@section('foot')
+    @parent
+    <script src="{{URL::asset('/js/kslogin/kslogin.js')}}"></script>
+@endsection

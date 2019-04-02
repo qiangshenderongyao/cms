@@ -10,7 +10,7 @@
             </tr>
             <tr>
             <td>身份证号</td>
-            <td><input type="password" name="password" class="form-control" placeholder="***" required></td>
+            <td><input type="password" name="shenfen" class="form-control" placeholder="***" required></td>
             </tr>
             <tr>
             <td>上传身份证照片</td>

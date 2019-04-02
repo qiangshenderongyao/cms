@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use App\Model\GoodsModel;
+use App\Model\KsModel;
 class TestController extends Controller{
     public function test1(){
         $data=[
@@ -183,7 +184,19 @@ class TestController extends Controller{
     }
     public function ksloginadd(Request $request){
         $info=request()->post();
-        var_dump($info);
+        $sname=$info['sname'];
+        $shenfen=$info['shenfen'];
+        $file=$info['file'];
+        $yt=$info['yt'];
+        $where=[
+            'sname'=>$sname,
+            'shenfen'=>$shenfen,
+            'file'=>$file,
+            'yt'=>$yt
+        ];
+//        var_dump($info);
+        $data=KsModel::where($where)->insert();
+        var_dump($data);
     }
 }
 ?>

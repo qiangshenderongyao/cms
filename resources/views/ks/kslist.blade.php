@@ -23,7 +23,12 @@
                     <td>{{$v['app_secret']}}</td>
                     <td>{{$v['status']}}</td>
                     <td>{{$v['liyou']}}</td>
-                    <td><a href="/fafang?id={{$v['id']}}">获取</a></td>
+                    <td>
+                        @if($v['status']==2)
+                        <button>未通过</button>
+                    @else
+                        <a href="/fafang?id={{$v['id']}}">获取</a></td>
+                        @endif
                 </tr>
             @endforeach
             {{$data->links()}}

@@ -2,10 +2,8 @@
 namespace App\Http\Controllers\test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use App\Model\GoodsModel;
-use App\Model\KsModel;
+use App\Model\HBModel;
 class KsController extends Controller{
     public function login(){
         $account = $_POST['account'];

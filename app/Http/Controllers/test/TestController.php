@@ -72,6 +72,7 @@ class TestController extends Controller{
 //        echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('username');
         $password=request()->input('password');
+        $ip=request()->input('ip');
         $redirect=$request->input('redirect') ?? env('SHOP_URL');
         $where=['username'=>$cname];
         $data=DB::table('testuser')->where($where)->first();
@@ -99,14 +100,13 @@ class TestController extends Controller{
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);
-//                if(($key!==$sss)==true){
-//                    echo '此用户已在登录';
-//                    session_destroy();//清除SESSION值.
-//                    return redirect('http://1807.96myshop.cn/test/one');
-//                    die;
-//                }
-//                Redis::set($redis_key_web_token,$token);
-//                Redis::expire($redis_key_web_token,86400);
+                if(($key!==$sss)==true){
+                    echo '此用户已在登录';
+                    session_destroy();//清除SESSION值.
+                    return redirect('http://1807.96myshop.cn/test/one');
+                }die;
+                Redis::set($redis_key_web_token,$token);
+                Redis::expire($redis_key_web_token,86400);
                 $reponse=[
                     'status'=>200,
                     'msg'=>'登录成功',
@@ -128,9 +128,11 @@ class TestController extends Controller{
     public function testone(Request $request){
         $cname=request()->input('username');
         $password=request()->input('password');
+        $ip=request()->input('ip');
         $data=[
             'username'=>$cname,
-            'password'=>$password
+            'password'=>$password,
+            'ip'=>$ip
         ];
         $url="http://1807.96myshop.cn/test/one";
         $ch=curl_init();    //创建新的curl资源

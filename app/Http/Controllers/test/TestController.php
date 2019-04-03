@@ -231,11 +231,16 @@ class TestController extends Controller{
     public function fafang(){
         $id=request()->get('id');
         $status=KsModel::where('id',$id)->first()->toArray();
+        $status=$status['status'];
+        $app_key=$status['app_key'];
+        $app_secret=$status['app_secret'];
 //        var_dump($status);die;
         if($status==2){
             echo '你未通过';die;
         }else if($status==0){
             echo '你未通过';die;
+        }else if(empty($app_key)){
+            echo '您已获取';
         }else{
             $app_key= rand(11111,99999) . rand(2222,9999);
             $str='0123456789abcdefghijklmnopqrstuvwxyz+-*/';
@@ -255,6 +260,28 @@ class TestController extends Controller{
     public function kslist(){
         $data=KsModel::paginate(2);
         return view('ks.kslist',['data'=>$data]);
+    }
+    public function fbnq(){
+        $n=20;
+        $array[1] = $array[0] = 1; //设第一个值和第二个值为1
+        for($i=2;$i<$n;$i++){ //从第三个值开始
+            $array[$i] = $array[$i-1] + $array[$i-2];
+            //后面的值都是当前值的前一个值加上前两个值的和
+        }
+        echo '<pre>';
+        print_r($array);
+        echo '<pre>';
+    }
+    public function bili(){
+        $a=array(1,2,3,4,5,6,7);
+        foreach($a as $k=>$v) {
+            if ($v % 2 == 1) {
+                $data[$k][] = $v;
+            } else {
+                $data[$k - 1][] = $v;
+            }
+        }
+        print_r($data);
     }
 }
 ?>

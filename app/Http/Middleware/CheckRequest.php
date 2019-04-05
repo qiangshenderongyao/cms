@@ -101,7 +101,7 @@ class CheckRequest
 //             var_dump($server_str);
 //             var_dump($map);
 //            var_dump($request['sign']) ;die;
-            if (md5($server_str)!= $request['sign']) {
+            if ($server_str!= $request['sign']) {
                 return [
                     'status' => 2,
                     'msg' => 'check sign fail1',

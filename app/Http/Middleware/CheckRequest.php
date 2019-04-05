@@ -26,7 +26,7 @@ class CheckRequest
     {
         //先获取接口的数据，需要先解密
         $request=$this->_decrypt($request);
-        var_dump($request);die;
+//        var_dump($request);die;
 
         //访问次数限制
         $data=$this->_checkApiAccessCount();
@@ -34,7 +34,7 @@ class CheckRequest
 
         //验证签名
         $data = $this->_checkClientSign($request);
-        return response($data);
+//        return response($data);
 
         //把解密的数据传递到控制器
         $request->request->replace($this->_api_data);

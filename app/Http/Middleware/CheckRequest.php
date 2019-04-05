@@ -76,6 +76,7 @@ class CheckRequest
         if (!empty($this->_api_data)) {
             //获取当前所有的app_id和key
             $map = $this->_getAppIdKey();
+            echo '111';
             var_dump($map);die;
             if (array_key_exists($this->_api_data['app_id'], $map)) {
                 return [

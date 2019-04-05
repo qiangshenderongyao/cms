@@ -94,7 +94,7 @@ class CheckRequest
 //            var_dump($map);exit;
             //生成服务端签名
 
-            var_dump(ksort($this->_api_data));die;
+            print_r(ksort($this->_api_data));die;
             //变成字符串 拼接app_key
             $server_str = http_build_query($this->_api_data . '&app_key=' . $map[$this->_api_data['app_id']]);
             if (md5($server_str) != $request['sign']) {

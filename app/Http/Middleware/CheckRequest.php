@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 class CheckRequest
 {
@@ -26,17 +25,19 @@ class CheckRequest
     public function handle($request, Closure $next)
     {
         //先获取接口的数据，需要先解密
-        $one=$this->_decrypt($request);
-//        var_dump($request);die;
+        $this->_decrypt($request);
 
         //访问次数限制
         $data=$this->_checkApiAccessCount();
-//        var_dump($data);die;
+        if(!$data['status']==1000){
+            return response($data);
+        }
 
         //验证签名
         $data = $this->_checkClientSign($request);
-//        var_dump($data);die;
-//        return response($data);
+        if(!$data['status']==1000){
+            return response($data);
+        }
 
         //把解密的数据传递到控制器
         $request->request->replace($this->_api_data);
@@ -103,6 +104,8 @@ class CheckRequest
             }
             return ['status' => 1000];
 
+        }else{
+            echo '1111';
         }
     }
 

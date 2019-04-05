@@ -24,7 +24,6 @@ class CheckRequest
      */
     public function handle($request, Closure $next)
     {
-        echo '111';die;
         //先获取接口的数据，需要先解密
         $request=$this->_decrypt($request);
         var_dump($request);die;

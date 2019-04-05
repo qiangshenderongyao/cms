@@ -89,13 +89,13 @@ class CheckRequest
                     'data' => []
                 ];
             }
-            var_dump($this->_api_data);
+//            var_dump($this->_api_data);
 //
-            var_dump($map);exit;
+//            var_dump($map);exit;
             //生成服务端签名
             ksort($this->_api_data);
             //变成字符串 拼接app_key
-            $server_str = http_build_query($this->_api_data . '&app_key=' . $map[$this->_api_data['app_id']]);
+            $server_str = http_build_query($this->_api_data) . '&app_key=' . $map[$this->_api_data['app_id']];
             if (md5($server_str) != $request['sign']) {
                 return [
                     'status' => 2,

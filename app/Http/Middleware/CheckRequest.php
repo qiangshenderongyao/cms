@@ -25,7 +25,7 @@ class CheckRequest
     public function handle($request, Closure $next)
     {
         //先获取接口的数据，需要先解密
-        $request=$this->_decrypt($request);
+        $this->_decrypt($request);
 //        var_dump($request);die;
 
         //访问次数限制
@@ -37,7 +37,7 @@ class CheckRequest
 //        return response($data);
 
         //把解密的数据传递到控制器
-        $request->replace($this->_api_data);
+        $request->request->replace($this->_api_data);
 
         //判断签名是否正确
         if ($data['status'] == 1000) {

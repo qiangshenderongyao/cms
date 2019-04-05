@@ -26,7 +26,7 @@ class CheckRequest
     {
         //先获取接口的数据，需要先解密
         $request=$this->_decrypt($request);
-        var_dump($request);die;
+        print_r($request);die;
 
         //访问次数限制
         $data=$this->_checkApiAccessCount();

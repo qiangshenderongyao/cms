@@ -25,7 +25,7 @@ class CheckRequest
     public function handle($request, Closure $next)
     {
         //先获取接口的数据，需要先解密
-        $this->_decrypt($request);
+        $request=$this->_decrypt($request);
 
         //访问次数限制
         $data=$this->_checkApiAccessCount();
@@ -48,7 +48,9 @@ class CheckRequest
 
     }
 
-    //解密
+    /*
+     * 使用对称加密方法对数据进行加密
+     */
     private function _decrypt($request)
     {
         $data = $request->post('data');
@@ -62,7 +64,7 @@ class CheckRequest
                 '0614668812076688'
             );
             $this->_api_data = json_decode($dec_data, true);
-            return response($this->_api_data);
+            return parse_str($this->_api_data);
         }
     }
 

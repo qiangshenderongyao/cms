@@ -58,7 +58,7 @@ class CheckRequest
     private function _decrypt($request)
     {
         $data = $request->post('data');
-        var_dump($data);die;
+//        var_dump($data);die;
         #数据不为空
         if (!empty($data)) {
             $dec_data = openssl_decrypt(
@@ -69,6 +69,7 @@ class CheckRequest
                 '0614668812076688'
             );
             $this->_api_data = json_decode($dec_data, true);
+            var_dump($this->_api_data);die;
             return response($this->_api_data);
         }
     }

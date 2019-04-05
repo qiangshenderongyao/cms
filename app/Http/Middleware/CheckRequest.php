@@ -69,7 +69,7 @@ class CheckRequest
                 '0614668812076688'
             );
             $this->_api_data = json_decode($dec_data, true);
-            var_dump($this->_api_data);die;
+
             return response($this->_api_data);
         }
     }
@@ -99,6 +99,7 @@ class CheckRequest
             //变成字符串 拼接app_key
             $server_str = http_build_query($this->_api_data) . '&app_key=' . $map['app_key'];
              var_dump($server_str);
+             var_dump($map);
             var_dump($request['sign']) ;die;
             if ($server_str!= $request['sign']) {
                 return [

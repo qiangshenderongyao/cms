@@ -30,10 +30,11 @@ class CheckRequest
 
         //访问次数限制
         $data=$this->_checkApiAccessCount();
-        var_dump($data);die;
+//        var_dump($data);die;
 
         //验证签名
         $data = $this->_checkClientSign($request);
+        var_dump($data);die;
         return response($data);
 
         //把解密的数据传递到控制器
@@ -75,6 +76,7 @@ class CheckRequest
         if (!empty($this->_api_data)) {
             //获取当前所有的app_id和key
             $map = $this->_getAppIdKey();
+            var_dump($map);die;
             if (array_key_exists($this->_api_data['app_id'], $map)) {
                 return [
                     'status' => 1,

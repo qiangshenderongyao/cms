@@ -116,8 +116,8 @@ class CheckRequest
     {
         //从数据库获得对应的数据
         return [
-            'api_id' => md5(0540),
-            'api_key' => md5('2300540')
+            'app_id' => md5(0540),
+            'app_key' => md5('2300540')
         ];
     }
 

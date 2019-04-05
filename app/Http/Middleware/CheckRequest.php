@@ -34,8 +34,8 @@ class CheckRequest
 
         //验证签名
         $data = $this->_checkClientSign($request);
-        var_dump($data);die;
-        return response($data);
+//        var_dump($data);die;
+//        return response($data);
 
         //把解密的数据传递到控制器
         $request->request->replace($this->_api_data);

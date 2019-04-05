@@ -77,11 +77,11 @@ class CheckRequest
     //验证签名
     private function _checkClientSign($request)
     {
+        //如果私有变量值不为空
         if (!empty($this->_api_data)) {
             //获取当前所有的app_id和key
             $map = $this->_getAppIdKey();
-//            echo '111';
-//            var_dump($map);die;
+// array_key_exists() 函数检查某个数组中是否存在指定的键名，如果键名存在则返回 true，如果键名不存在则返回 false。
             if (array_key_exists($this->_api_data['app_id'], $map)) {
                 return [
                     'status' => 1,
@@ -93,7 +93,8 @@ class CheckRequest
 //
 //            var_dump($map);exit;
             //生成服务端签名
-            ksort($this->_api_data);
+
+            var_dump(ksort($this->_api_data));die;
             //变成字符串 拼接app_key
             $server_str = http_build_query($this->_api_data . '&app_key=' . $map[$this->_api_data['app_id']]);
             if (md5($server_str) != $request['sign']) {

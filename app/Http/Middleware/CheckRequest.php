@@ -58,6 +58,7 @@ class CheckRequest
     private function _decrypt($request)
     {
         $data = $request->post('data');
+        var_dump($data);die;
         #数据不为空
         if (!empty($data)) {
             $dec_data = openssl_decrypt(

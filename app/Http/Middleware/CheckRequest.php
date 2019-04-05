@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Redis;
-
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 class CheckRequest
 {
     /**

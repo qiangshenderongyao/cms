@@ -65,7 +65,7 @@ class CheckRequest
                 '0614668812076688'
             );
             $this->_api_data = json_decode($dec_data, true);
-            return parse_str($this->_api_data);
+            return response($this->_api_data);
         }
     }
 

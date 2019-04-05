@@ -101,15 +101,15 @@ class CheckRequest
 //             var_dump($server_str);
 //             var_dump($map);
 //            var_dump($request['sign']) ;die;
-            if ($server_str!= $request['sign']) {
+            if (md5($server_str)!= $request['sign']) {
                 return [
                     'status' => 2,
                     'msg' => 'check sign fail1',
                     'data' => []
                 ];
             }
-            return ['status' => 1000];
-
+//            return ['status' => 1000];
+            echo 'ok';die;
         }else{
             echo '1111';
         }

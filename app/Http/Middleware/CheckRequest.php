@@ -82,7 +82,7 @@ class CheckRequest
             $map = $this->_getAppIdKey();
 //            echo '111';
 //            var_dump($map);die;
-            if (!array_key_exists($this->_api_data['app_id'], $map)) {
+            if (array_key_exists($this->_api_data['app_id'], $map)) {
                 return [
                     'status' => 1,
                     'msg' => 'check sign fail',

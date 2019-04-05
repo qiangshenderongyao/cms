@@ -98,11 +98,9 @@ class CheckRequest
             //http_build_query($this->_api_data );
             //变成字符串 拼接app_key
             $server_str = http_build_query($this->_api_data) . '&app_key=' . $map['app_key'];
-            print_r($request['sign']);
+
             $sign=md5($server_str);
-            echo '<pre>';
-            echo $server_str;
-            echo '<pre>';
+
             if ($sign!= $request['sign']) {
                 return [
                     'status' => 2,

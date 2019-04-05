@@ -2,6 +2,7 @@
 
 namespace App\Http;
 use App\Http\Middleware\CheckCookie;
+use App\Http\Middleware\CheckRequest;
 use App\Http\Middleware\CheckUid;
 use App\Http\Middleware\CheckLoginToken;
 use App\Http\Middleware\clickLog;
@@ -22,6 +23,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\CheckRequest::class,
     ];
 
     /**
@@ -68,5 +70,6 @@ class Kernel extends HttpKernel
         'check.uid' => CheckUid::class,
         'check.cookie'  => CheckCookie::class,
         'check.login.token' =>CheckLoginToken::class,
+        'check.request' =>CheckRequest::class,
     ];
 }

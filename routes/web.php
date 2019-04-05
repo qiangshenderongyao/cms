@@ -26,7 +26,7 @@ Route::get('/update','TestController@update');
 Route::post('/update_add','TestController@update_add');
 Route::any('/zhu','Vip\IndexController@zhu');
 Route::any('/zhuce','Vip\IndexController@zhuce');
-Route::any('/mylogin','Vip\IndexController@login');
+Route::any('/mylogin','Vip\IndexController@login')->middleware('check.request');
 Route::post('/mylogin/add','Vip\IndexController@loginadd');
 Route::any('/ce','Vip\IndexController@ce');
 Route::any('/center','Vip\IndexController@center');

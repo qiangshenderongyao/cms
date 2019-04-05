@@ -168,7 +168,7 @@ class CheckRequest
             Redis::Expire($this->_getAppId(), 60);
         }
         //大于等于100 加入黑名单
-        if ($count >= 100) {
+        if ($count >= 10) {
             Redis::zAdd($this->_black_key, time(), $this->_getAppId());
             Redis::del($this->_getAppId());
             return [

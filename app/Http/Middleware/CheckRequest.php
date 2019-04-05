@@ -77,8 +77,7 @@ class CheckRequest
     //验证签名
     private function _checkClientSign($request)
     {
-        print_r($this->_api_data);
-        echo '<pre>';
+
         //如果私有变量值不为空
         if (!empty($this->_api_data)) {
             //获取当前所有的app_id和key

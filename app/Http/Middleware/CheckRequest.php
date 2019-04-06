@@ -108,10 +108,8 @@ class CheckRequest
                     'data' => []
                 ];
             }
-//            return ['status' => 1000];
-            echo 'ok';die;
-        }else{
-            echo '1111';
+            return ['status' => 1000];
+//            return [['status']==1000];
         }
     }
 

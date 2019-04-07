@@ -109,7 +109,6 @@ class CheckRequest
                 ];
             }
             return ['status' => 1000];
-//            return [['status']==1000];
         }
     }
 

@@ -72,11 +72,11 @@ class TestController extends Controller{
 //        echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('username');
         $password=request()->input('password');
-        $ip=request()->input('ip');
+//        $ip=request()->input('ip');
         $redirect=$request->input('redirect') ?? env('SHOP_URL');
         $where=['username'=>$cname];
         $data=DB::table('testuser')->where($where)->first();
-        var_dump($data);die;
+//        var_dump($data);die;
         if($data){
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$data->password) ){
@@ -128,11 +128,10 @@ class TestController extends Controller{
     public function testone(Request $request){
         $cname=request()->input('username');
         $password=request()->input('password');
-        $ip=request()->input('ip');
+//        $ip=request()->input('ip');
         $data=[
             'username'=>$cname,
             'password'=>$password,
-            'ip'=>$ip
         ];
         $url="http://1807.96myshop.cn/test/one";
         $ch=curl_init();    //创建新的curl资源
@@ -284,6 +283,13 @@ class TestController extends Controller{
             }
         }
         print_r($data);
+    }
+    /*
+     * 用户展示
+     */
+    public function testlist(){
+        $data=DB::table('testuser')->select();
+        return view('test.testlist',['data'=>$data]);
     }
 }
 ?>

@@ -126,58 +126,58 @@ class CheckRequest
      * @return mixed
      * 获取当前调用接口的appid
      */
-    private function _getAppId()
-    {
-        return $this->_api_data['app_id'];
-    }
-
-    //接口防刷
-    private function _checkApiAccessCount()
-    {
-        //获取appid
-        $app_id = $this->_getAppId();
-        $black_key = $this->_black_key;
-        //判断是否在黑名单中
-        $join_black_name = Redis::zScore($black_key, $app_id);
-        //不在黑名单
-        if (empty($join_black_name)) {
-            $this->_addAppIdAccessCount();
-            return ['status' => 1000];
-        } else {
-            //判断是否超过30min
-            if (time() - $join_black_name >= 30 * 60) {
-                Redis::zRemove($black_key, $app_id);
-                $this->_addAppIdAccessCount();
-            } else {
-                return [
-                    'status' => 3,
-                    'msg' => '暂时不能访问接口，请稍后再试',
-                    'data' => []
-                ];
-            }
-        }
-    }
-
-    /**
-     * @return array
-     * 记录appid对应的访问次数
-     */
-
-    public function _addAppIdAccessCount()
-    {
-        $count = Redis::incr($this->_getAppId());
-        if ($count == 1) {
-            Redis::Expire($this->_getAppId(), 60);
-        }
-        //大于等于100 加入黑名单
-        if ($count >= 10) {
-            Redis::zAdd($this->_black_key, time(), $this->_getAppId());
-            Redis::del($this->_getAppId());
-            return [
-                'status' => 3,
-                'msg' => '暂时不能访问接口，请稍后再试',
-                'data' => []
-            ];
-        }
-    }
+//    private function _getAppId()
+//    {
+//        return $this->_api_data['app_id'];
+//    }
+//
+//    //接口防刷
+//    private function _checkApiAccessCount()
+//    {
+//        //获取appid
+//        $app_id = $this->_getAppId();
+//        $black_key = $this->_black_key;
+//        //判断是否在黑名单中
+//        $join_black_name = Redis::zScore($black_key, $app_id);
+//        //不在黑名单
+//        if (empty($join_black_name)) {
+//            $this->_addAppIdAccessCount();
+//            return ['status' => 1000];
+//        } else {
+//            //判断是否超过30min
+//            if (time() - $join_black_name >= 30 * 60) {
+//                Redis::zRemove($black_key, $app_id);
+//                $this->_addAppIdAccessCount();
+//            } else {
+//                return [
+//                    'status' => 3,
+//                    'msg' => '暂时不能访问接口，请稍后再试',
+//                    'data' => []
+//                ];
+//            }
+//        }
+//    }
+//
+//    /**
+//     * @return array
+//     * 记录appid对应的访问次数
+//     */
+//
+//    public function _addAppIdAccessCount()
+//    {
+//        $count = Redis::incr($this->_getAppId());
+//        if ($count == 1) {
+//            Redis::Expire($this->_getAppId(), 60);
+//        }
+//        //大于等于100 加入黑名单
+//        if ($count >= 10) {
+//            Redis::zAdd($this->_black_key, time(), $this->_getAppId());
+//            Redis::del($this->_getAppId());
+//            return [
+//                'status' => 3,
+//                'msg' => '暂时不能访问接口，请稍后再试',
+//                'data' => []
+//            ];
+//        }
+//    }
 }

@@ -41,10 +41,6 @@ class CheckRequest
 
         //把解密的数据传递到控制器
         $request->request->replace($this->_api_data);
-        $data=file_get_contents("php://input");
-        //记录日志
-        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
-        file_put_contents('logs/ceshi.log',$log_str,FILE_APPEND);
         //判断签名是否正确
 //        if ($data['status'] == 1000) {
 //            return $next($request);

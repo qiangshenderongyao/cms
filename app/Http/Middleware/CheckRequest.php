@@ -126,10 +126,10 @@ class CheckRequest
      * @return mixed
      * 获取当前调用接口的appid
      */
-    private function _getAppId()
-    {
-        return $this->_api_data['app_id'];
-    }
+//    private function _getAppId()
+//    {
+//        return $this->_api_data['app_id'];
+//    }
 
     //接口防刷
     private function _checkApiAccessCount()

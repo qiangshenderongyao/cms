@@ -14,15 +14,11 @@ use Illuminate\Support\Facades\URL;
  */
 class CeController extends Controller {
     public function ce(){
-        $url='http://shop.96myshop.cn';
-        $client=new Client(['base_uri'=>$url,'timeout'=>2.0,]);
-        $response=$client->request('GET','/Order.php');
-        echo $response->getBody();
-    }
-    public function cookieTest1()
-    {
-        setcookie('cookie1','lening',time()+1200,'/','lening.com',false,true);
-        echo '<pre>';print_r($_COOKIE);echo '</pre>';
+        $data=[
+            'username'=>'赤耀',
+            'age'=>'23'
+        ];
+        return $data;
     }
 }
 ?>

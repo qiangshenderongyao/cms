@@ -26,7 +26,7 @@ Route::get('/update','TestController@update');
 Route::post('/update_add','TestController@update_add');
 Route::any('/zhu','Vip\IndexController@zhu');
 Route::any('/zhuce','Vip\IndexController@zhuce');
-Route::any('/mylogin','Vip\IndexController@login')->middleware('check.request');
+Route::any('/mylogin','Vip\IndexController@login');
 Route::post('/mylogin/add','Vip\IndexController@loginadd');
 Route::any('/ce','Vip\IndexController@ce');
 Route::any('/center','Vip\IndexController@center');
@@ -48,7 +48,7 @@ Route::get('/order','Order\OrderController@order');
 Route::get('/orderlist','Order\OrderController@orderlist');
 Route::get('/orderzhi/{o_id}','Order\OrderController@orderzhi');
 Route::get('/centeradd','Vip\IndexController@centeradd');
-Route::get('/ce','Ce\CeController@ce');
+Route::post('/ce','Ce\CeController@ce')->middleware('check.request');
 //支付
 Route::get('/pay/alipay/test/{o_id}','Pay\AlipayController@test');
 // Route::get('/pay/o/{oid}','Pay\IndexController@order')->middleware('check.login.token');

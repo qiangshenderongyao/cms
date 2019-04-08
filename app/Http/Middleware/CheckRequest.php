@@ -126,17 +126,18 @@ class CheckRequest
      * @return mixed
      * 获取当前调用接口的appid
      */
-//    private function _getAppId()
-//    {
+    private function _getAppId()
+    {
 //        return $this->_api_data['app_id'];
-//    }
+        return $app_id='123';
+    }
 
     //接口防刷
     private function _checkApiAccessCount()
     {
         //获取appid
-//        $app_id = $this->_getAppId();
-        $app_id = '123';
+        $app_id = $this->_getAppId();
+//        $app_id = '123';
         $black_key = $this->_black_key;
         //判断是否在黑名单中
         $join_black_name = Redis::zScore($black_key, $app_id);

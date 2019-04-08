@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\URL;
  */
 class CeController extends Controller {
     public function ceshi(Request $request){
-        var_dump($request->all());
+        var_dump($request->all());exit;
     }
 }
 ?>

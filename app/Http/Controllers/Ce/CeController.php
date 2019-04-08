@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\URL;
  * Time: 11:53
  */
 class CeController extends Controller {
-    public function ce(){
+    public function ceshi(){
         $data=[
             'username'=>'赤耀',
             'age'=>'23'

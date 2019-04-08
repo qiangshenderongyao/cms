@@ -13,13 +13,8 @@ use Illuminate\Support\Facades\URL;
  * Time: 11:53
  */
 class CeController extends Controller {
-    public function ceshi(){
-//        $data=[
-//            'username'=>'赤耀',
-//            'age'=>'23'
-//        ];
-//        return $data;
-        echo '123';
+    public function ceshi(Request $request){
+        print_r($request->post());
     }
 }
 ?>

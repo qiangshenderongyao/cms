@@ -45,15 +45,17 @@ class CheckRequest
 //        var_dump($data);die;
             //判断签名是否正确
             if ($data['status'] == 1000) {
-                $response=$next($request);
-                #后置操作
-                echo '<pre/>';
-//                $data=$response->original;
-                var_dump($response);die;
-
-                return $response;
+//                $response=$next($request);
+//                #后置操作
+//                echo '<pre/>';
+////                $data=$response->original;
+//                var_dump($response);die;
+//
+//                return $response;
+                echo '111';
             } else {
-                return response($data);
+                echo '222';
+//                return response($data);
             }
 
     }

@@ -34,6 +34,7 @@ class VerifyCsrfToken extends Middleware
         '/hbuired/api2',
         '/testone',
         '/mylogin/*',
-        '/startest'
+        '/startest',
+        '/ce'
     ];
 }

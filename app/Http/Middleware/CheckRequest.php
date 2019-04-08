@@ -35,6 +35,7 @@ class CheckRequest
 
         //验证签名
         $data = $this->_checkClientSign($request);
+        var_dump($data);die;
         if(!$data['status']==1000){
             return response($data);
         }

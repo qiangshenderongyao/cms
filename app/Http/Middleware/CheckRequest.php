@@ -35,7 +35,6 @@ class CheckRequest
 
         //验证签名
         $data = $this->_checkClientSign($request);
-        var_dump($data);die;
         if(!$data['status']==1000){
             return response($data);
         }
@@ -44,7 +43,9 @@ class CheckRequest
         $request->request->replace($this->_api_data);
         //判断签名是否正确
         if ($data['status'] == 1000) {
-            return $next($request);
+            $response=$next($request);
+            var_dump($response);die;
+            return $response;
         } else {
             return response($data);
         }

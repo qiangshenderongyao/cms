@@ -28,10 +28,10 @@ class CheckRequest
         $this->_decrypt($request);
 
         //访问次数限制
-        $data=$this->_checkApiAccessCount();
-        if(!$data['status']==1000){
-            return response($data);
-        }
+//        $data=$this->_checkApiAccessCount();
+//        if(!$data['status']==1000){
+//            return response($data);
+//        }
 
         //验证签名
         $data = $this->_checkClientSign($request);

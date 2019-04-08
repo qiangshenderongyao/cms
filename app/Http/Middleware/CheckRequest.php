@@ -38,9 +38,9 @@ class CheckRequest
         if(!$data['status']==1000){
             return response($data);
         }
-        var_dump($data);
-        echo '<pre />';
-        var_dump($this->_api_data);die;
+//        var_dump($data);
+//        echo '<pre />';
+//        var_dump($this->_api_data);die;
 //        $sj=$this->_api_data;
         //把解密的数据传递到控制器
         $request->request->replace($this->_api_data);
@@ -50,6 +50,8 @@ class CheckRequest
                 $response=$next($request);
                 #后置操作
 //                $data=$response->original;
+                var_dump($request);
+                echo '<pre />';
                 var_dump($response);die;
 
                 return $response;

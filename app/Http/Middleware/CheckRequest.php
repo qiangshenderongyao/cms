@@ -41,10 +41,11 @@ class CheckRequest
 
         //把解密的数据传递到控制器
         $request->request->replace($this->_api_data);
+        var_dump($data);die;
         //判断签名是否正确
         if ($data['status'] == 1000) {
             $response=$next($request);
-            var_dump($response);die;
+            var_dump($data);die;
             return $response;
         } else {
             return response($data);

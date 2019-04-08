@@ -45,7 +45,7 @@ class CheckRequest
             //判断签名是否正确
             if ($data['status'] == 1000) {
                 $response=$next($request);
-                var_dump($data);die;
+                var_dump($this->_api_data);die;
 
                 return $response;
             } else {

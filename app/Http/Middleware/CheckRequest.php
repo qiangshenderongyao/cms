@@ -47,7 +47,7 @@ class CheckRequest
             if ($data['status'] == 1000) {
                 $response=$next($request);
                 #后置操作
-                echo '<pre/>';
+                echo "<hr>";
 //                $data=$response->original;
                 var_dump($response);die;
 

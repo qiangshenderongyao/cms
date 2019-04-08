@@ -44,15 +44,15 @@ class CheckRequest
         $request->request->replace($sj);
 //        var_dump($data);die;
             //判断签名是否正确
-            if ($data['status'] == 1000) {
-                $response=$next($request);
-
-//            var_dump($data);die;
-
-                return $response;
-            } else {
-                return response($data);
-            }
+//            if ($data['status'] == 1000) {
+//                $response=$next($request);
+//
+////            var_dump($data);die;
+//
+//                return $response;
+//            } else {
+//                return response($data);
+//            }
 
     }
 

@@ -18,7 +18,7 @@ class CeController extends Controller {
             'username'=>'赤耀',
             'age'=>'23'
         ];
-        return $data;
+        echo $data;
     }
 }
 ?>

@@ -47,7 +47,6 @@ class CheckRequest
             if ($data['status'] == 1000) {
                 $response=$next($request);
                 #后置操作
-                echo "<hr>";
 //                $data=$response->original;
                 var_dump($response);die;
 
@@ -93,7 +92,7 @@ class CheckRequest
                 '0614668812076688'
             );
             $this->_api_data = json_decode($dec_data, true);
-
+            var_dump($this->_api_data);die;
             return response($this->_api_data);
         }
     }

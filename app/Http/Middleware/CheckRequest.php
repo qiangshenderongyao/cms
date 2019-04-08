@@ -110,8 +110,7 @@ class CheckRequest
                     'data' => []
                 ];
             }
-            echo ['status'=>1000];
-//            return ['status' => 1000];
+            return ['status' => 1000];
         }
     }
 

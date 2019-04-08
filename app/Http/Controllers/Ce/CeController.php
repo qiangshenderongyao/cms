@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\URL;
  */
 class CeController extends Controller {
     public function ceshi(Request $request){
-        print_r($request->post());
+        var_dump($request->post('username'));
     }
 }
 ?>

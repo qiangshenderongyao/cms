@@ -26,7 +26,7 @@ class CheckRequest
     {
         //先获取接口的数据，需要先解密
         $res=$this->_decrypt($request);
-        print_r($res);die;
+//        var_dump($res);die;
         //访问次数限制
         $data=$this->_checkApiAccessCount();
         if(!$data['status']==1000){
@@ -47,8 +47,8 @@ class CheckRequest
             if ($data['status'] == 1000) {
                 $response=$next($request);
                 #后置操作
-                $data=$response->original;
-//                var_dump($response);die;
+//                $data=$response->original;
+                var_dump($response);die;
 
                 return $response;
             } else {

@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\URL;
 class CeController extends Controller {
     public function ceshi(Request $request){
         print_r($request->post());
-        $data=file_get_contents("php://input");
-        //记录日志
-        $log_str=date('Y-m-d H:i:s')."\n".$data."\n<<<<<<<";
-        file_put_contents('logs/ceshi.log',$log_str,FILE_APPEND);
     }
 }
 ?>

@@ -48,7 +48,6 @@ class CheckRequest
                 $response=$next($request);
                 #后置操作
                 $data=$response->original;
-                var_dump($data);die;
 //                var_dump($response);die;
 
                 return $response;

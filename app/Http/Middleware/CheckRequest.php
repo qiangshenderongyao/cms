@@ -44,18 +44,37 @@ class CheckRequest
         $request->request->replace($this->_api_data);
 //        var_dump($data);die;
             //判断签名是否正确
-//            if ($data['status'] == 1000) {
-//                $response=$next($request);
-//
-////            var_dump($data);die;
-//
-//                return $response;
-//            } else {
-//                return response($data);
-//            }
+            if ($data['status'] == 1000) {
+                $response=$next($request);
+                #后置操作
+                $data=$response->original;
+                var_dump($data);die;
+
+                return $response;
+            } else {
+                return response($data);
+            }
 
     }
+    /*
+     * 使用对称加密方法对数据进行加密
+     */
+    private function _encrypt($data)
+    {
+//        var_dump($data);die;
+        #数据不为空
+        if (!empty($data)) {
+            $dec_data = openssl_decrypt(
+                json_encode($data),
+                'AES-128-CBC',
+                'password',
+                false,
+                '0614668812076688'
+            );
 
+            return response($this->_api_data);
+        }
+    }
     /*
      * 使用对称加密方法对数据进行加密
      */

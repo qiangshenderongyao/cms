@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\URL;
  */
 class CeController extends Controller {
     public function ceshi(){
-        $data=[
-            'username'=>'赤耀',
-            'age'=>'23'
-        ];
-        return $data;
+//        $data=[
+//            'username'=>'赤耀',
+//            'age'=>'23'
+//        ];
+//        return $data;
+        echo '123';
     }
 }
 ?>

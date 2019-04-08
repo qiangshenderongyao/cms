@@ -14,13 +14,7 @@ use Illuminate\Support\Facades\URL;
  */
 class CeController extends Controller {
     public function ceshi(Request $request){
-        $response=[
-            'status'=>'1000',
-            'msg'=>'返回值',
-            'data'=>$request->all()
-        ];
-
-        return $response;
+        var_dump($request->post('username'));
     }
 }
 ?>

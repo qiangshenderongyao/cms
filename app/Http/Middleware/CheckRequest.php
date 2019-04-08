@@ -25,8 +25,8 @@ class CheckRequest
     public function handle($request, Closure $next)
     {
         //先获取接口的数据，需要先解密
-        $this->_decrypt($request);
-
+        $res=$this->_decrypt($request);
+        var_dump($res);die;
         //访问次数限制
         $data=$this->_checkApiAccessCount();
         if(!$data['status']==1000){
@@ -92,7 +92,7 @@ class CheckRequest
                 '0614668812076688'
             );
             $this->_api_data = json_decode($dec_data, true);
-            var_dump($this->_api_data);die;
+//            var_dump($this->_api_data);die;
             return response($this->_api_data);
         }
     }

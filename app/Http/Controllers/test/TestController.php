@@ -69,14 +69,14 @@ class TestController extends Controller{
         }
     }
     public function one(Request $request){
-//        echo '<pre>';print_r($_POST);echo '</pre>';
+        echo '<pre>';print_r($_POST);echo '</pre>';die;
         $cname=request()->post('username');
         $password=request()->input('password');
 //        $ip=request()->input('ip');
         $redirect=$request->input('redirect') ?? env('SHOP_URL');
         $where=['username'=>$cname];
         $data=DB::table('testuser')->where($where)->first();
-//        var_dump($data);die;
+        var_dump($data);die;
         if($data){
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$data->password) ){

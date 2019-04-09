@@ -44,21 +44,35 @@ class CheckRequest
 //        $sj=$this->_api_data;
         //把解密的数据传递到控制器
         $request->request->replace($this->_api_data);
-//        var_dump($data);die;
+//        var_dump($request);die;
             //判断签名是否正确
             if ($data['status'] == 1000) {
                 $response=$next($request);
-                #后置操作
-//                $data=$response->original;
-                var_dump($request);
-                echo '<pre />';
-                var_dump($response);die;
+                #后置操作,对返回的数据进行加密
+                $api_response=[];
+                #使用对称加密对数据进行加密处理
+                $api_response['data']=$this->_encrypt($response->original);
+                #生成签名，返回给客户端
+                $api_response['sign']=$this->_createServerSign($response->original);
 
-                return $response;
+                return response($api_response);
             } else {
                 return response($data);
             }
 
+    }
+    /*
+     * 服务端返回时，返回一个签名
+     */
+    private function _createServerSign($data){
+        $app_id=$this->_getAppId();
+//        var_dump($app_id);die;
+        $all_app=$this->_getAppIdKey();
+        #排序
+        ksort($data);
+        #变成a=?&b=?
+        $sign_str=http_build_query($data).'&app_key='.$all_app['app_id'];
+        return md5($sign_str);
     }
     /*
      * 使用对称加密方法对数据进行加密
@@ -68,7 +82,7 @@ class CheckRequest
 //        var_dump($data);die;
         #数据不为空
         if (!empty($data)) {
-            $dec_data = openssl_decrypt(
+            $encrypt_data = openssl_encrypt(
                 json_encode($data),
                 'AES-128-CBC',
                 'password',
@@ -76,11 +90,11 @@ class CheckRequest
                 '0614668812076688'
             );
 
-            return response($this->_api_data);
+            return $encrypt_data;
         }
     }
     /*
-     * 使用对称加密方法对数据进行加密
+     * 使用对称加密方法对数据进行解密
      */
     private function _decrypt($request)
     {
@@ -155,8 +169,8 @@ class CheckRequest
      */
     private function _getAppId()
     {
-//        return $this->_api_data['app_id'];
-        return $app_id='123';
+        return $this->_api_data['app_id'];
+//        return $app_id='123';
     }
 
     //接口防刷

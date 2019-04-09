@@ -69,14 +69,14 @@ class TestController extends Controller{
         }
     }
     public function one(Request $request){
-        echo '<pre>';print_r($_POST);echo '</pre>';
+//        echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('username');
         $password=request()->input('password');
 //        $ip=request()->input('ip');
         $redirect=$request->input('redirect') ?? env('SHOP_URL');
         $where=['username'=>$cname];
         $data=DB::table('testuser')->where($where)->first();
-        var_dump($data);die;
+//        var_dump($data);die;
         if($data){
             //password_verify密码解密 接收密码和数据库表中密码
             if( password_verify($password,$data->password) ){
@@ -93,10 +93,11 @@ class TestController extends Controller{
                 $redis_key_web_token='str:uid:token:'.$data->unid;
                 $ss=rand(1,100);
                 $ssp=Redis::hgetall($redis_key_web_token);
+                var_dump($ssp);die;
                 foreach($ssp as $k=>$v){
-                    $key=$ssp[$k];
+                    $key=$ssp[$v];
                 }
-                echo $key;echo '<hr>';
+                echo $key;
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);
@@ -133,7 +134,8 @@ class TestController extends Controller{
             'username'=>$cname,
             'password'=>$password,
         ];
-        $url="http://1807.96myshop.cn/test/one";
+//        $url="http://1807.96myshop.cn/test/one";
+        $url="http://96cms.cn/test/one";
         $ch=curl_init();    //创建新的curl资源
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_POST,1);

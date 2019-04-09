@@ -130,5 +130,5 @@ Route::get('/kslist','test\TestController@kslist');
 Route::get('/fbnq','test\TestController@fbnq');
 Route::get('/bili','test\TestController@bili');
 //考试B卷
-Route::get('/kkss/login','test\TestController@login');
+Route::post('/kkss/login','test\TestController@login');
 Route::post('/kkss/loginadd','test\TestController@loginadd');

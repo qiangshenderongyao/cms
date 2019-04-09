@@ -25,7 +25,7 @@ class CheckRequest
     public function handle($request, Closure $next)
     {
         //先获取接口的数据，需要先解密
-        $res=$this->_decrypt($request);
+        $res=$this->_RsaDecrypt($request);
 //        var_dump($res);die;
         //访问次数限制
         $data=$this->_checkApiAccessCount();
@@ -50,8 +50,8 @@ class CheckRequest
                 $response=$next($request);
                 #后置操作,对返回的数据进行加密
                 $api_response=[];
-                #使用对称加密对数据进行加密处理
-                $api_response['data']=$this->_encrypt($response->original);
+                #使用非对称加密对数据进行加密处理
+                $api_response['data']=$this->_RsaEncrypt($response->original);
                 #生成签名，返回给客户端
                 $api_response['sign']=$this->_createServerSign($response->original);
 
@@ -114,7 +114,47 @@ class CheckRequest
             return response($this->_api_data);
         }
     }
-
+    /*
+     * 使用非对称加密方式对数据进行解密
+     */
+    private  function  _RsaDecrypt($request){
+        #非对称解密
+            $i=0;
+            $all='';
+            while ($sub_str=substr($request->post('data'),$i,172)){
+                $decode_data=base64_decode($sub_str);
+                openssl_private_decrypt(
+                    $decode_data,
+                    $decrypt_data,
+                    file_get_contents('/home/private.key'),
+                    OPENSSL_PKCS1_PADDING
+                );
+                $all .=$decrypt_data;
+                $i+=172;
+            }
+        $this->_api_data = json_decode($decrypt_data, true);
+        return $this->_api_data;
+    }
+    /*
+     * 使用非对称加密方式对数据进行加密
+     */
+    private  function  _RsaEncrypt($data){
+        #非对称解密
+        $i=0;
+        $all='';
+        $str=json_encode($data);
+        while ($sub_str=substr($str,$i,117)){
+            openssl_private_encrypt(
+                $sub_str,
+                $encrypt_data,
+                file_get_contents('/home/private.key'),
+                OPENSSL_PKCS1_PADDING
+            );
+            $all .=base64_encode($encrypt_data);
+            $i+=117;
+        }
+        return $all;
+    }
     //验证签名
     private function _checkClientSign($request)
     {

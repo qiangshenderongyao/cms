@@ -133,8 +133,8 @@ class TestController extends Controller{
             'username'=>$cname,
             'password'=>$password,
         ];
-//        $url="http://1807.96myshop.cn/test/one";
-        $url="http://96cms.cn/test/one";
+        $url="http://1807.96myshop.cn/test/one";
+//        $url="http://96cms.cn/test/one";
         $ch=curl_init();    //创建新的curl资源
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_POST,1);

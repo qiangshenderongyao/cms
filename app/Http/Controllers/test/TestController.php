@@ -96,7 +96,7 @@ class TestController extends Controller{
                 foreach($ssp as $k=>$v){
                     $key=$ssp[$k];
                 }
-                echo $key;echo '<hr>';die;
+//                echo $key;echo '<hr>';die;
                 Redis::del($redis_key_web_token);
                 Redis::hset($redis_key_web_token,'Android'.$ss,$token);
                 $sss=Redis::hget($redis_key_web_token,'Android'.$ss);

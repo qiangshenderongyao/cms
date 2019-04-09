@@ -69,7 +69,7 @@ class TestController extends Controller{
         }
     }
     public function one(Request $request){
-//        echo '<pre>';print_r($_POST);echo '</pre>';
+        echo '<pre>';print_r($_POST);echo '</pre>';
         $cname=request()->post('username');
         $password=request()->input('password');
 //        $ip=request()->input('ip');
@@ -133,7 +133,6 @@ class TestController extends Controller{
             'username'=>$cname,
             'password'=>$password,
         ];
-        var_dump($data);die;
         $url="http://1807.96myshop.cn/test/one";
         $ch=curl_init();    //创建新的curl资源
         curl_setopt($ch,CURLOPT_URL,$url);

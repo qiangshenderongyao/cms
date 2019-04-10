@@ -68,6 +68,9 @@ class CheckRequest
         $app_id=$this->_getAppId();
 //        var_dump($app_id);die;
         $all_app=$this->_getAppIdKey();
+        if(!is_array($data)){
+            $data=(array)$data;
+        }
         #排序
         ksort($data);
         #变成a=?&b=?
@@ -118,21 +121,31 @@ class CheckRequest
      * 使用非对称加密方式对数据进行解密
      */
     private  function  _RsaDecrypt($request){
+//        $data=$request->post('data');
+//        echo '111';echo '<hr />';
+//        var_dump($data);die;
         #非对称解密
             $i=0;
             $all='';
             while ($sub_str=substr($request->post('data'),$i,172)){
                 $decode_data=base64_decode($sub_str);
+//                echo '222';echo '<hr />';
+//                var_dump($decode_data);die;
                 openssl_private_decrypt(
                     $decode_data,
                     $decrypt_data,
                     file_get_contents('/home/private.key'),
                     OPENSSL_PKCS1_PADDING
                 );
+//                echo '123';die;
                 $all .=$decrypt_data;
+//                var_dump($all);die;
                 $i+=172;
+//                var_dump($all);die;
             }
-        $this->_api_data = json_decode($decrypt_data, true);
+        $this->_api_data = json_decode($all, true);
+//            echo '233';echo '<hr />';
+//            var_dump($this->_api_data);die;
         return $this->_api_data;
     }
     /*

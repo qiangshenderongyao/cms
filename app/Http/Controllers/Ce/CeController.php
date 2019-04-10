@@ -21,8 +21,9 @@ class CeController extends Controller {
         if(empty($request->post('content'))){
             return ['status'=>5,'data'=>[],'msg'=>'上传的文件内容不能为空'];
         }
+        $date=date('Ym');
         //指定文件存储路径
-        $file_save_path=app_path().'/storage/uploads/'.date('Ym').'/';
+        $file_save_path=app_path().'/storage/uploads/'.$date.'/';
         if(!is_dir($file_save_path)){
             mkdir($file_save_path,0777,true);
         }
@@ -51,9 +52,22 @@ class CeController extends Controller {
         #文件命名
         rename($file_save_path.$file_name,$file_save_path.$new_file_name);
         $api_response=[];
-//        $api_response['access_path']='http://96cms.cn'.$file_save_path.$new_file_name;
-        $api_response['access_path']='http://1807.96myshop.cn'.$file_save_path.$new_file_name;
+//        $api_response['access_path']='http://96cmstu.cn/'.$date.'/'.$new_file_name;
+        $api_response['access_path']='http://1807.96myshop.cn/'.$date.'/'.$new_file_name;
         return ['status'=>1000,'data'=>$api_response,'msg'=>'success'];
+    }
+    /*
+     * 验证码
+     */
+    public function showVcode(){
+        session_start();
+        $rand=rand(1000,9999);
+        header('content-type:image/png');
+        #创建画布
+        $im=imagecreatetruecolor(400,30);
+        #创建颜色
+        $white=imagecolorallocate($im,255,255,255);
+
     }
 }
 ?>

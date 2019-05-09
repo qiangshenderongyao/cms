@@ -206,10 +206,10 @@ class WuController extends Controller{
     public function goods_data(Request $request){
         $goods_lei_id=$request->get('goods_lei_id');
 //        $page='/home/wwwroot/default/cms/public/goods/product_detail_'.$goods_lei_id.'.html';
-        $page='/data/wwwroot/default/cms/public/goods/product_detail_'.$goods_lei_id.'.html';
+        $page='/data/wwwroot/default/1807larval/1807larval/public/goods/product_detail_'.$goods_lei_id.'.html';
         if(file_exists($page)){
             echo '静态页面';
-            echo file_get_contents($page);
+            echo file_get_contents($page);die;
         }
         ob_start();
         $where=[
@@ -219,7 +219,7 @@ class WuController extends Controller{
         $a=ob_get_contents();
         ob_end_flush();
 //        file_put_contents('/home/wwwroot/default/cms/public/goods/product_detail_'.$goods_lei_id.'.html',$a);
-        file_put_contents('/data/wwwroot/default/cms/public/goods/product_detail_'.$goods_lei_id.'.html',$a);
+        file_put_contents('/data/wwwroot/default/1807larval/1807larval/public/goods/product_detail_'.$goods_lei_id.'.html',$a);
         return view('ce.goods',['goods_data'=>$goods_data]);
     }
 }

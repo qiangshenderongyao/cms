@@ -36,6 +36,7 @@ class VerifyCsrfToken extends Middleware
         '/mylogin/*',
         '/startest',
         '/ceshi/*',
-        '/kkss/*'
+        '/kkss/*',
+        '/ce/*'
     ];
 }

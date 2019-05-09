@@ -50,6 +50,9 @@ Route::get('/orderzhi/{o_id}','Order\OrderController@orderzhi');
 Route::get('/centeradd','Vip\IndexController@centeradd');
 Route::post('/ceshi','Ce\CeController@ceshi')->middleware('check.request');
 Route::any('/ceshi/uploadimg','Ce\CeController@updateimg')->middleware('check.request');
+Route::any('/ceshi/showVcode','Ce\CeController@showVcode');
+Route::any('/ceshi/vcode','Ce\CeController@vcode');
+Route::any('/ceshi/checkVcode','Ce\CeController@checkVcode');
 //支付
 Route::get('/pay/alipay/test/{o_id}','Pay\AlipayController@test');
 // Route::get('/pay/o/{oid}','Pay\IndexController@order')->middleware('check.login.token');
@@ -133,3 +136,17 @@ Route::get('/bili','test\TestController@bili');
 //考试B卷
 Route::post('/kkss/login','test\TestController@login');
 Route::post('/kkss/loginadd','test\TestController@loginadd');
+//测试
+Route::get('/ce/login','Ce\WuController@index');
+Route::post('/ce/indexadd','Ce\WuController@indexadd');
+Route::post('/ce/indexadda','Ce\WuController@indexadda');
+Route::get('/ce/register','Ce\WuController@register');
+Route::post('/ce/cez','Ce\WuController@cez');
+Route::post('/ce/cerd','Ce\WuController@cerd');
+Route::get('/ce/sandeng','Ce\WuController@sandeng');
+Route::get('/ce/sansai','Ce\WuController@sansai');
+Route::post('/ce/sandengadd','Ce\WuController@sandengadd');
+Route::post('/ce/sansaiadd','Ce\WuController@sansaiadd');
+
+Route::get('/ce/shouye','Ce\WuController@shouye');
+Route::get('/ce/goods_data','Ce\WuController@goods_data');

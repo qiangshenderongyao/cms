@@ -60,14 +60,107 @@ class CeController extends Controller {
      * 验证码
      */
     public function showVcode(){
+        $api_host='http://96cms.cn';
         session_start();
-        $rand=rand(1000,9999);
-        header('content-type:image/png');
-        #创建画布
-        $im=imagecreatetruecolor(400,30);
-        #创建颜色
-        $white=imagecolorallocate($im,255,255,255);
+        $sid=session_id();
+        $vcode_url=$api_host.'/ceshi/vcode?sid='.$sid;
+        $data=[
+            'url'=>$vcode_url,
+            'sid'=>$sid
+        ];
+        return ['status'=>1000,'msg'=>'success','data'=>$data];
+    }
+    /*
+     * 验证码算法
+     */
+    public function vcode(){
+        $sid=request()->get('sid');
+        session_id($sid);
+        session_start();
 
+        $a = rand(1,9);
+        $b = rand(1,9);
+
+
+
+        //加法
+        $c = $a + $b ;
+        $code = $a .'+'. $b .'=?';
+
+        //乘法
+//        $c = $a * $b ;
+//        $code = $a .'*'. $b .'=?';
+
+        //除法
+
+//        $code = $a .'/'. $b .'=?';
+//        $c = $a / $b ;
+//        $a = $c * $b;
+
+        $_SESSION['code'] = $c;
+
+        #输出图片
+        // Set the content-type
+        header('Content-Type: image/png');
+
+        // Create the image
+        $im = imagecreatetruecolor(150, 30);
+
+        // Create some colors
+        $white = imagecolorallocate($im, 255, 255, 255);
+        $grey = imagecolorallocate($im, 128, 128, 128);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        imagefilledrectangle($im, 0, 0, 399, 29, $white);
+
+        // The text to draw
+
+        // Replace path by your own font path
+        $font = '/home/wwwroot/default/cms/public/a.ttf';
+
+        // Add some shadow to the text
+        $i = 0;
+        $len = strlen($code);
+        while($i < $len){
+            if(is_numeric($code[$i])){
+                imagettftext($im, 20, rand(-45,45), $i*22+11, 25, $grey, $font, $code[$i]);
+
+            }else{
+                imagettftext($im, 20, 0, $i*22+11, 25, $grey, $font, $code[$i]);
+
+            }
+            $i++;
+        }
+        // Using imagepng() results in clearer text compared with imagejpeg()
+        imagepng($im);
+        imagedestroy($im);
+        exit;
+    }
+    /*
+     * 接收
+     */
+    public function checkVcode(Request $request)
+    {
+
+        //跨域
+        header("Access-Control-Allow-Origin:http://96cms.cn");
+
+        $vcode = $_GET['vcode'];
+        $callback = $_GET['callback'];
+        $sid = $_GET['sid'];
+
+
+        session_id($sid);
+        session_start();
+
+        if ($_SESSION['code'] == $vcode) {
+            $res = ['status' => 1000, 'msg' => '验证码正确', 'data' => []];
+            $res = json_encode($res);
+            return $callback . "(" . $res . ")";
+        } else {
+            $res = ['status' => 1, 'msg' => '验证码错误', 'data' => []];
+            $res = json_encode($res);
+            return $callback . "(" . $res . ")";
+        }
     }
 }
 ?>

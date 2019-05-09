@@ -49,7 +49,7 @@
                             <a>已登录</a>
                         @endif
                     </li>
-                    <li><a href="/mylogin">登录</a></li>
+                    {{--<li><a href="/mylogin">登录</a></li>--}}
                     <li><a href="/logou">退出</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
@@ -58,7 +58,7 @@
     @yield('content')
 </div>
 
-@section('footer')
+@section('foot')
 
     <script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>
     <script src="{{URL::asset('/bootstrap/js/bootstrap.min.js')}}"></script>

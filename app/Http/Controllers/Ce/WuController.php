@@ -207,21 +207,25 @@ class WuController extends Controller{
         $goods_lei_id=$request->get('goods_lei_id');
 //        $page='/home/wwwroot/default/cms/public/goods/product_detail_'.$goods_lei_id.'.html';
         $page='/data/wwwroot/default/1807larval/1807larval/public/goods/product_detail_'.$goods_lei_id.'.html';
-        if(file_exists($page)){
+        if(file_exists($page) && filemtime($page)-time()<1800){
             echo '静态页面';
-            echo file_get_contents($page);die;
+            echo file_get_contents($page);
         }
-        echo $page;die;
         ob_start();
         $where=[
             'goods_lei_id'=>$goods_lei_id
         ];
         $goods_data=GoodsModel::where($where)->get()->toArray();
+        foreach($goods_data as $k=>$v){
+            echo $v['goods_name'].'&nbsp;&nbsp;';
+            echo $v['goods_price'].'&nbsp;&nbsp;';
+            echo $v['goods_num'].'<hr/>';
+        }
         $a=ob_get_contents();
         ob_end_flush();
 //        file_put_contents('/home/wwwroot/default/cms/public/goods/product_detail_'.$goods_lei_id.'.html',$a);
         file_put_contents('/data/wwwroot/default/1807larval/1807larval/public/goods/product_detail_'.$goods_lei_id.'.html',$a);
-        return view('ce.goods',['goods_data'=>$goods_data]);
+//        return view('ce.goods',['goods_data'=>$goods_data]);
     }
 }
 ?>

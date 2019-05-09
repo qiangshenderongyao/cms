@@ -149,4 +149,4 @@ Route::post('/ce/sandengadd','Ce\WuController@sandengadd');
 Route::post('/ce/sansaiadd','Ce\WuController@sansaiadd');
 
 Route::get('/ce/shouye','Ce\WuController@shouye');
-Route::get('/ce/goods_data','Ce\WuController@goods_data');
+Route::any('/ce/goods_data','Ce\WuController@goods_data');

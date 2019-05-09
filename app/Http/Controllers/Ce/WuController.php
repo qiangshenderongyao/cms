@@ -211,6 +211,7 @@ class WuController extends Controller{
             echo '静态页面';
             echo file_get_contents($page);die;
         }
+        echo $page;die;
         ob_start();
         $where=[
             'goods_lei_id'=>$goods_lei_id
